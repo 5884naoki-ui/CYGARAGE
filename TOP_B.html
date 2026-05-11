@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--
+  ============================================================
+  CY GARAGE — TOP PAGE / B案
+  コンセプト: 社長という「人」が入口
+  HEROの主役: 米川社長（マイアミTシャツ・腕組み）BOSS_HERO
+  B案の特徴:
+    - 社長の顔・人柄が最初に来る
+    - まれしゃの説明はHEROのサブコピーで一言に絞る
+    - Instagramは社長の目線・日常として大きく扱う
+    - 在庫は「社長が選んだ」という文脈で見せる
+  ============================================================
+  【画像差し替え箇所】
+    - .hero-boss-img → BOSS_HERO（社長・マイアミTシャツ腕組み写真）
+    - .inv-card .inv-img × 4 → INVENTORY_01〜04（在庫車両写真）
+    - .ig-item × 6 → INSTAGRAM_01〜06（Instagram投稿サムネ、動画サムネ混在）
+  ============================================================
+-->
+<title>CY GARAGE — まれしゃ屋の社長が、選んだ一台。</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #c8a96e;
+    --gold-light: #e8c98e;
+    --gold-dark: #a8893e;
+    --black: #080808;
+    --dark: #0d0d0d;
+    --panel: #111111;
+    --gray: #888888;
+    --text: #f0f0f0;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ========== HEADER ========== */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 22px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.65) 0%, transparent 100%);
+    border-bottom: 1px solid transparent;
+    transition: background 0.4s ease, border-color 0.4s ease;
+  }
+  /* ===== REASON ===== */
+  .sec-reason { background: var(--black); }
+  .sec-reason-inner { max-width: 1200px; margin: 0 auto; }
+  .reason-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; }
+  .reason-card { background: #111111; padding: 44px 36px; border-top: 2px solid transparent; transition: border-color 0.3s; }
+  .reason-card:hover { border-top-color: var(--gold); }
+  .reason-num { font-family: 'Bebas Neue', sans-serif; font-size: 64px; color: #1a1a1a; line-height: 1; margin-bottom: 20px; }
+  .reason-card h3 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 14px; line-height: 1.5; }
+  .reason-card h3 .gold { color: var(--gold); }
+  .reason-card p { font-size: 13px; color: #666; line-height: 1.9; }
+  /* ===== FEATURED INVENTORY ===== */
+  .car-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; grid-template-rows: 280px 280px; gap: 3px; }
+  .car-card { position: relative; overflow: hidden; cursor: pointer; background: #111; }
+  .car-card.featured { grid-column: 1; grid-row: 1 / 3; }
+  .car-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+  .car-card:hover img { transform: scale(1.04); }
+  .car-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px; background: linear-gradient(to top, rgba(0,0,0,0.96) 0%, transparent 100%); }
+  .car-tag { font-size: 9px; letter-spacing: 4px; color: var(--gold); margin-bottom: 6px; text-transform: uppercase; }
+  .car-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: #fff; letter-spacing: 1px; line-height: 1.1; margin-bottom: 4px; }
+  .car-card.featured .car-name { font-size: 38px; }
+  .car-price { font-size: 11px; color: #888; letter-spacing: 1px; }
+  .car-price strong { color: var(--gold-light); font-size: 13px; }
+  .car-story { font-size: 11px; color: #666; line-height: 1.7; margin-top: 10px; display: none; }
+  .car-card.featured .car-story { display: block; }
+  .badge-new { position: absolute; top: 18px; left: 18px; background: var(--gold); color: #000; font-size: 8px; font-weight: 700; letter-spacing: 3px; padding: 5px 10px; text-transform: uppercase; }
+  .car-card-viewall { background: #0a0a0a; display: flex; align-items: center; justify-content: center; border: 1px solid #1a1a1a; }
+  .car-card-viewall:hover { border-color: rgba(200,169,110,0.3); }
+  .car-card-viewall .vl { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 5px; color: #2a2a2a; margin-bottom: 12px; }
+  /* ===== BUYBACK ===== */
+  .sec-buyback { background: var(--dark); padding: 100px 80px; border-top: 1px solid rgba(200,169,110,0.1); }
+  .sec-buyback-inner { max-width: 1200px; margin: 0 auto; }
+  .buyback-headline { text-align: center; margin-bottom: 64px; }
+  .buyback-headline h2 { font-size: clamp(22px, 3vw, 36px); font-weight: 700; color: #fff; line-height: 1.5; margin-bottom: 12px; }
+  .buyback-headline h2 em { font-style: normal; color: var(--gold); }
+  .buyback-headline p { font-size: 13px; color: #555; }
+  .buyback-compare { display: grid; grid-template-columns: 1fr 60px 1fr; align-items: stretch; }
+  .buyback-col { padding: 44px 40px; }
+  .buyback-col.bad { background: #120808; border: 1px solid #2a1010; border-right: none; }
+  .buyback-col.good { background: #081208; border: 1px solid #102a10; border-left: none; }
+  .buyback-col-label { font-size: 9px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 12px; }
+  .bad .buyback-col-label { color: #6a2020; }
+  .good .buyback-col-label { color: #206a20; }
+  .buyback-col h3 { font-size: 20px; font-weight: 700; margin-bottom: 28px; line-height: 1.4; }
+  .bad h3 { color: #cc4444; }
+  .good h3 { color: #44aa44; }
+  .buyback-item { display: flex; gap: 14px; margin-bottom: 20px; align-items: flex-start; }
+  .buyback-item-icon { width: 20px; min-width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; margin-top: 2px; }
+  .bad .buyback-item-icon { background: rgba(180,50,50,0.2); color: #cc4444; }
+  .good .buyback-item-icon { background: rgba(50,180,50,0.15); color: #44aa44; }
+  .buyback-item-text { font-size: 13px; color: #888; line-height: 1.7; }
+  .buyback-item-text strong { color: #bbb; display: block; margin-bottom: 2px; font-size: 14px; }
+  .buyback-divider { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #111; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+  .vs-circle { width: 48px; height: 48px; border: 1px solid #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #555; letter-spacing: 1px; }
+  /* ===== INSTAGRAM × BOSS ===== */
+  .sec-ig-boss { background: var(--black); border-top: 1px solid rgba(200,169,110,0.1); padding: 0; }
+  .ig-boss-row { display: grid; grid-template-columns: 1fr 1fr 1fr; height: 640px; }
+  .ig-boss-panel { position: relative; overflow: hidden; }
+  .ig-boss-panel img, .ig-boss-panel video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ig-boss-panel.photo img { object-position: center top; filter: brightness(0.65); }
+  .ig-boss-meta { position: absolute; bottom: 0; left: 0; right: 0; padding: 36px; background: linear-gradient(to top, rgba(0,0,0,0.94) 0%, transparent 100%); }
+  .ig-boss-name { font-size: 11px; letter-spacing: 3px; color: var(--gold); margin-bottom: 6px; text-transform: uppercase; }
+  .ig-boss-title { font-size: 13px; color: #999; line-height: 1.7; }
+  .ig-boss-follow { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 3px; color: #fff; text-decoration: none; margin-top: 16px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 3px; text-transform: uppercase; }
+  .ig-boss-footer { padding: 24px 80px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1a1a1a; }
+  .ig-boss-footer-left { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 5px; color: #2a2a2a; }
+  .ig-boss-footer-right { font-size: 10px; color: var(--gold); text-decoration: none; letter-spacing: 3px; border-bottom: 1px solid rgba(200,169,110,0.3); padding-bottom: 3px; text-transform: uppercase; }
+
+  header.scrolled {
+    background: rgba(8,8,8,0.97) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom-color: rgba(200,169,110,0.2) !important;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  .logo img {
+    height: 30px;
+    width: auto;
+  }
+  nav { display: flex; gap: 36px; align-items: center; }
+  nav a {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s;
+    text-transform: uppercase;
+  }
+  nav a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: #000 !important;
+    padding: 11px 22px;
+    font-weight: 700;
+    font-size: 9px !important;
+    letter-spacing: 2px !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+
+  /* ========== HERO — B案専用（動画2本が全画面横並び） ========== */
+  .hero {
+    height: 100vh;
+    min-height: 700px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* 動画2本を背景として横並び */
+  .hero-videos-bg {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+  }
+  .hero-video-col {
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-video-col video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Reelsバッジ */
+  .hero-video-badge {
+    position: absolute;
+    top: 100px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+    padding: 5px 10px;
+  }
+  .hero-video-badge svg { width: 12px; height: 12px; fill: #fff; opacity: 0.8; }
+  .hero-video-badge span { font-size: 7px; letter-spacing: 2px; color: rgba(255,255,255,0.8); text-transform: uppercase; }
+  /* 中央の縦線 */
+  .hero-videos-bg::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: calc(50% - 1px);
+    width: 3px;
+    background: var(--black);
+  }
+  /* グラデーションオーバーレイ */
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom,
+        rgba(8,8,8,0.5) 0%,
+        transparent 30%,
+        rgba(8,8,8,0.55) 65%,
+        rgba(8,8,8,0.94) 100%);
+    z-index: 1;
+  }
+  /* テキスト：底部に左右配置 */
+  .hero-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    z-index: 2;
+    padding: 0 80px 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .hero-txt-left { flex: 0 0 auto; }
+  .hero-txt-right { flex: 0 0 340px; padding-bottom: 4px; }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .hero-eyebrow .line { width: 32px; height: 1px; background: var(--gold); }
+  .hero-eyebrow span { font-size: 9px; letter-spacing: 6px; color: var(--gold); text-transform: uppercase; }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(56px, 7vw, 90px);
+    line-height: 0.92;
+    letter-spacing: 2px;
+    color: #fff;
+  }
+  .hero h1 .name {
+    display: block;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--gold);
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .hero-sub {
+    font-size: 13px;
+    font-weight: 300;
+    color: #bbb;
+    line-height: 2;
+    margin-bottom: 32px;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: nowrap; }
+  .btn-primary, .btn-ghost { white-space: nowrap; }
+
+  /* ========== THE BOSS (写真＋テキスト) ========== */
+  .boss-photo-wrap {
+    overflow: hidden;
+    position: relative;
+  }
+  .boss-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: brightness(0.9) contrast(1.05);
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: #000;
+    padding: 16px 40px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s;
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-ghost {
+    border: 1px solid #333;
+    color: #888;
+    padding: 16px 40px;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ========== SECTION 共通 ========== */
+  section { padding: 100px 80px; }
+  .eyebrow {
+    font-size: 9px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+  h2 {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    line-height: 1.3;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+  .body-text {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--gray);
+    line-height: 2.0;
+    max-width: 560px;
+  }
+  .section-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-decoration: none;
+    margin-top: 32px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(200,169,110,0.3);
+    padding-bottom: 4px;
+    transition: border-color 0.3s;
+  }
+  .section-link:hover { border-color: var(--gold); }
+
+  /* ========== SEC 1: THE BOSS ========== */
+  .sec-boss {
+    background: var(--dark);
+    border-top: 1px solid rgba(200,169,110,0.1);
+    border-bottom: 1px solid rgba(200,169,110,0.1);
+    padding: 0;
+    overflow: hidden;
+  }
+  .sec-boss-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 640px;
+  }
+  .boss-photo-wrap {
+    min-height: 640px;
+  }
+  .boss-text-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 72px 80px;
+  }
+  .boss-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.04);
+    line-height: 1.0;
+    margin-bottom: 24px;
+  }
+  .boss-label .gold { color: var(--gold); opacity: 0.15; }
+
+  /* ========== SEC 2: 在庫ハイライト（BOSS'S PICK） ========== */
+  .sec-inventory { background: var(--black); }
+  .sec-inventory-inner { max-width: 1200px; margin: 0 auto; }
+  .sec-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+  }
+  .inv-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .inv-card {
+    background: var(--panel);
+    border: 1px solid #1a1a1a;
+    transition: border-color 0.3s;
+    cursor: pointer;
+  }
+  .inv-card:hover { border-color: rgba(200,169,110,0.3); }
+  .inv-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: #1a1a1a;
+    overflow: hidden;
+  }
+  .inv-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .inv-info { padding: 20px; }
+  .inv-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+  .inv-spec { font-size: 11px; color: #555; letter-spacing: 1px; margin-bottom: 12px; }
+  /* B案では社長コメントを必ず表示 */
+  .inv-comment {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.7;
+    border-top: 1px solid #1a1a1a;
+    padding-top: 12px;
+    font-style: italic;
+  }
+  .inv-comment::before {
+    content: 'THE BOSS —';
+    display: block;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    font-style: normal;
+    margin-bottom: 6px;
+  }
+  .inv-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin-top: 12px;
+  }
+
+  /* ========== SEC 3: Instagram ========== */
+  /* B案では「社長の目線」として大きく扱う */
+  .sec-instagram { background: var(--dark); }
+  .sec-instagram-inner { max-width: 1200px; margin: 0 auto; }
+  .ig-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    margin-top: 48px;
+  }
+  .ig-item {
+    aspect-ratio: 1;
+    background: #1a1a1a;
+    border: 1px dashed #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #333;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    position: relative;
+  }
+  .ig-item:hover { opacity: 0.7; }
+  .ig-item.is-video-real { border: none; overflow: hidden; padding: 0; background: #000; }
+  .ig-item.is-video-real video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ig-item.is-video-real::after { display: none; }
+  /* 動画投稿には再生ボタンアイコンを表示 */
+  .ig-item.is-video::after {
+    content: '▶';
+    position: absolute;
+    font-size: 20px;
+    color: rgba(255,255,255,0.6);
+  }
+  .ig-follow {
+    text-align: center;
+    margin-top: 32px;
+  }
+  .ig-follow a {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(200,169,110,0.3);
+    padding-bottom: 4px;
+  }
+
+  /* ========== SEC 4: 買取CTA ========== */
+  .sec-cta {
+    background: var(--black);
+    text-align: center;
+    padding: 120px 80px;
+  }
+  .sec-cta h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 6vw, 80px);
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+  }
+  .sec-cta .body-text {
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+
+  /* ========== SOLD CARS MARQUEE ========== */
+  .sec-sold { padding: 72px 0 80px; background: var(--black); border-top: 1px solid #151515; overflow: hidden; }
+  .sec-sold-header { display: flex; align-items: flex-end; justify-content: space-between; padding: 0 80px; margin-bottom: 44px; }
+  .sold-stat-block { line-height: 1; }
+  .sold-count { font-family: 'Bebas Neue', sans-serif; font-size: 80px; color: #fff; letter-spacing: 2px; line-height: 0.9; }
+  .sold-unit { display: block; font-size: 11px; color: #444; letter-spacing: 3px; margin-top: 10px; }
+  .marquee-row { overflow: hidden; margin-bottom: 4px; }
+  .marquee-track { display: flex; gap: 4px; width: max-content; will-change: transform; }
+  .marquee-row--left  .marquee-track { animation: mq-left  55s linear infinite; }
+  .marquee-row--right .marquee-track { animation: mq-right 60s linear infinite; }
+  @keyframes mq-left  { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes mq-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+  .marquee-row:hover .marquee-track { animation-play-state: paused; }
+  .sold-card { position: relative; width: 300px; height: 210px; flex-shrink: 0; overflow: hidden; background: #0d0d0d; }
+  .sold-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease, filter 0.5s ease; filter: brightness(0.88) saturate(0.9); }
+  .sold-card:hover img { transform: scale(1.06); filter: brightness(1) saturate(1.1); }
+  .sold-card-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 16px; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%); }
+  .sold-car-name { font-family: 'Bebas Neue', sans-serif; font-size: 15px; color: #fff; letter-spacing: 1px; }
+  .sold-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.65); border: 1px solid rgba(200,169,110,0.35); font-size: 7px; letter-spacing: 3px; color: var(--gold); padding: 3px 8px; text-transform: uppercase; }
+
+  /* ========== APPRAISAL ========== */
+  .appraisal-section {
+    padding: 120px 80px;
+    background: var(--black);
+    border-top: 1px solid #111;
+  }
+  .appraisal-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .appraisal-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .appraisal-eyebrow .e-line { width: 32px; height: 1px; background: var(--gold); }
+  .appraisal-eyebrow span { font-size: 9px; letter-spacing: 6px; color: var(--gold); text-transform: uppercase; }
+  .appraisal-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 4.5vw, 60px);
+    color: #fff;
+    letter-spacing: 2px;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .appraisal-text h2 .gold { color: var(--gold); }
+  .appraisal-text > p { font-size: 14px; color: #777; line-height: 2.0; margin-bottom: 36px; }
+  .appraisal-steps { display: flex; flex-direction: column; margin-bottom: 40px; }
+  .step { display: flex; align-items: flex-start; gap: 20px; padding: 20px 0; border-bottom: 1px solid #1a1a1a; }
+  .step:first-child { padding-top: 0; }
+  .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--gold-dark); min-width: 28px; line-height: 1; margin-top: 2px; }
+  .step-text { flex: 1; }
+  .step-text strong { display: block; font-size: 14px; color: #ccc; margin-bottom: 4px; }
+  .step-text span { font-size: 12px; color: #555; line-height: 1.7; }
+  .appraisal-form-mock { background: var(--panel); border: 1px solid #1a1a1a; padding: 44px; position: relative; }
+  .appraisal-form-mock::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--gold), transparent); }
+  .form-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .form-sub { font-size: 11px; color: #555; letter-spacing: 1px; margin-bottom: 32px; }
+  .form-field { margin-bottom: 16px; }
+  .form-field label { display: block; font-size: 9px; letter-spacing: 3px; color: #555; text-transform: uppercase; margin-bottom: 8px; }
+  .form-field .f-input { width: 100%; background: #0d0d0d; border: 1px solid #222; padding: 14px 16px; font-size: 13px; color: #ccc; font-family: 'Noto Sans JP', sans-serif; outline: none; transition: border-color 0.3s; }
+  .form-field .f-input:focus { border-color: var(--gold-dark); }
+  .form-field .f-input::placeholder { color: #333; }
+  .form-submit { width: 100%; background: var(--gold); color: #000; border: none; padding: 18px; font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; margin-top: 8px; transition: background 0.3s; font-family: 'Noto Sans JP', sans-serif; }
+  .form-submit:hover { background: var(--gold-light); }
+  .form-note { font-size: 10px; color: #444; text-align: center; margin-top: 14px; line-height: 1.7; }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: #050505;
+    border-top: 1px solid rgba(200,169,110,0.1);
+    padding: 48px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 4px;
+    color: #fff;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-info { font-size: 11px; color: #444; letter-spacing: 1px; line-height: 1.8; text-align: right; }
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header>
+  <a href="#" class="logo"><img src="image/cygarage-logo.png" alt="CY GARAGE TOKYO"></a>
+  <nav>
+    <a href="#">在庫</a>
+    <a href="#">買取</a>
+    <a href="#">ラッピング</a>
+    <a href="#">まれしゃとは</a>
+    <a href="#" class="nav-cta">無料査定</a>
+  </nav>
+</header>
+
+<!-- ========== HERO — B案: 縦型動画2本が全画面横並び ========== -->
+<div class="hero">
+
+  <!-- 動画2本を背景グリッド -->
+  <div class="hero-videos-bg">
+    <div class="hero-video-col">
+      <video autoplay muted loop playsinline>
+        <source src="copy_F8A61A4C-A975-450F-B473-0D8CB8F93C4A.mp4" type="video/mp4">
+      </video>
+      <div class="hero-video-badge">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span>Reels</span>
+      </div>
+    </div>
+    <div class="hero-video-col">
+      <video autoplay muted loop playsinline>
+        <source src="Adobe Express - copy_EDFE113D-CD47-4188-8C6F-800B318D3584 (1).mp4" type="video/mp4">
+      </video>
+      <div class="hero-video-badge">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span>Reels</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- グラデーションオーバーレイ -->
+  <div class="hero-overlay"></div>
+
+  <!-- テキスト：底部に左右配置 -->
+  <div class="hero-content">
+    <div class="hero-txt-left">
+      <div class="hero-eyebrow">
+        <div class="line"></div>
+        <span>CY GARAGE — RARE CAR DEALER</span>
+      </div>
+      <h1>
+        <span class="name">稀車屋が選んだ</span>
+        １台を<br>あなたへ。
+      </h1>
+    </div>
+    <div class="hero-txt-right">
+      <p class="hero-sub">
+        稀車と書いて、まれしゃ。<br>
+        被らない一台がここにある。
+      </p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary">在庫を見る</a>
+        <a href="#" class="btn-ghost">社長に相談する</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ========== SOLD CARS MARQUEE ========== -->
+<section class="sec-sold">
+  <div class="sec-sold-header">
+    <div class="sold-stat-block">
+      <span class="sold-count">25+</span>
+      <span class="sold-unit">台のまれしゃを、売り切った。</span>
+    </div>
+    <div class="eyebrow">SOLD CARS</div>
+  </div>
+  <div class="marquee-row marquee-row--left">
+    <div class="marquee-track">
+      <div class="sold-card"><img src="image/01.jpeg" alt="Ford F-150"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Ford F-150</div></div></div>
+      <div class="sold-card"><img src="image/02.jpeg" alt="Lamborghini Urus"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Lamborghini Urus</div></div></div>
+      <div class="sold-card"><img src="image/03.JPG" alt="Ferrari Roma"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Ferrari Roma</div></div></div>
+      <div class="sold-card"><img src="image/04.jpeg" alt="Mercedes G500"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Mercedes G500 4×4²</div></div></div>
+      <div class="sold-card"><img src="image/05.jpeg" alt="Porsche Macan"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Porsche Macan</div></div></div>
+      <div class="sold-card"><img src="image/06.jpeg" alt="Bentley Mulsanne"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Bentley Mulsanne</div></div></div>
+      <div class="sold-card"><img src="image/07.jpeg" alt="Maserati Quattroporte"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Maserati Quattroporte</div></div></div>
+      <div class="sold-card"><img src="image/08.JPG" alt="Plymouth Prowler"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Plymouth Prowler</div></div></div>
+      <div class="sold-card"><img src="image/09.jpeg" alt="Rare Supercar"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Rare Supercar</div></div></div>
+      <div class="sold-card"><img src="image/10.jpeg" alt="Morgan Roadster"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Morgan Roadster</div></div></div>
+      <div class="sold-card"><img src="image/11.jpeg" alt="Land Rover Defender"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Land Rover Defender</div></div></div>
+      <div class="sold-card"><img src="image/12.jpeg" alt="Cadillac CTS-V"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Cadillac CTS-V</div></div></div>
+      <div class="sold-card"><img src="image/13.jpeg" alt="Tesla Model S"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Tesla Model S</div></div></div>
+      <!-- loop -->
+      <div class="sold-card"><img src="image/01.jpeg" alt="Ford F-150"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Ford F-150</div></div></div>
+      <div class="sold-card"><img src="image/02.jpeg" alt="Lamborghini Urus"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Lamborghini Urus</div></div></div>
+      <div class="sold-card"><img src="image/03.JPG" alt="Ferrari Roma"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Ferrari Roma</div></div></div>
+      <div class="sold-card"><img src="image/04.jpeg" alt="Mercedes G500"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Mercedes G500 4×4²</div></div></div>
+      <div class="sold-card"><img src="image/05.jpeg" alt="Porsche Macan"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Porsche Macan</div></div></div>
+      <div class="sold-card"><img src="image/06.jpeg" alt="Bentley Mulsanne"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Bentley Mulsanne</div></div></div>
+      <div class="sold-card"><img src="image/07.jpeg" alt="Maserati Quattroporte"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Maserati Quattroporte</div></div></div>
+      <div class="sold-card"><img src="image/08.JPG" alt="Plymouth Prowler"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Plymouth Prowler</div></div></div>
+      <div class="sold-card"><img src="image/09.jpeg" alt="Rare Supercar"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Rare Supercar</div></div></div>
+      <div class="sold-card"><img src="image/10.jpeg" alt="Morgan Roadster"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Morgan Roadster</div></div></div>
+      <div class="sold-card"><img src="image/11.jpeg" alt="Land Rover Defender"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Land Rover Defender</div></div></div>
+      <div class="sold-card"><img src="image/12.jpeg" alt="Cadillac CTS-V"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Cadillac CTS-V</div></div></div>
+      <div class="sold-card"><img src="image/13.jpeg" alt="Tesla Model S"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Tesla Model S</div></div></div>
+    </div>
+  </div>
+  <div class="marquee-row marquee-row--right">
+    <div class="marquee-track">
+      <div class="sold-card"><img src="image/14.jpeg" alt="Bentley Continental GT"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Bentley Continental GT</div></div></div>
+      <div class="sold-card"><img src="image/15.jpeg" alt="Lincoln Navigator"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Lincoln Navigator</div></div></div>
+      <div class="sold-card"><img src="image/16.jpeg" alt="Aston Martin DBS"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Aston Martin DBS</div></div></div>
+      <div class="sold-card"><img src="image/17.jpeg" alt="Audi R8"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Audi R8</div></div></div>
+      <div class="sold-card"><img src="image/18.jpeg" alt="Tesla Model 3"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Tesla Model 3</div></div></div>
+      <div class="sold-card"><img src="image/19.jpeg" alt="BMW i3"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">BMW i3</div></div></div>
+      <div class="sold-card"><img src="image/20.jpeg" alt="Jeep Wrangler"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Jeep Wrangler</div></div></div>
+      <div class="sold-card"><img src="image/21.jpeg" alt="Mercedes GLE"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Mercedes GLE Coupe</div></div></div>
+      <div class="sold-card"><img src="image/22.jpeg" alt="Ford Mustang GT"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Ford Mustang GT</div></div></div>
+      <div class="sold-card"><img src="image/23.jpeg" alt="Dodge Durango"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Dodge Durango</div></div></div>
+      <div class="sold-card"><img src="image/24.jpeg" alt="Lincoln Navigator"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Lincoln Navigator</div></div></div>
+      <div class="sold-card"><img src="image/25.jpeg" alt="Mercedes AMG GT63"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Mercedes AMG GT 63</div></div></div>
+      <!-- loop -->
+      <div class="sold-card"><img src="image/14.jpeg" alt="Bentley Continental GT"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Bentley Continental GT</div></div></div>
+      <div class="sold-card"><img src="image/15.jpeg" alt="Lincoln Navigator"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Lincoln Navigator</div></div></div>
+      <div class="sold-card"><img src="image/16.jpeg" alt="Aston Martin DBS"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Aston Martin DBS</div></div></div>
+      <div class="sold-card"><img src="image/17.jpeg" alt="Audi R8"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Audi R8</div></div></div>
+      <div class="sold-card"><img src="image/18.jpeg" alt="Tesla Model 3"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Tesla Model 3</div></div></div>
+      <div class="sold-card"><img src="image/19.jpeg" alt="BMW i3"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">BMW i3</div></div></div>
+      <div class="sold-card"><img src="image/20.jpeg" alt="Jeep Wrangler"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Jeep Wrangler</div></div></div>
+      <div class="sold-card"><img src="image/21.jpeg" alt="Mercedes GLE"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Mercedes GLE Coupe</div></div></div>
+      <div class="sold-card"><img src="image/22.jpeg" alt="Ford Mustang GT"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Ford Mustang GT</div></div></div>
+      <div class="sold-card"><img src="image/23.jpeg" alt="Dodge Durango"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Dodge Durango</div></div></div>
+      <div class="sold-card"><img src="image/24.jpeg" alt="Lincoln Navigator"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Lincoln Navigator</div></div></div>
+      <div class="sold-card"><img src="image/25.jpeg" alt="Mercedes AMG GT63"><span class="sold-badge">SOLD</span><div class="sold-card-info"><div class="sold-car-name">Mercedes AMG GT 63</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SEC 1: THE BOSS ========== -->
+<section class="sec-boss">
+  <div class="sec-boss-inner">
+    <div class="boss-photo-wrap">
+      <img src="image/yonekawa.webp" alt="CY GARAGE 代表">
+    </div>
+    <div class="boss-text-wrap">
+      <div class="boss-label">THE<br><span class="gold">BOSS</span></div>
+      <div class="eyebrow">THE BOSS</div>
+      <h2>稀車を愛する、<br>代表の目利き。</h2>
+      <p class="body-text">
+        かましてる車が好きで、被りたくない人の味方。<br>
+        それだけをずっとやってきた。
+      </p>
+      <a href="#" class="section-link">社長について詳しく →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SEC 2: WHY CY GARAGE ========== -->
+<section class="sec-reason">
+  <div class="sec-reason-inner">
+    <div class="eyebrow">WHY CY GARAGE</div>
+    <h2>個性的な車の価値は、<br>わかる人間に査定させてほしい。</h2>
+    <div class="reason-cards">
+      <div class="reason-card">
+        <div class="reason-num">01</div>
+        <h3>まれしゃの価値を、<br><span class="gold">ちゃんとわかる</span>眼がある</h3>
+        <p>一般の買取店が「個性が強すぎる」と値引く車に、ちゃんと値段をつけられる。それがCY GARAGEの眼。</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-num">02</div>
+        <h3>売り切る<span class="gold">販売力</span>があるから、<br>高く買える</h3>
+        <p>稀少車を欲しがる客と直接つながっているから、個性的な車でも高値で買い取れる。仕入れ力が査定額に直結する。</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-num">03</div>
+        <h3>あなたの車の<span class="gold">物語</span>を、<br>次のオーナーへ</h3>
+        <p>車への想いをフォームに書いてもらう。そのストーリーがInstagramに載り、次のオーナーへ伝わる。それがCY GARAGEの流儀。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SEC 3: BOSS'S PICK ========== -->
+<section class="sec-inventory">
+  <div class="sec-inventory-inner">
+    <div class="sec-header">
+      <div>
+        <div class="eyebrow">BOSS'S PICK</div>
+        <h2>社長が今、<br>推したい一台。</h2>
+      </div>
+      <a href="#" class="section-link">すべての在庫を見る →</a>
+    </div>
+    <div class="car-grid">
+      <div class="car-card featured">
+        <img src="image/inv_03_skyline_2013.jpg" alt="Maserati GranTurismo 2013">
+        <div class="badge-new">NEW</div>
+        <div class="car-info">
+          <div class="car-tag">MASERATI — 2013</div>
+          <div class="car-name">GranTurismo</div>
+          <div class="car-price">走行 3.1万km　<strong>¥658万円</strong></div>
+          <div class="car-story">「3.1万キロのマセラティ。この走行距離はもう奇跡。まれしゃの中のまれしゃ。」</div>
+        </div>
+      </div>
+      <div class="car-card">
+        <img src="image/inv_01_escalade_2015.jpg" alt="Lincoln Navigator 2015">
+        <div class="car-info">
+          <div class="car-tag">LINCOLN — 2015</div>
+          <div class="car-name">Navigator</div>
+          <div class="car-price">走行 6.0万km　<strong>¥695万円</strong></div>
+        </div>
+      </div>
+      <div class="car-card">
+        <img src="image/inv_02_sequoia_2020.jpg" alt="Ford F-150 2020">
+        <div class="car-info">
+          <div class="car-tag">FORD — 2020</div>
+          <div class="car-name">F-150</div>
+          <div class="car-price">走行 5.4万km　<strong>¥598万円</strong></div>
+        </div>
+      </div>
+      <div class="car-card">
+        <img src="image/inv_04_escalade_2012.jpg" alt="Lincoln MKT 2012">
+        <div class="car-info">
+          <div class="car-tag">LINCOLN — 2012</div>
+          <div class="car-name">MKT</div>
+          <div class="car-price">走行 10.6万km　<strong>¥295万円</strong></div>
+        </div>
+      </div>
+      <div class="car-card car-card-viewall">
+        <div style="text-align:center;">
+          <div class="vl">VIEW ALL</div>
+          <a href="#" class="section-link" style="margin-top:0;">在庫一覧へ →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SEC 4: 買取比較 ========== -->
+<section class="sec-buyback">
+  <div class="sec-buyback-inner">
+    <div class="buyback-headline">
+      <div class="eyebrow" style="justify-content:center;">WHY NOT OTHERS</div>
+      <h2>個性的な車が、<em>正しく評価される</em>場所。</h2>
+      <p>一般の買取店とCY GARAGEの違い。</p>
+    </div>
+    <div class="buyback-compare">
+      <div class="buyback-col bad">
+        <div class="buyback-col-label">一般の買取店</div>
+        <h3>個性的な車は、<br>損をしやすい</h3>
+        <div class="buyback-item">
+          <div class="buyback-item-icon">✗</div>
+          <div class="buyback-item-text"><strong>カスタム車は「減点」扱い</strong>改造・ラッピング車は査定を下げる店がほとんど</div>
+        </div>
+        <div class="buyback-item">
+          <div class="buyback-item-icon">✗</div>
+          <div class="buyback-item-text"><strong>希少車・輸入車は「データ不足」</strong>相場がわからないと言われ、安く買い叩かれる</div>
+        </div>
+        <div class="buyback-item">
+          <div class="buyback-item-icon">✗</div>
+          <div class="buyback-item-text"><strong>車への愛着は査定に関係ない</strong>エピソードや思い入れは価格に一切反映されない</div>
+        </div>
+      </div>
+      <div class="buyback-divider"><div class="vs-circle">VS</div></div>
+      <div class="buyback-col good">
+        <div class="buyback-col-label">CY GARAGE</div>
+        <h3>まれしゃの価値を、<br>ちゃんと見る</h3>
+        <div class="buyback-item">
+          <div class="buyback-item-icon">✓</div>
+          <div class="buyback-item-text"><strong>個性・カスタムは「加点」要素</strong>希少性・こだわりを価値として評価する</div>
+        </div>
+        <div class="buyback-item">
+          <div class="buyback-item-icon">✓</div>
+          <div class="buyback-item-text"><strong>稀少輸入車の専門知識と販売力</strong>売り切れるから、相場より高く買い取れる</div>
+        </div>
+        <div class="buyback-item">
+          <div class="buyback-item-icon">✓</div>
+          <div class="buyback-item-text"><strong>オーナーのストーリーを買い取る</strong>車への想いをInstagramで発信し、次のオーナーへ繋ぐ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SEC 5: Instagram × BOSS ========== -->
+<section class="sec-ig-boss">
+  <div class="ig-boss-row">
+    <div class="ig-boss-panel photo">
+      <img src="boss-hero.jpg" alt="CY GARAGE 代表">
+      <div class="ig-boss-meta">
+        <div class="ig-boss-name">CY GARAGE — 代表</div>
+        <div class="ig-boss-title">かましてる車が好きで、被りたくない人の味方。<br>それだけをずっとやってきた。</div>
+        <a href="https://www.instagram.com/cy_garage_official" target="_blank" class="ig-boss-follow">→ @cy_garage_official</a>
+      </div>
+    </div>
+    <div class="ig-boss-panel">
+      <video autoplay muted loop playsinline>
+        <source src="copy_F8A61A4C-A975-450F-B473-0D8CB8F93C4A.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="ig-boss-panel">
+      <video autoplay muted loop playsinline>
+        <source src="Adobe Express - copy_EDFE113D-CD47-4188-8C6F-800B318D3584 (1).mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+  <div class="ig-boss-footer">
+    <div class="ig-boss-footer-left">FOLLOW US ON INSTAGRAM</div>
+    <a href="https://www.instagram.com/cy_garage_official" target="_blank" class="ig-boss-footer-right">@cy_garage_official →</a>
+  </div>
+</section>
+
+<!-- ========== APPRAISAL ========== -->
+<section class="appraisal-section">
+  <div class="appraisal-inner">
+    <div class="appraisal-text">
+      <div class="appraisal-eyebrow">
+        <div class="e-line"></div>
+        <span>Appraisal / 買取・無料査定</span>
+      </div>
+      <h2>あなたの車、<br><span class="gold">正直に</span>査定します。</h2>
+      <p>大手に出す前に、一度聞いてみてください。<br>社長が直接見て、根拠のある金額をお伝えします。<br>希少車・カスタム車・ラッピング車、大歓迎。</p>
+      <div class="appraisal-steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-text">
+            <strong>フォームから申し込み</strong>
+            <span>車種・年式・走行距離・状態を入力。写真があればなお良し。</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-text">
+            <strong>社長から直接ご連絡</strong>
+            <span>24時間以内に社長またはスタッフからご連絡。気になることを何でも聞いてください。</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-text">
+            <strong>査定金額のご提示</strong>
+            <span>根拠のある金額をお伝えします。全国対応・出張査定もご相談可。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="appraisal-form-mock">
+      <div class="form-title">無料査定を申し込む</div>
+      <div class="form-sub">24時間以内に折り返しご連絡します</div>
+      <div class="form-field">
+        <label>お名前</label>
+        <input class="f-input" type="text" placeholder="山田 太郎">
+      </div>
+      <div class="form-field">
+        <label>お電話番号</label>
+        <input class="f-input" type="tel" placeholder="090-XXXX-XXXX">
+      </div>
+      <div class="form-field">
+        <label>車種・メーカー</label>
+        <input class="f-input" type="text" placeholder="例：Ford F-150 Raptor 2022">
+      </div>
+      <div class="form-field">
+        <label>走行距離</label>
+        <input class="f-input" type="text" placeholder="例：35,000km">
+      </div>
+      <div class="form-field">
+        <label>この車への思い・エピソード（任意）</label>
+        <textarea class="f-input" rows="3" placeholder="どんな経緯でこの車に乗り始めたか、どんな思い出があるか、自由にお書きください。" style="resize:vertical;"></textarea>
+      </div>
+      <button class="form-submit">無料で査定を依頼する</button>
+      <div class="form-note">費用は一切かかりません。<br>しつこい営業電話はしません。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SEC 4: 買取CTA ========== -->
+<section class="sec-cta">
+  <div class="eyebrow" style="justify-content:center;">SELL YOUR CAR</div>
+  <h2>あなたの車、<br>まれしゃ価格で。</h2>
+  <p class="body-text">
+    個性的な車の価値は、<br>
+    わかる人間に査定させてほしい。
+  </p>
+  <a href="#" class="btn-primary">無料査定を依頼する</a>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="footer-logo">CY <span>GARAGE</span></div>
+  <div class="footer-info">
+    東京都江東区南砂<br>
+    @cy_garage_official<br>
+    © 2026 CY GARAGE
+  </div>
+</footer>
+
+<script>
+  /* ===== Header scroll ===== */
+  const hdr = document.querySelector('header');
+  window.addEventListener('scroll', function() {
+    hdr.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* ===== Section fade-in ===== */
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('section').forEach(function(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

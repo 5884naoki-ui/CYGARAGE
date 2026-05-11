@@ -1,0 +1,19 @@
+.DS_Store
+
+# Large video source files
+*.mov
+*.MOV
+
+# GitHub blocks files over 100MB on normal Git.
+copy_49715AAC-CFF0-44EF-B3FD-331E8E9C445C.mp4
+copy_EB26B9F5-E9D4-479D-9684-A815D6B02039.mov
+copy_F8A61A4C-A975-450F-B473-0D8CB8F93C4A.mov
+copy_EDFE113D-CD47-4188-8C6F-800B318D3584.mov
+copy_9CC0E934-B48C-4136-A4E3-47AA401118FA.mov
+copy_38C09E58-C908-4933-B9FA-D0DD246D819A.MOV
+
+# Local archives / generated bundles
+*.zip
+
+# Alternative local git metadata used by Codex sandbox
+.cygarage-git/

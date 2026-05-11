@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CY GARAGE — こだわりのある人のための車屋。</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #c8a96e;
+    --gold-light: #e8c98e;
+    --gold-dark: #a8893e;
+    --black: #080808;
+    --dark: #0d0d0d;
+    --panel: #111;
+    --gray: #888;
+  }
+
+  body {
+    background: var(--black);
+    color: #f0f0f0;
+    font-family: 'Noto Sans JP', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ========== HEADER ========== */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 22px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.98) 60%, transparent);
+    border-bottom: 1px solid rgba(200,169,110,0.08);
+  }
+  .logo-img {
+    height: 52px;
+    width: auto;
+    display: block;
+  }
+  nav { display: flex; gap: 36px; align-items: center; }
+  nav a {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s;
+    text-transform: uppercase;
+  }
+  nav a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: #000 !important;
+    padding: 11px 22px;
+    font-weight: 700;
+    font-size: 9px !important;
+    letter-spacing: 2px !important;
+    transition: background 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+
+  /* ========== HERO ========== */
+  .hero {
+    height: 100vh;
+    min-height: 700px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 80px;
+    overflow: hidden;
+  }
+
+  /* 実写背景 — TOP画像 */
+  .hero-photo-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('./top-hero.webp');
+    background-size: cover;
+    background-position: center 38%;
+    z-index: 0;
+  }
+  /* 背景オーバーレイ — テキスト可読性確保 */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(100deg, rgba(8,8,8,0.93) 0%, rgba(8,8,8,0.78) 42%, rgba(8,8,8,0.15) 100%),
+      linear-gradient(to bottom, rgba(8,8,8,0.5) 0%, transparent 25%, rgba(8,8,8,0.7) 100%);
+    z-index: 1;
+  }
+  .hero-city-lights { display: none; }
+  .hero-glow { display: none; }
+  /* 車シルエット (改良版) */
+  .hero-car {
+    position: absolute;
+    right: 4%;
+    bottom: 12%;
+    width: 54%;
+    z-index: 0;
+    opacity: 0.18;
+  }
+  .hero-car svg { width: 100%; height: auto; }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .hero-eyebrow .line {
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .hero-eyebrow span {
+    font-size: 9px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-size: clamp(44px, 6.5vw, 88px);
+    line-height: 1.0;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 28px;
+    color: #fff;
+  }
+  .hero h1 .line1 {
+    display: block;
+    font-size: clamp(18px, 2.5vw, 30px);
+    font-weight: 300;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .hero h1 .main {
+    display: block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 9vw, 112px);
+    letter-spacing: 3px;
+    line-height: 0.9;
+    color: #fff;
+  }
+  .hero h1 .main .ghost {
+    -webkit-text-stroke: 1px rgba(255,255,255,0.15);
+    color: transparent;
+  }
+
+  .hero-tagline {
+    font-size: clamp(14px, 1.6vw, 18px);
+    font-weight: 300;
+    color: #999;
+    letter-spacing: 1px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    border-left: 2px solid var(--gold-dark);
+    padding-left: 20px;
+  }
+  .hero-tagline strong { color: #ddd; font-weight: 500; }
+
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+  .btn-primary {
+    background: var(--gold);
+    color: #000;
+    padding: 17px 40px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s;
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-ghost {
+    border: 1px solid #333;
+    color: #888;
+    padding: 17px 40px;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* SNS 数字バッジ */
+  .hero-social-proof {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+  .proof-item { text-align: left; }
+  .proof-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+  .proof-label {
+    font-size: 9px;
+    color: #555;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .proof-divider { width: 1px; height: 36px; background: #222; }
+
+  /* スクロール */
+  .scroll-cue {
+    position: absolute;
+    bottom: 36px;
+    left: 80px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .scroll-cue .s-line {
+    width: 48px;
+    height: 1px;
+    background: linear-gradient(to right, var(--gold), transparent);
+  }
+  .scroll-cue span { font-size: 8px; letter-spacing: 4px; color: #444; text-transform: uppercase; }
+
+  /* ゴールド左ボーダー */
+  .hero-accent-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, transparent 10%, var(--gold) 40%, var(--gold-dark) 70%, transparent 100%);
+    z-index: 2;
+  }
+
+  /* ========== REASON SECTION — なぜここで買うのか ========== */
+  .reason-section {
+    background: var(--dark);
+    padding: 120px 80px;
+    border-top: 1px solid #1a1a1a;
+  }
+  .reason-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+  .section-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 60px;
+  }
+  .section-eyebrow .e-line { width: 32px; height: 1px; background: var(--gold); }
+  .section-eyebrow span { font-size: 9px; letter-spacing: 6px; color: var(--gold); text-transform: uppercase; }
+
+  .reason-hero-text {
+    margin-bottom: 80px;
+  }
+  .reason-hero-text h2 {
+    font-size: clamp(28px, 4vw, 50px);
+    font-weight: 700;
+    line-height: 1.5;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .reason-hero-text h2 em {
+    font-style: normal;
+    color: var(--gold);
+  }
+  .reason-hero-text p {
+    font-size: 14px;
+    color: #777;
+    line-height: 2.0;
+    max-width: 600px;
+  }
+
+  .reason-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .reason-card {
+    background: #111;
+    padding: 44px 36px;
+    border-top: 2px solid transparent;
+    transition: border-color 0.3s;
+    position: relative;
+  }
+  .reason-card:hover { border-top-color: var(--gold); }
+  .reason-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: #1a1a1a;
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+  }
+  .reason-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 14px;
+    line-height: 1.4;
+  }
+  .reason-card h3 .gold { color: var(--gold); }
+  .reason-card p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.9;
+  }
+
+  /* ========== BOSS SECTION — 社長について ========== */
+  .boss-section {
+    padding: 120px 80px;
+    background: var(--black);
+    border-top: 1px solid #111;
+  }
+  .boss-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+  .boss-text .section-eyebrow { margin-bottom: 32px; }
+  .boss-text h2 {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 700;
+    line-height: 1.4;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+  .boss-text h2 em { font-style: normal; color: var(--gold); }
+  .boss-text p {
+    font-size: 14px;
+    color: #777;
+    line-height: 2.0;
+    margin-bottom: 16px;
+  }
+  .boss-text p strong { color: #bbb; }
+
+  .boss-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+  }
+  .boss-tag {
+    border: 1px solid #2a2a2a;
+    color: #666;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 6px 14px;
+    text-transform: uppercase;
+  }
+
+  /* Instagram モックカード */
+  .insta-mock {
+    position: relative;
+    height: 480px;
+  }
+  .insta-phone {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 240px;
+    height: 420px;
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px #1a1a1a;
+  }
+  .insta-phone-inner {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+  }
+  .insta-phone-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .insta-phone-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 45%, rgba(0,0,0,0.88) 100%);
+    z-index: 1;
+  }
+  .insta-phone-inner::before { display: none; }
+  .phone-overlay-text {
+    position: relative;
+    z-index: 1;
+  }
+  .phone-handle {
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .phone-caption {
+    font-size: 12px;
+    color: #ddd;
+    line-height: 1.5;
+  }
+  .phone-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    width: 48px;
+    height: 48px;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  .phone-play::after {
+    content: '';
+    border-left: 15px solid rgba(255,255,255,0.7);
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    margin-left: 4px;
+  }
+  .insta-badge {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    background: var(--gold);
+    color: #000;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 8px 14px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    border-radius: 2px 0 0 2px;
+    box-shadow: -4px 4px 16px rgba(200,169,110,0.3);
+  }
+  .insta-card-sm {
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    width: 160px;
+    height: 190px;
+    background: linear-gradient(160deg, #1a0800 0%, #2a1400 100%);
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    transform: rotate(4deg);
+    overflow: hidden;
+  }
+  .insta-card-sm-inner {
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.8) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 12px;
+  }
+  .insta-card-sm span { font-size: 10px; color: #888; }
+
+  /* ========== INVENTORY ========== */
+  .inventory-section {
+    background: var(--dark);
+    padding: 120px 80px;
+    border-top: 1px solid #1a1a1a;
+  }
+  .inventory-inner { max-width: 1160px; margin: 0 auto; }
+  .inventory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+  }
+  .inventory-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 4vw, 54px);
+    color: #fff;
+    line-height: 1;
+    letter-spacing: 2px;
+  }
+  .inventory-header h2 span { color: var(--gold); }
+  .view-all {
+    font-size: 10px;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 4px;
+    border-bottom: 1px solid var(--gold-dark);
+    padding-bottom: 2px;
+    text-transform: uppercase;
+  }
+
+  .car-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 3px;
+  }
+  .car-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: #111;
+  }
+  .car-card.featured {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .car-thumb {
+    width: 100%;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: transform 0.6s ease;
+  }
+  .car-card.featured .car-thumb { min-height: 490px; }
+  .car-card:hover .car-thumb { transform: scale(1.04); }
+
+  .thumb-raptor { background: linear-gradient(135deg, #1a1000 0%, #3a2400 50%, #1a1000 100%); }
+  .thumb-benz   { background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 50%, #0a0a1a 100%); }
+  .thumb-wrap   { background: linear-gradient(135deg, #1a000a 0%, #3a0018 50%, #1a000a 100%); }
+  .thumb-custom { background: linear-gradient(135deg, #0a1800 0%, #1a3000 50%, #0a1800 100%); }
+
+  .car-emoji { font-size: 72px; opacity: 0.10; }
+  .car-card.featured .car-emoji { font-size: 140px; }
+
+  .car-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 28px;
+    background: linear-gradient(to top, rgba(0,0,0,0.96) 0%, transparent 100%);
+  }
+  .car-tag {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .car-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: #fff;
+    letter-spacing: 1px;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .car-card.featured .car-name { font-size: 40px; }
+  .car-price {
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 1px;
+  }
+  .car-price strong { color: var(--gold-light); font-size: 13px; }
+
+  .car-story {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.7;
+    margin-top: 10px;
+    max-width: 380px;
+    display: none;
+  }
+  .car-card.featured .car-story { display: block; }
+
+  /* NEW ARRIVAL バッジ */
+  .badge-new {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    background: var(--gold);
+    color: #000;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+  }
+  .badge-wrap {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    border: 1px solid rgba(200,169,110,0.6);
+    color: var(--gold);
+    font-size: 8px;
+    letter-spacing: 3px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+  }
+
+  /* ========== 稀車買取 差別化 ========== */
+  .buyback-section {
+    background: #0d0d0d;
+    padding: 120px 80px;
+    border-top: 1px solid #111;
+  }
+  .buyback-inner { max-width: 1160px; margin: 0 auto; }
+  .buyback-headline {
+    text-align: center;
+    margin-bottom: 72px;
+  }
+  .buyback-headline h2 {
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  .buyback-headline h2 em { font-style: normal; color: var(--gold); }
+  .buyback-headline p { font-size: 13px; color: #666; }
+
+  .buyback-compare {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+  .buyback-col {
+    padding: 44px 40px;
+  }
+  .buyback-col.bad {
+    background: #120808;
+    border: 1px solid #2a1010;
+    border-right: none;
+  }
+  .buyback-col.good {
+    background: #081208;
+    border: 1px solid #102a10;
+    border-left: none;
+  }
+  .buyback-col-label {
+    font-size: 9px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .bad .buyback-col-label { color: #6a2020; }
+  .good .buyback-col-label { color: #206a20; }
+  .buyback-col h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    line-height: 1.3;
+  }
+  .bad h3 { color: #cc4444; }
+  .good h3 { color: #44aa44; }
+  .buyback-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+  .buyback-item-icon {
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 1px;
+  }
+  .bad .buyback-item-icon { background: rgba(180,50,50,0.2); color: #cc4444; }
+  .good .buyback-item-icon { background: rgba(50,180,50,0.15); color: #44aa44; }
+  .buyback-item-text {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.7;
+  }
+  .buyback-item-text strong { color: #bbb; display: block; margin-bottom: 2px; font-size: 14px; }
+
+  .buyback-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #111;
+    border-top: 1px solid #1a1a1a;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .vs-circle {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #555;
+    letter-spacing: 1px;
+  }
+
+  /* ========== APPRAISAL — 買取 ========== */
+  .appraisal-section {
+    padding: 120px 80px;
+    background: var(--black);
+    border-top: 1px solid #111;
+  }
+  .appraisal-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .appraisal-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 4.5vw, 60px);
+    color: #fff;
+    letter-spacing: 2px;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .appraisal-text h2 .gold { color: var(--gold); }
+  .appraisal-text p {
+    font-size: 14px;
+    color: #777;
+    line-height: 2.0;
+    margin-bottom: 36px;
+  }
+  .appraisal-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 40px;
+  }
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .step:first-child { padding-top: 0; }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--gold-dark);
+    min-width: 28px;
+    line-height: 1;
+    margin-top: 2px;
+  }
+  .step-text { flex: 1; }
+  .step-text strong {
+    display: block;
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 4px;
+  }
+  .step-text span { font-size: 12px; color: #555; line-height: 1.7; }
+
+  /* フォームモック */
+  .appraisal-form-mock {
+    background: var(--panel);
+    border: 1px solid #1a1a1a;
+    padding: 44px;
+    position: relative;
+  }
+  .appraisal-form-mock::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--gold), transparent);
+  }
+  .form-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .form-sub {
+    font-size: 11px;
+    color: #555;
+    letter-spacing: 1px;
+    margin-bottom: 32px;
+  }
+  .form-field {
+    margin-bottom: 16px;
+  }
+  .form-field label {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: #555;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .form-field .f-input {
+    width: 100%;
+    background: #0d0d0d;
+    border: 1px solid #222;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #ccc;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .form-field .f-input::placeholder { color: #333; }
+  .form-submit {
+    width: 100%;
+    background: var(--gold);
+    color: #000;
+    border: none;
+    padding: 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.3s;
+  }
+  .form-submit:hover { background: var(--gold-light); }
+  .form-note {
+    font-size: 10px;
+    color: #444;
+    text-align: center;
+    margin-top: 14px;
+    line-height: 1.7;
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: #050505;
+    border-top: 1px solid #111;
+    padding: 60px 80px 40px;
+  }
+  .footer-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 60px;
+    margin-bottom: 48px;
+  }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 8px; color: #fff; }
+  .footer-logo .gold { color: var(--gold); }
+  .footer-tagline { font-size: 11px; color: #333; letter-spacing: 2px; margin-top: 8px; }
+  .footer-nav { display: flex; gap: 60px; }
+  .footer-nav-group h4 { font-size: 9px; color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 16px; }
+  .footer-nav-group a { display: block; font-size: 12px; color: #444; text-decoration: none; margin-bottom: 10px; transition: color 0.3s; }
+  .footer-nav-group a:hover { color: #888; }
+  .footer-bottom {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding-top: 28px;
+    border-top: 1px solid #111;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom span { font-size: 10px; color: #2a2a2a; }
+  .footer-sns { display: flex; gap: 20px; }
+  .footer-sns a {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #333;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .footer-sns a:hover { color: var(--gold); }
+
+  /* ========== UTILITY ========== */
+  .gold { color: var(--gold); }
+
+  /* モックUIノート */
+  .mock-note {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(200,169,110,0.08);
+    border: 1px solid rgba(200,169,110,0.2);
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 8px 14px;
+    z-index: 999;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div>
+    <img src="./neon_logo_moji.webp" alt="CY GARAGE TOKYO" class="logo-img">
+  </div>
+  <nav>
+    <a href="#">在庫車両</a>
+    <a href="#">ラッピング</a>
+    <a href="#">コンテンツ</a>
+    <a href="#">社長について</a>
+    <a href="#" class="nav-cta">無料査定</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-accent-bar"></div>
+  <div class="hero-photo-bg"></div>
+  <div class="hero-bg"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="line"></span>
+      <span>Emotional Cars / こだわりの一台</span>
+    </div>
+
+    <h1>
+      <span class="line1">感情を動かす車。</span>
+      <span class="main">CY<span class="ghost"> GARAGE</span></span>
+    </h1>
+
+    <p class="hero-tagline">
+      <strong>こだわりのある人のための車屋。</strong><br>
+      ラプターでも、カスタムベンツでも、ラッピング車でも。<br>
+      「なぜこの車か」の理由がある、そういう車だけを置いている。
+    </p>
+
+    <div class="hero-btns">
+      <a href="#" class="btn-primary">在庫を見る</a>
+      <a href="#" class="btn-ghost">無料査定を受ける</a>
+    </div>
+
+    <div class="hero-social-proof">
+      <div class="proof-item">
+        <div class="proof-num">20台</div>
+        <div class="proof-label">厳選在庫</div>
+      </div>
+      <div class="proof-divider"></div>
+      <div class="proof-item">
+        <div class="proof-num">Instagram</div>
+        <div class="proof-label">バズってる社長</div>
+      </div>
+      <div class="proof-divider"></div>
+      <div class="proof-item">
+        <div class="proof-num">全国</div>
+        <div class="proof-label">納車対応</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <div class="s-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- REASON SECTION — なぜここで買うのか -->
+<section class="reason-section">
+  <div class="reason-inner">
+    <div class="section-eyebrow">
+      <div class="e-line"></div>
+      <span>Why CY Garage / なぜここで買うのか</span>
+    </div>
+
+    <div class="reason-hero-text">
+      <h2>「ガリバーで同じ値段になったら、<br><em>ここに来てみようかな。</em>」<br>そう思ってくれたら最高です。</h2>
+      <p>
+        車は移動手段だと思っている方には、向かないお店かもしれません。<br>
+        でも、最初に乗った車を今でも覚えていて、次の車に「感情」を求める人がいる。<br>
+        そういう人のために、CY GARAGEはあります。
+      </p>
+    </div>
+
+    <div class="reason-cards">
+      <div class="reason-card">
+        <div class="reason-num">01</div>
+        <h3>人が<span class="gold">稀</span>れ</h3>
+        <p>元ジャニーズの社長が、ベッドから語るリール動画が話題。「この人から買いたい」という感覚が、最大の競合優位性。車を売る前に、人を好きになってもらう。</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-num">02</div>
+        <h3>車に<span class="gold">物語</span>がある</h3>
+        <p>ラプターでも、カスタムベンツでも、「なぜこの一台か」の理由がある。20台全てに社長の目利きと言葉を添えて、ただのスペック表にしない。</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-num">03</div>
+        <h3><span class="gold">こだわり</span>は希少車マニアだけじゃない</h3>
+        <p>ちょっとカスタムしたベンツに惹かれる人も、ラッピングで個性を出したい人も。「自分の車を自分で選ぶ感性」を持つ人が来られる場所でありたい。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOSS SECTION -->
+<section class="boss-section">
+  <div class="boss-inner">
+    <div class="boss-text">
+      <div class="section-eyebrow">
+        <div class="e-line"></div>
+        <span>About Boss / 社長について</span>
+      </div>
+      <h2>ベッドから語る<em>希少車の話</em>が、<br>なぜかバズっている。</h2>
+      <p>
+        インスタのリール動画で、社長がくだけたトーンで車を語る。
+        <strong>元ジャニーズというキャリアを持ちながら、今は車への本気の情熱を発信。</strong>
+      </p>
+      <p>
+        「この人面白い、うちもここで車買ってみたい」—— そんな声が集まって、
+        インスタからの問い合わせが日常になってきた。
+        エンタメカーディーラー、という言葉がぴったりかもしれない。
+      </p>
+      <div class="boss-tags">
+        <span class="boss-tag">Instagram</span>
+        <span class="boss-tag">Reels</span>
+        <span class="boss-tag">元ジャニーズ</span>
+        <span class="boss-tag">エンタメ × 車</span>
+        <span class="boss-tag">本音トーク</span>
+      </div>
+    </div>
+
+    <div class="insta-mock">
+      <!-- メインの縦型動画モック — 社長リール実映像 -->
+      <div class="insta-phone">
+        <div class="insta-phone-inner">
+          <video class="insta-phone-video" autoplay loop muted playsinline>
+            <source src="./social-reel.mp4" type="video/mp4">
+          </video>
+          <div class="insta-phone-overlay"></div>
+          <div class="phone-overlay-text" style="position:relative;z-index:2;padding:20px;">
+            <div class="phone-handle">@cy_garage_mareshya</div>
+            <div class="phone-caption">「なんでラプター選んだかって話するね」ベッドから失礼します🛏</div>
+          </div>
+        </div>
+      </div>
+      <!-- フォロワーバッジ -->
+      <div class="insta-badge">▲ バズり中</div>
+      <!-- サブカード -->
+      <div class="insta-card-sm">
+        <div class="insta-card-sm-inner">
+          <span>カスタムベンツの話</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVENTORY -->
+<section class="inventory-section">
+  <div class="inventory-inner">
+    <div class="inventory-header">
+      <div>
+        <div class="section-eyebrow" style="margin-bottom: 16px;">
+          <div class="e-line"></div>
+          <span>Inventory / 在庫車両</span>
+        </div>
+        <h2>CURRENT<br><span>STOCK</span></h2>
+      </div>
+      <a href="#" class="view-all">全在庫を見る →</a>
+    </div>
+
+    <div class="car-grid">
+      <!-- FEATURED -->
+      <div class="car-card featured">
+        <div class="car-thumb thumb-raptor">
+          <span class="car-emoji">🛻</span>
+        </div>
+        <div class="badge-new">社長オススメ</div>
+        <div class="car-info">
+          <div class="car-tag">FORD / PICKUP TRUCK</div>
+          <div class="car-name">F-150 RAPTOR<br>CUSTOM</div>
+          <div class="car-price">参考価格 <strong>¥8,980,000</strong></div>
+          <p class="car-story">「なんでこのラプターを選んだかって話するね」—— インスタで3万回再生された動画の、あの車です。荒地でも街でも圧倒的な存在感。カスタムペイントで唯一無二の一台。</p>
+        </div>
+      </div>
+
+      <!-- SMALL CARDS -->
+      <div class="car-card">
+        <div class="car-thumb thumb-benz">
+          <span class="car-emoji">🚗</span>
+        </div>
+        <div class="badge-wrap">ラッピング施工済</div>
+        <div class="car-info">
+          <div class="car-tag">MERCEDES-BENZ</div>
+          <div class="car-name">G-CLASS<br>CUSTOM</div>
+          <div class="car-price"><strong>¥16,500,000</strong></div>
+        </div>
+      </div>
+
+      <div class="car-card">
+        <div class="car-thumb thumb-wrap">
+          <span class="car-emoji">🚙</span>
+        </div>
+        <div class="car-info">
+          <div class="car-tag">DODGE</div>
+          <div class="car-name">CHALLENGER<br>HELLCAT</div>
+          <div class="car-price"><strong>¥7,200,000</strong></div>
+        </div>
+      </div>
+
+      <div class="car-card">
+        <div class="car-thumb thumb-custom">
+          <span class="car-emoji">🏎️</span>
+        </div>
+        <div class="car-info">
+          <div class="car-tag">CADILLAC</div>
+          <div class="car-name">ESCALADE<br>ESV</div>
+          <div class="car-price"><strong>¥9,800,000</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 稀車買取 差別化 -->
+<section class="buyback-section">
+  <div class="buyback-inner">
+    <div class="buyback-headline">
+      <h2>一般の買取店が嫌がる稀車を、<br><em>まれしゃは高値で買う。</em></h2>
+      <p>稀車を売るのが得意だから、稀車の価値が正しくわかる。</p>
+    </div>
+
+    <div class="buyback-compare">
+      <!-- 左：一般買取店 -->
+      <div class="buyback-col bad">
+        <div class="buyback-col-label">一般の買取店</div>
+        <h3>稀車は<br>買いたくない</h3>
+        <div class="buyback-item">
+          <div class="buyback-item-icon">✕</div>
+          <div class="buyback-item-text"><strong>値付けが難しい</strong>相場が読めない稀車は、査定額を下げるしかない</div>
+        </div>
+        <div class="buyback-item">
+          <div class="buyback-item-icon">✕</div>
+          <div class="buyback-item-text"><strong>在庫リスクが怖い</strong>売れるまでの期間が読めず、在庫を持ちたくない</div>
+        </div>
+        <div class="buyback-item">
+          <div class="buyback-item-icon">✕</div>
+          <div class="buyback-item-text"><strong>カスタム・ラッピングは苦手</strong>希少パーツやカスタムの価値を正しく評価できない</div>
+        </div>
+        <div class="buyback-item">
+          <div class="buyback-item-icon">✕</div>
+          <div class="buyback-item-text"><strong>結果、安く叩かれる</strong>あなたの大事な稀車が、相場の7〜8割で終わる</div>
+        </div>
+      </div>
+
+      <!-- 中央 VS -->
+      <div class="buyback-divider">
+        <div class="vs-circle">VS</div>
+      </div>
+
+      <!-- 右：まれしゃ -->
+      <div class="buyback-col good">
+        <div class="buyback-col-label">まれしゃ</div>
+        <h3>稀車だから<br>高値で買える</h3>
+        <div class="buyback-item">
+          <div class="buyback-item-icon">✦</div>
+          <div class="buyback-item-text"><strong>稀車を売るのが得意</strong>販路があるから、その価値を正しく買取価格に反映できる</div>
+        </div>
+        <div class="buyback-item">
+          <div class="buyback-item-icon">✦</div>
+          <div class="buyback-item-text"><strong>カスタム・希少性を正当評価</strong>一般店が見落とすポイントまで含めて算定する</div>
+        </div>
+        <div class="buyback-item">
+          <div class="buyback-item-icon">✦</div>
+          <div class="buyback-item-text"><strong>前オーナーの物語ごと引き取る</strong>その車の背景・ストーリーを次のオーナーに繋ぐ</div>
+        </div>
+        <div class="buyback-item">
+          <div class="buyback-item-icon">✦</div>
+          <div class="buyback-item-text"><strong>全国対応・出張査定も可</strong>希少車ほど、直接見て判断したほうがいい</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPRAISAL -->
+<section class="appraisal-section">
+  <div class="appraisal-inner">
+    <div class="appraisal-text">
+      <div class="section-eyebrow" style="margin-bottom: 32px;">
+        <div class="e-line"></div>
+        <span>Appraisal / 買取・無料査定</span>
+      </div>
+      <h2 class="appraisal-h2" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4.5vw,60px);color:#fff;letter-spacing:2px;line-height:1.1;margin-bottom:24px;">
+        あなたの車、<br><span class="gold">正直に</span>査定します。
+      </h2>
+      <p>大手に出す前に、一度聞いてみてください。<br>社長が直接見て、根拠のある金額をお伝えします。<br>希少車・カスタム車・ラッピング車、大歓迎。</p>
+
+      <div class="appraisal-steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-text">
+            <strong>フォームから申し込み</strong>
+            <span>車種・年式・走行距離・状態を入力。写真があればなお良し。</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-text">
+            <strong>社長から直接ご連絡</strong>
+            <span>24時間以内に社長またはスタッフからご連絡。気になることを何でも聞いてください。</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-text">
+            <strong>査定金額のご提示</strong>
+            <span>根拠のある金額をお伝えします。全国対応・出張査定もご相談可。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- フォームモック -->
+    <div class="appraisal-form-mock">
+      <div class="form-title">無料査定を申し込む</div>
+      <div class="form-sub">24時間以内に折り返しご連絡します</div>
+
+      <div class="form-field">
+        <label>お名前</label>
+        <div class="f-input" style="color:#333;">山田 太郎</div>
+      </div>
+      <div class="form-field">
+        <label>お電話番号</label>
+        <div class="f-input" style="color:#333;">090-XXXX-XXXX</div>
+      </div>
+      <div class="form-field">
+        <label>車種・メーカー</label>
+        <div class="f-input" style="color:#555;">例：Ford F-150 Raptor 2022</div>
+      </div>
+      <div class="form-field">
+        <label>走行距離</label>
+        <div class="f-input" style="color:#555;">例：35,000km</div>
+      </div>
+
+      <button class="form-submit">無料で査定を依頼する</button>
+      <div class="form-note">費用は一切かかりません。<br>しつこい営業電話はしません。</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo"><span class="gold">CY</span> GARAGE</div>
+      <div class="footer-tagline">感情を動かす車。こだわりのある人のための車屋。</div>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-nav-group">
+        <h4>Shop</h4>
+        <a href="#">在庫車両</a>
+        <a href="#">ラプター特集</a>
+        <a href="#">カスタム車</a>
+        <a href="#">ラッピング施工</a>
+      </div>
+      <div class="footer-nav-group">
+        <h4>Buy &amp; Sell</h4>
+        <a href="#">無料査定</a>
+        <a href="#">買取の流れ</a>
+        <a href="#">買取実績</a>
+        <a href="#">ローン案内</a>
+      </div>
+      <div class="footer-nav-group">
+        <h4>About</h4>
+        <a href="#">社長について</a>
+        <a href="#">まれしゃとは</a>
+        <a href="#">Instagram</a>
+        <a href="#">お問い合わせ</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 CY GARAGE まれしゃ. All rights reserved.</span>
+    <div class="footer-sns">
+      <a href="#">Instagram</a>
+      <a href="#">YouTube</a>
+      <a href="#">LINE</a>
+    </div>
+  </div>
+</footer>
+
+<div class="mock-note">SITE MOCKUP — Design Concept v2</div>
+
+</body>
+</html>

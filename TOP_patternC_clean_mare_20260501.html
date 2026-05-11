@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CY GARAGE — 稀車が集まる、次のオーナーへ。</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #111827;
+  --muted: #667085;
+  --line: #d9dee7;
+  --paper: #f5f7fa;
+  --white: #ffffff;
+  --navy: #0b1628;
+  --gold: #b78a35;
+  --orange: #f06f3c;
+  --green: #2f8f5b;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Noto Sans JP', sans-serif;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+a { color: inherit; }
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.header-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.logo img { height: 30px; filter: invert(1); display: block; }
+.nav {
+  display: none;
+  gap: 24px;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+.nav a { text-decoration: none; color: #475467; }
+.nav-cta {
+  background: var(--orange);
+  color: #fff !important;
+  padding: 10px 16px;
+}
+.hero {
+  background: var(--white);
+}
+.hero-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  gap: 28px;
+  padding: 30px 18px 42px;
+}
+.eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+h1 {
+  font-size: clamp(38px, 9vw, 72px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+.hero-lead {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 560px;
+  margin-bottom: 24px;
+}
+.hero-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+.btn {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 700;
+}
+.btn-primary { background: var(--orange); color: #fff; }
+.btn-sub { background: #111827; color: #fff; }
+.proof-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.proof-item {
+  background: #fff;
+  padding: 16px;
+}
+.proof-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px;
+  color: var(--gold);
+  font-weight: 800;
+  line-height: 1;
+}
+.proof-label { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.hero-media {
+  min-height: 540px;
+  position: relative;
+  background: url('top-hero.webp') center / cover no-repeat;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 18px;
+}
+.hero-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(11,22,40,0.72), transparent 55%);
+}
+.media-caption {
+  position: relative;
+  z-index: 2;
+  background: rgba(255,255,255,0.92);
+  padding: 16px;
+  border-left: 4px solid var(--orange);
+  width: 100%;
+}
+.media-caption strong { display: block; font-size: 15px; }
+.media-caption span { display: block; font-size: 12px; color: var(--muted); margin-top: 4px; }
+.hero-reel-stack {
+  position: absolute;
+  z-index: 2;
+  top: 18px;
+  left: 18px;
+  right: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.mini-reel {
+  background: #07101d;
+  border: 1px solid rgba(255,255,255,0.28);
+  box-shadow: 0 18px 34px rgba(11,22,40,0.34);
+  overflow: hidden;
+}
+.mini-reel video {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+.mini-reel-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 10px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+.mini-reel-caption span:first-child {
+  color: var(--gold);
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.16em;
+}
+.community {
+  background: var(--navy);
+  color: #fff;
+  overflow: hidden;
+}
+.community h2 { color: #fff; }
+.community .lead { color: #c7d0df; }
+.community-layout {
+  display: grid;
+  gap: 18px;
+}
+.community-video-grid,
+.community-voice-grid,
+.mare-grid {
+  display: grid;
+  gap: 12px;
+}
+.community-video {
+  background: #07101d;
+  border: 1px solid rgba(255,255,255,0.16);
+  overflow: hidden;
+}
+.community-video video {
+  width: 100%;
+  aspect-ratio: 9 / 14;
+  object-fit: cover;
+  display: block;
+}
+.community-video-body,
+.community-voice,
+.mare-card {
+  padding: 18px;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.18em;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.tag::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.community-video h3,
+.community-voice h3,
+.mare-card h3 {
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+.community-video p,
+.community-voice p,
+.mare-card p {
+  color: #c7d0df;
+  font-size: 13px;
+}
+.community-voice,
+.mare-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.community-voice strong {
+  display: block;
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+.mare-strip {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255,255,255,0.16);
+}
+.mare-grid {
+  grid-template-columns: 1fr;
+}
+.mare-card {
+  min-height: 150px;
+}
+.mare-card h3 {
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.stock-badge {
+  display: inline-flex;
+  background: rgba(183,138,53,0.12);
+  color: var(--gold);
+  border: 1px solid rgba(183,138,53,0.28);
+  padding: 4px 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  margin-bottom: 10px;
+}
+section {
+  padding: 58px 18px;
+}
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.section-head {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+h2 {
+  font-size: clamp(28px, 8vw, 54px);
+  line-height: 1.25;
+  color: var(--ink);
+}
+.lead {
+  color: var(--muted);
+  max-width: 620px;
+  font-size: 14px;
+}
+.trust-cards,
+.stock-grid,
+.team-grid,
+.voice-grid {
+  display: grid;
+  gap: 12px;
+}
+.trust-card,
+.team-card,
+.voice-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 22px;
+}
+.trust-card h3,
+.team-card h3,
+.voice-card h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+.trust-card p,
+.team-card p,
+.voice-card p {
+  color: var(--muted);
+  font-size: 13px;
+}
+.stock-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.stock-img {
+  aspect-ratio: 16 / 10;
+  background-size: cover;
+  background-position: center;
+}
+.stock-body { padding: 18px; }
+.stock-meta {
+  font-family: 'Barlow Condensed', sans-serif;
+  color: var(--gold);
+  letter-spacing: 0.16em;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.stock-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin-top: 4px;
+}
+.stock-story {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+.stock-link {
+  margin-top: 14px;
+  display: inline-flex;
+  color: var(--orange);
+  font-weight: 700;
+  text-decoration: none;
+}
+.band {
+  background: var(--navy);
+  color: #fff;
+}
+.band h2 { color: #fff; }
+.band .lead { color: #c7d0df; }
+.process {
+  display: grid;
+  gap: 1px;
+  background: rgba(255,255,255,0.16);
+  border: 1px solid rgba(255,255,255,0.16);
+  margin-top: 28px;
+}
+.process-item {
+  background: rgba(255,255,255,0.06);
+  padding: 22px;
+}
+.process-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  color: var(--gold);
+  font-size: 32px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.process-item strong { display: block; margin-bottom: 6px; }
+.process-item span { color: #c7d0df; font-size: 13px; }
+.appraisal {
+  background: #fff;
+  border: 1px solid var(--line);
+  display: grid;
+  gap: 1px;
+}
+.appraisal-copy,
+.form-box {
+  padding: 24px;
+}
+.form-grid {
+  display: grid;
+  gap: 12px;
+}
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+input, textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: #f8fafc;
+  padding: 13px 14px;
+  font-size: 16px;
+  font-family: inherit;
+}
+textarea { min-height: 120px; resize: vertical; }
+.submit {
+  border: 0;
+  background: var(--orange);
+  color: #fff;
+  min-height: 54px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+.footer {
+  padding: 36px 18px 90px;
+  background: #fff;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+.sticky {
+  position: fixed;
+  z-index: 40;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--line);
+}
+.sticky a {
+  min-height: 60px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  font-weight: 800;
+}
+.sticky a:first-child { background: var(--orange); color: #fff; }
+.sticky a:last-child { background: var(--ink); color: #fff; }
+@media (min-width: 800px) {
+  .nav { display: flex; }
+  .hero-grid {
+    grid-template-columns: 0.92fr 1.08fr;
+    align-items: stretch;
+    padding: 46px 24px 58px;
+  }
+  .hero-copy { padding-top: 44px; }
+  .hero-actions { grid-template-columns: 220px 220px; }
+  .proof-row { grid-template-columns: repeat(4, 1fr); }
+  .hero-reel-stack {
+    left: auto;
+    top: 24px;
+    right: 24px;
+    width: 340px;
+  }
+  .mini-reel video { height: 300px; }
+  .media-caption {
+    width: min(360px, 58%);
+    margin: 0 0 88px 6px;
+  }
+  section { padding: 82px 24px; }
+  .section-head {
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: end;
+  }
+  .trust-cards { grid-template-columns: repeat(4, 1fr); }
+  .community-layout {
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: start;
+  }
+  .community-video-grid { grid-template-columns: repeat(2, 1fr); }
+  .community-voice-grid { grid-template-columns: repeat(3, 1fr); }
+  .mare-grid { grid-template-columns: repeat(4, 1fr); }
+  .stock-grid { grid-template-columns: 1.2fr 1fr 1fr; }
+  .stock-card:first-child { grid-row: span 2; }
+  .team-grid, .voice-grid { grid-template-columns: repeat(3, 1fr); }
+  .process { grid-template-columns: repeat(4, 1fr); }
+  .appraisal { grid-template-columns: 0.9fr 1.1fr; }
+  .sticky {
+    left: auto;
+    right: 24px;
+    bottom: 24px;
+    width: 410px;
+    box-shadow: 0 16px 42px rgba(17,24,39,0.2);
+  }
+}
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="#"><img src="image/cygarage-logo.png" alt="CY GARAGE"></a>
+      <nav class="nav">
+        <a href="#stock">在庫</a>
+        <a href="#trust">選ばれる理由</a>
+        <a href="#community">コミュニティ</a>
+        <a href="#team">チーム</a>
+        <a href="#appraisal" class="nav-cta">無料査定</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">CY GARAGE / TOKYO RARE CARS</div>
+          <h1>稀車が、<br>集まる店。</h1>
+          <p class="hero-lead">希少輸入車、カスタム車、ストーリーのある一台を扱う中古車店です。写真と価格だけではなく、動画、整備履歴、前オーナーの乗り方まで見える取引を。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#stock">在庫を見る</a>
+            <a class="btn btn-sub" href="#appraisal">愛車を相談する</a>
+          </div>
+          <div class="proof-row">
+            <div class="proof-item"><div class="proof-num">100万</div><div class="proof-label">月間リーチ</div></div>
+            <div class="proof-item"><div class="proof-num">LINE</div><div class="proof-label">写真で相談可</div></div>
+            <div class="proof-item"><div class="proof-num">全国</div><div class="proof-label">出張査定相談</div></div>
+            <div class="proof-item"><div class="proof-num">RARE</div><div class="proof-label">稀車に強い発信力</div></div>
+          </div>
+        </div>
+        <div class="hero-media">
+          <div class="hero-reel-stack" aria-label="CY GARAGE reel videos">
+            <div class="mini-reel">
+              <video autoplay muted loop playsinline preload="metadata">
+                <source src="copy_49715AAC-CFF0-44EF-B3FD-331E8E9C445C.mp4" type="video/mp4">
+              </video>
+              <div class="mini-reel-caption"><span>BUY</span><span>査定相談</span></div>
+            </div>
+            <div class="mini-reel">
+              <video autoplay muted loop playsinline preload="metadata">
+                <source src="copy_F8A61A4C-A975-450F-B473-0D8CB8F93C4A.mp4" type="video/mp4">
+              </video>
+              <div class="mini-reel-caption"><span>STOCK</span><span>在庫紹介</span></div>
+            </div>
+          </div>
+          <div class="media-caption">
+            <strong>動画で伝わる音、サイズ感、空気感まで。</strong>
+            <span>まれしゃ好きが見たい部分を、来店前から確認できます。</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="trust">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">WHY CY GARAGE</div>
+            <h2>かっこいいだけでなく、<br>安心して任せられる店へ。</h2>
+          </div>
+          <p class="lead">査定、販売、ローン、ラッピングまでチームで対応します。高額車だからこそ、勢いと同じくらい透明性を大切にしています。</p>
+        </div>
+        <div class="trust-cards">
+          <div class="trust-card"><h3>整備履歴まで確認</h3><p>どこを直してきたか、どう乗られてきたかまで見ます。</p></div>
+          <div class="trust-card"><h3>写真・動画で相談</h3><p>車検証、走行距離、気になる箇所をLINEで送れます。</p></div>
+          <div class="trust-card"><h3>ローン・下取り対応</h3><p>購入前の不安を先に整理し、来店前に準備できます。</p></div>
+          <div class="trust-card"><h3>希少車に強い販売力</h3><p>まれしゃ好きに届く発信力があるから、価値をつなげます。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="community" id="community">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">RARE CAR COMMUNITY</div>
+            <h2>まれしゃ好きが、<br>自然と集まる場所。</h2>
+          </div>
+          <p class="lead">売る人、買う人、見に来る人。CY GARAGEは、希少車の情報と熱量が集まる場所です。チームで発信し、チームで車の価値を見て、次のオーナーへつなぎます。</p>
+        </div>
+        <div class="community-layout">
+          <div class="community-video-grid">
+            <article class="community-video">
+              <video autoplay muted loop playsinline preload="metadata">
+                <source src="copy_49715AAC-CFF0-44EF-B3FD-331E8E9C445C.mp4" type="video/mp4">
+              </video>
+              <div class="community-video-body">
+                <div class="tag">REEL</div>
+                <h3>査定前から、車の雰囲気が伝わる。</h3>
+                <p>写真だけでは伝わりにくい音、艶、サイズ感も動画で確認できます。</p>
+              </div>
+            </article>
+            <article class="community-video">
+              <video autoplay muted loop playsinline preload="metadata">
+                <source src="copy_F8A61A4C-A975-450F-B473-0D8CB8F93C4A.mp4" type="video/mp4">
+              </video>
+              <div class="community-video-body">
+                <div class="tag">STOCK</div>
+                <h3>在庫は、車種名だけで終わらせない。</h3>
+                <p>なぜこの車を仕入れたのか。どんな人に合うのかまで伝えます。</p>
+              </div>
+            </article>
+          </div>
+          <div>
+            <div class="community-voice-grid">
+              <div class="community-voice"><strong>「この車の良さが通じる店だと思った。」</strong><p>希少車やカスタム車の価値を、相場だけで決めつけません。</p></div>
+              <div class="community-voice"><strong>「次の人にも、大事に乗ってほしい。」</strong><p>前オーナーの想いを、販売ページにも自然に残します。</p></div>
+              <div class="community-voice"><strong>「見ているだけでも楽しい。」</strong><p>Instagramとサイトをつなげ、車好きが巡回したくなる場にします。</p></div>
+            </div>
+            <div class="mare-strip">
+              <div class="mare-grid">
+                <div class="mare-card"><div class="tag">Maserati</div><h3>GranTurismo</h3><p>距離、音、雰囲気まで見たい一台。</p></div>
+                <div class="mare-card"><div class="tag">Ford</div><h3>F-150</h3><p>街で被りにくい存在感。</p></div>
+                <div class="mare-card"><div class="tag">Lincoln</div><h3>Navigator</h3><p>大きさときれいさで選ばれる車。</p></div>
+                <div class="mare-card"><div class="tag">Custom</div><h3>Wrapped Cars</h3><p>ラッピングまで含めて価値を見ます。</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="stock">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">STOCK CARS</div>
+            <h2>この車が、<br>ここに並ぶ理由。</h2>
+          </div>
+          <p class="lead">価格と写真だけで終わらせず、乗られ方、整備記録、CY GARAGEの目利きまで添えて紹介します。</p>
+        </div>
+        <div class="stock-grid">
+          <article class="stock-card">
+            <div class="stock-img" style="background-image:url('image/12.jpeg')"></div>
+            <div class="stock-body">
+              <div class="stock-badge">RARE STOCK</div>
+              <div class="stock-meta">MASERATI / 2013 / 3.1万km</div>
+              <div class="stock-title">GranTurismo</div>
+              <p class="stock-story">この距離、この音、この雰囲気。前オーナーの乗り方まで知ってから選びたい一台。</p>
+              <a class="stock-link" href="STOCK_CAR_story_20260501.html">詳しく見る →</a>
+            </div>
+          </article>
+          <article class="stock-card">
+            <div class="stock-img" style="background-image:url('image/inv_01_escalade_2015.jpg')"></div>
+            <div class="stock-body">
+              <div class="stock-badge">COMMUNITY PICK</div>
+              <div class="stock-meta">LINCOLN / 2015</div>
+              <div class="stock-title">Navigator</div>
+              <p class="stock-story">存在感のあるサイズと、きれいに保たれた内外装。</p>
+            </div>
+          </article>
+          <article class="stock-card">
+            <div class="stock-img" style="background-image:url('image/inv_02_sequoia_2020.jpg')"></div>
+            <div class="stock-body">
+              <div class="stock-badge">MARESYA</div>
+              <div class="stock-meta">FORD / 2020</div>
+              <div class="stock-title">F-150</div>
+              <p class="stock-story">まれしゃ好きが反応する、街で被りにくい一台。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">SELL YOUR CAR</div>
+            <h2>高く買うだけでなく、<br>ドラマまで聞きたい。</h2>
+          </div>
+          <p class="lead">何年乗ったか。どこへ行ったか。なぜ距離が伸びたか。高速メインか、街乗り中心か。車の使われ方まで聞いて査定します。</p>
+        </div>
+        <div class="process">
+          <div class="process-item"><div class="process-num">01</div><strong>写真で相談</strong><span>車両写真、動画、車検証を送ってください。</span></div>
+          <div class="process-item"><div class="process-num">02</div><strong>背景を確認</strong><span>整備履歴、購入時価格、乗っていた年数を確認します。</span></div>
+          <div class="process-item"><div class="process-num">03</div><strong>査定金額の提示</strong><span>状態と販売力を踏まえて金額をお伝えします。</span></div>
+          <div class="process-item"><div class="process-num">04</div><strong>次の人へつなぐ</strong><span>許可をいただいた車は、ストーリーごと発信します。</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="team">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">CY GARAGE TEAM</div>
+            <h2>まれしゃを動かす、<br>CY GARAGEのチーム。</h2>
+          </div>
+          <p class="lead">仕入れ、査定、販売、ローン、ラッピング。それぞれの役割が連携し、一台ごとの価値を見て対応します。</p>
+        </div>
+        <div class="team-grid">
+          <div class="team-card"><h3>査定・仕入れ</h3><p>車の状態、相場、背景を見て、買い取るべき一台を判断します。</p></div>
+          <div class="team-card"><h3>販売・ローン</h3><p>購入相談、ローン事前審査、下取りまでスムーズに案内します。</p></div>
+          <div class="team-card"><h3>発信・コミュニティ</h3><p>Instagramとサイトを連動し、まれしゃ好きが集まる場所を育てています。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap appraisal" id="appraisal">
+        <div class="appraisal-copy">
+          <div class="eyebrow">FREE APPRAISAL</div>
+          <h2>あなたの車を、<br>まずは相談。</h2>
+          <p class="lead">希少車、カスタム車、普通の車からの乗り換えも歓迎です。大手に出す前に、一度CY GARAGEに聞いてみてください。</p>
+        </div>
+        <form class="form-box" onsubmit="event.preventDefault();">
+          <div class="form-grid">
+            <div><label>お名前</label><input type="text" placeholder="山田 太郎"></div>
+            <div><label>電話番号</label><input type="tel" placeholder="090-0000-0000"></div>
+            <div><label>車種・年式</label><input type="text" placeholder="例：MINI ペースマン JCW 2015"></div>
+            <div><label>走行距離・整備履歴</label><input type="text" placeholder="例：6.2万km / 記録簿あり"></div>
+            <div><label>車とのストーリー</label><textarea placeholder="何年乗ったか。どんな使い方だったか。次の人に伝えたいこと。"></textarea></div>
+            <button class="submit" type="submit">無料査定を依頼する</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">CY GARAGE / 東京都江東区南砂 / @cy_garage_official</div>
+  </footer>
+
+  <div class="sticky">
+    <a href="#appraisal">無料査定</a>
+    <a href="#stock">在庫を見る</a>
+  </div>
+</body>
+</html>

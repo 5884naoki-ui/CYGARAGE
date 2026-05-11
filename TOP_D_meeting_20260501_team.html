@@ -1,0 +1,2261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CY GARAGE — 稀車好き、ここに来い。</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --gold: #e8b84e;
+  --gold-light: #ffd074;
+  --gold-dark: #b08930;
+  --green: #4eca7a;
+  --green-dark: #3ba562;
+  --red: #ff6b6b;
+  --black: #060c1a;
+  --dark: #0a1324;
+  --panel: #0e1a30;
+  --panel-2: #13213c;
+  --line: #162541;
+  --navy-accent: #1e3a70;
+  --text: #f0f4ff;
+  --text-2: #b8c2d6;
+  --text-3: #7a8299;
+  --text-4: #4a5472;
+}
+html { scroll-behavior: smooth; }
+section, .sec-sold { scroll-margin-top: 92px; }
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  overflow-x: hidden;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* SHARED */
+section { padding: 100px 64px; position: relative; }
+.wrap { max-width: 1240px; margin: 0 auto; }
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 600;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+.eyebrow::before { content:''; width:24px; height:1px; background:var(--gold); }
+
+h2.sec-h2 {
+  font-size: clamp(32px, 4.5vw, 52px);
+  font-weight: 700;
+  line-height: 1.3;
+  color: #fff;
+  margin-bottom: 24px;
+  letter-spacing: 0.01em;
+}
+.lead {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--text-2);
+  line-height: 2;
+  max-width: 540px;
+}
+.mobile-priority-note {
+  display: none;
+}
+.link-arrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.2em;
+  color: var(--gold); text-decoration: none; text-transform: uppercase;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(200,169,110,0.3);
+  transition: gap 0.3s, border-color 0.3s;
+}
+.link-arrow:hover { gap: 16px; border-color: var(--gold); }
+.btn-primary {
+  background: var(--gold); color: #000;
+  padding: 18px 40px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; border: none; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+.btn-outline {
+  background: transparent; color: #fff;
+  padding: 18px 40px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.3);
+  cursor: pointer; text-decoration: none; display: inline-block;
+  transition: border-color 0.3s, color 0.3s, transform 0.2s;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+/* ===== HEADER ===== */
+header {
+  position: fixed; top:0; left:0; right:0; z-index: 100;
+  padding: 22px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: linear-gradient(to bottom, rgba(8,8,8,0.8), transparent);
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s, border-color 0.4s, padding 0.3s;
+}
+header.scrolled {
+  background: rgba(8,8,8,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom-color: rgba(200,169,110,0.15);
+  padding: 14px 48px;
+}
+.logo {
+  display: inline-flex; align-items: center;
+  text-decoration: none;
+}
+.logo img {
+  height: 36px;
+  width: auto;
+  display: block;
+  transition: opacity 0.3s;
+}
+.logo img:hover { opacity: 0.8; }
+/* テキストフォールバック（画像未取得時） */
+.logo span { color: var(--gold); }
+nav.main-nav { display:flex; gap:28px; align-items:center; }
+nav.main-nav a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.2em;
+  color: var(--text-3); text-decoration: none;
+  text-transform: uppercase; transition: color 0.3s;
+}
+nav.main-nav a:hover { color: var(--gold); }
+.nav-cta {
+  background: var(--gold); color: #000 !important;
+  padding: 11px 22px; font-weight: 700;
+  letter-spacing: 0.2em !important;
+}
+.nav-cta:hover { background: var(--gold-light); }
+
+/* ===== HERO — photo-grid + left headline + right floating reels ===== */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex; align-items: center;
+  padding: 140px 64px 80px;
+  overflow: hidden;
+}
+/* Photo collage — scattered, overlapping, tilted */
+.hero-collage {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(30,58,112,0.5), transparent 60%),
+    radial-gradient(ellipse 70% 80% at 80% 70%, rgba(232,184,78,0.08), transparent 60%),
+    linear-gradient(135deg, #060c1a 0%, #0c1830 50%, #060c1a 100%);
+}
+.collage-tile {
+  position: absolute;
+  background: linear-gradient(135deg, #13213c, #060c1a);
+  border: 1px solid rgba(232,184,78,0.15);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.6);
+  display: flex; align-items: flex-end; justify-content: flex-start;
+  padding: 10px 14px;
+  overflow: hidden;
+  transition: transform 0.5s, border-color 0.5s;
+}
+.collage-tile::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 40% 50%, rgba(232,184,78,0.12), transparent 60%),
+    linear-gradient(135deg, rgba(30,58,112,0.4), transparent 70%),
+    repeating-linear-gradient(45deg, transparent 0 40px, rgba(255,255,255,0.015) 40px 41px);
+}
+.collage-tile::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(6,12,26,0.85), transparent 50%);
+}
+.collage-tile:hover { transform: scale(1.04) rotate(0deg) !important; border-color: rgba(232,184,78,0.5); z-index:50; }
+.collage-label {
+  position: relative; z-index: 2;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 0.2em; color: rgba(232,184,78,0.7);
+  text-transform: uppercase; font-weight: 600;
+}
+.collage-badge {
+  position: absolute; top: 10px; right: 10px; z-index: 2;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; letter-spacing: 0.2em; color: var(--gold);
+  padding: 3px 8px; background: rgba(6,12,26,0.8);
+  border: 1px solid rgba(232,184,78,0.4);
+  text-transform: uppercase; font-weight: 700;
+}
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(to right,
+      rgba(6,12,26,0.96) 0%,
+      rgba(6,12,26,0.85) 30%,
+      rgba(6,12,26,0.55) 60%,
+      rgba(6,12,26,0.35) 100%),
+    linear-gradient(to top, rgba(6,12,26,0.6), transparent 40%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 80px;
+  align-items: center;
+}
+.hero-left {}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 12px; margin-bottom: 28px;
+}
+.hero-eyebrow .line { width: 32px; height: 2px; background: var(--gold); }
+.hero-eyebrow span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.3em;
+  color: var(--gold); text-transform: uppercase;
+}
+.hero h1 {
+  font-size: clamp(52px, 7vw, 92px);
+  font-weight: 700; line-height: 1.1;
+  color: #fff; margin-bottom: 32px;
+  letter-spacing: 0.01em;
+}
+.hero-sub {
+  font-size: 16px; font-weight: 300; line-height: 2;
+  color: var(--text-2); margin-bottom: 44px;
+  border-left: 2px solid var(--gold);
+  padding-left: 20px;
+  max-width: 460px;
+}
+.hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* Right side: 2 reel cards + voice mini cards */
+.hero-right { display: flex; flex-direction: column; gap: 20px; }
+.hero-reels { display: flex; gap: 14px; justify-content: center; }
+.reel-card {
+  background: #0a0a0a;
+  border: 1px solid rgba(200,169,110,0.25);
+  width: 222px; flex-shrink: 0;
+  box-shadow: 0 24px 56px rgba(0,0,0,0.7);
+  transition: transform 0.4s;
+}
+.reel-card.c1 { transform: rotate(-2deg) translateY(-10px); }
+.reel-card.c2 { transform: rotate(2deg) translateY(10px); }
+.reel-card:hover { transform: rotate(0) translateY(-4px) scale(1.03); }
+.reel-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #161616;
+}
+.reel-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+.reel-handle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 0.1em; color: var(--text-3);
+}
+.reel-video {
+  position: relative;
+  aspect-ratio: 9/16;
+  background: linear-gradient(135deg, #1a1a1a, #080808);
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.reel-video::after {
+  content: '▶';
+  font-size: 32px; color: rgba(255,255,255,0.15);
+}
+.reel-video-label {
+  position: absolute; bottom: 10px; left: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; letter-spacing: 0.15em; color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+}
+.reel-footer {
+  padding: 9px 12px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: #0a0a0a; border-top: 1px solid #161616;
+}
+.reel-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+.reel-tag::before { content:'●'; font-size: 7px; }
+.reel-tag.sell { background: rgba(232,184,78,0.18); color: var(--gold); border: 1px solid rgba(232,184,78,0.4); }
+.reel-tag.buy  { background: rgba(78,202,122,0.15); color: var(--green); border: 1px solid rgba(78,202,122,0.35); }
+.reel-label {
+  font-size: 8px; color: #333;
+  font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em;
+}
+
+.hero-voices { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+.hv-item {
+  background: rgba(13,13,13,0.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid #1a1a1a;
+  border-left: 2px solid var(--gold);
+  padding: 13px 16px;
+  transition: border-color 0.3s, background 0.3s;
+}
+.hv-item.buy { border-left-color: var(--green); }
+.hv-item:hover { background: rgba(20,20,20,0.85); }
+.hv-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 9px; margin-bottom: 8px;
+  border-radius: 2px;
+}
+.hv-tag.sell { background: rgba(232,184,78,0.18); color: var(--gold); border: 1px solid rgba(232,184,78,0.4); }
+.hv-tag.buy  { background: rgba(78,202,122,0.15); color: var(--green); border: 1px solid rgba(78,202,122,0.35); }
+.hv-text { font-size: 12px; color: #ccc; line-height: 1.7; margin-bottom: 4px; }
+.hv-meta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 0.1em; color: #444;
+}
+
+/* Scroll indicator */
+.hero-scroll {
+  position: absolute; bottom: 28px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; letter-spacing: 0.3em; color: #555;
+  text-transform: uppercase;
+}
+.hero-scroll-line {
+  width: 1px; height: 36px; background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollAnim 2s ease-in-out infinite;
+}
+@keyframes scrollAnim {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ===== TRUST STRIP ===== */
+.trust-strip {
+  background: #050b16;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 22px 64px;
+}
+.trust-grid {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+}
+.trust-item {
+  background: #071020;
+  padding: 22px 24px;
+}
+.trust-kicker {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.trust-main {
+  font-size: 14px;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.7;
+}
+.trust-sub {
+  font-size: 11px;
+  color: var(--text-3);
+  line-height: 1.8;
+  margin-top: 6px;
+}
+
+/* ===== SOLD MARQUEE (dual row with photo cards) ===== */
+.sec-sold {
+  padding: 64px 0 72px;
+  background: var(--black);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.sold-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.4em; color: #3a3a3a;
+  text-transform: uppercase; text-align: center;
+  margin-bottom: 28px;
+}
+.marquee-row { overflow: hidden; margin-bottom: 6px; }
+.marquee-track {
+  display: flex; gap: 6px;
+  width: max-content; will-change: transform;
+}
+.marquee-row--left  .marquee-track { animation: mq-left 60s linear infinite; }
+.marquee-row--right .marquee-track { animation: mq-right 70s linear infinite; }
+@keyframes mq-left  { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes mq-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+.marquee-row:hover .marquee-track { animation-play-state: paused; }
+
+.sold-card {
+  position: relative; width: 300px; height: 200px;
+  flex-shrink: 0; overflow: hidden;
+  background: linear-gradient(135deg, #1c1c1c, #0a0a0a);
+}
+.sold-card-ph {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 36px; letter-spacing: 0.15em; color: rgba(200,169,110,0.08);
+  font-weight: 800;
+}
+.sold-card-ph::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(200,169,110,0.06), transparent 70%);
+}
+.sold-card-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 14px 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+}
+.sold-car-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px; color: #fff; letter-spacing: 0.08em;
+}
+.sold-badge {
+  position: absolute; top: 10px; right: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+  padding: 5px 11px; text-transform: uppercase;
+  display: flex; align-items: center; gap: 5px;
+}
+.sold-badge::before { content:''; width:5px; height:5px; border-radius:50%; }
+.sold-badge.sell {
+  background: rgba(200,169,110,0.15);
+  border: 1px solid rgba(200,169,110,0.5);
+  color: var(--gold);
+}
+.sold-badge.sell::before { background: var(--gold); }
+.sold-badge.buy {
+  background: rgba(78,202,122,0.12);
+  border: 1px solid rgba(78,202,122,0.4);
+  color: var(--green);
+}
+.sold-badge.buy::before { background: var(--green); }
+
+/* ===== OWNER'S VOICE ===== */
+.sec-voice { background: var(--dark); border-top: 1px solid var(--line); }
+.voice-head { margin-bottom: 64px; }
+.voice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 80px;
+}
+.voice-card {
+  background: #0d0d0d;
+  padding: 0;
+  border-top: 2px solid transparent;
+  transition: border-color 0.4s, background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.voice-card:hover { border-top-color: var(--gold); background: #111; }
+.voice-card.buy:hover { border-top-color: var(--green); }
+.voice-photo {
+  width: 100%;
+  height: 220px;
+  background-size: cover;
+  background-position: center top;
+  position: relative;
+  display: block;
+}
+.voice-photo::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, #0d0d0d);
+}
+.voice-card:hover .voice-photo::after { background: linear-gradient(to bottom, transparent, #111); }
+.voice-card-body {
+  padding: 28px 36px 44px;
+}
+.voice-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; letter-spacing: 0.25em; font-weight: 700;
+  padding: 5px 14px; margin-bottom: 20px;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+.voice-tag::before { content:'●'; font-size: 7px; }
+.voice-tag.sold { background: rgba(232,184,78,0.18); color: var(--gold); border: 1px solid rgba(232,184,78,0.4); }
+.voice-tag.purchased { background: rgba(78,202,122,0.15); color: var(--green); border: 1px solid rgba(78,202,122,0.35); }
+.voice-q-mark {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px; color: rgba(255,255,255,0.05);
+  line-height: 0.8; margin-bottom: 12px;
+}
+.voice-main {
+  font-size: 18px; font-weight: 700; line-height: 1.6;
+  color: #fff; margin-bottom: 20px;
+}
+.voice-body {
+  font-size: 13px; color: var(--text-3); line-height: 2;
+  margin-bottom: 28px;
+}
+.voice-meta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; color: #555; letter-spacing: 0.15em;
+  border-top: 1px solid #1a1a1a; padding-top: 16px;
+  line-height: 1.8;
+}
+
+/* Dialog video strip */
+.danwa {
+  border-top: 1px solid var(--line);
+  padding-top: 64px;
+}
+.danwa-head { margin-bottom: 40px; }
+.danwa-head h3 {
+  font-size: clamp(22px, 3.2vw, 32px); font-weight: 700; color: #fff;
+  line-height: 1.5; margin-bottom: 14px;
+}
+.danwa-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.danwa-item {
+  aspect-ratio: 9/14;
+  background: linear-gradient(135deg, #141414, #080808);
+  border: 1px solid var(--line);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.3s, transform 0.3s;
+  position: relative;
+}
+.danwa-item:hover { border-color: var(--gold); transform: translateY(-4px); }
+.danwa-play {
+  width: 52px; height: 52px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: rgba(255,255,255,0.6);
+  transition: border-color 0.3s, background 0.3s;
+  margin-bottom: 16px;
+}
+.danwa-item:hover .danwa-play { border-color: var(--gold); background: rgba(200,169,110,0.1); color: var(--gold); }
+.danwa-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 0.25em; color: #333;
+  text-transform: uppercase;
+}
+
+/* ===== INSTAGRAM ===== */
+.sec-ig { background: var(--black); }
+.ig-head { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 48px; }
+.ig-stat-big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 8vw, 96px); color: var(--gold);
+  line-height: 0.95; letter-spacing: 0.02em;
+}
+.ig-stat-sub {
+  font-size: 14px; color: var(--text-2); line-height: 1.9;
+  margin-top: 12px;
+}
+.ig-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 280px 280px;
+  gap: 4px;
+}
+.ig-item {
+  background: linear-gradient(135deg, #141414, #080808);
+  border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+  position: relative;
+}
+.ig-item:hover { border-color: var(--gold); transform: scale(1.01); }
+.ig-item.tall { grid-row: 1 / 3; }
+.ig-item::after {
+  content: '▶';
+  font-size: 28px; color: rgba(255,255,255,0.15);
+}
+.ig-item.tall::after { font-size: 48px; }
+.ig-item-label {
+  position: absolute; bottom: 12px; left: 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; letter-spacing: 0.25em; color: #333;
+  text-transform: uppercase;
+}
+.ig-follow-row {
+  margin-top: 36px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 24px; border-top: 1px solid var(--line);
+}
+.ig-handle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; font-weight: 600; letter-spacing: 0.1em; color: #fff;
+}
+
+/* ===== TEAM ===== */
+.sec-boss { background: var(--dark); padding: 0; border-top: 1px solid var(--line); }
+.boss-inner { display: grid; grid-template-columns: 1fr 1fr; }
+.boss-photo {
+  position: relative;
+  min-height: 620px;
+  background: linear-gradient(160deg, #151515, #080808);
+  overflow: hidden;
+}
+.boss-photo::before {
+  content: 'CY TEAM';
+  position: absolute; top: 32px; left: 32px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 96px; color: rgba(255,255,255,0.03);
+  letter-spacing: 0.08em; line-height: 1;
+}
+.boss-ph {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.3em; color: rgba(255,255,255,0.15);
+  text-transform: uppercase;
+}
+.boss-photo::after {
+  content:'';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(13,13,13,0.6), transparent 60%);
+}
+.boss-content {
+  padding: 100px 64px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.boss-body {
+  font-size: 17px; font-weight: 300; line-height: 2.3;
+  color: var(--text-2); margin-bottom: 36px;
+}
+
+/* ===== MARESYA (what is 稀車) ===== */
+.sec-maresya { background: var(--black); border-top: 1px solid var(--line); overflow: hidden; }
+.maresya-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.maresya-quote {
+  font-size: clamp(44px, 6vw, 80px); font-weight: 700;
+  line-height: 1.15; color: #fff; letter-spacing: 0.02em;
+}
+.maresya-quote .gold { color: var(--gold); }
+
+/* ===== WHY ===== */
+.sec-why { background: var(--dark); border-top: 1px solid var(--line); }
+.why-tagline {
+  font-size: 15px; color: var(--text-2); line-height: 1.9;
+  padding-left: 24px; border-left: 3px solid var(--gold);
+  max-width: 520px; margin-bottom: 56px;
+  font-weight: 500;
+}
+.why-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.why-card {
+  background: #0d0d0d; padding: 48px 40px;
+  border-top: 2px solid transparent;
+  transition: border-color 0.4s, background 0.3s;
+}
+.why-card:hover { border-top-color: var(--gold); background: #111; }
+.why-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px; color: rgba(200,169,110,0.15);
+  line-height: 1; margin-bottom: 20px; letter-spacing: 0.05em;
+}
+.why-card h3 {
+  font-size: 17px; font-weight: 700; color: #fff;
+  line-height: 1.7; margin-bottom: 16px;
+}
+.why-card h3 .gold { color: var(--gold); }
+.why-card p { font-size: 13px; color: var(--text-3); line-height: 2; }
+
+/* ===== STOCK DETAIL BLUEPRINT ===== */
+.sec-stock-blueprint {
+  background: var(--black);
+  border-top: 1px solid var(--line);
+}
+.stock-blueprint-head {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 72px;
+  align-items: end;
+  margin-bottom: 48px;
+}
+.stock-blueprint-panel {
+  background: #0a1324;
+  border: 1px solid var(--line);
+  padding: 34px;
+}
+.stock-blueprint-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.stock-blueprint-item {
+  background: #0d0d0d;
+  padding: 30px 28px;
+  min-height: 180px;
+  border-top: 2px solid transparent;
+}
+.stock-blueprint-item:hover { border-top-color: var(--gold); }
+.stock-blueprint-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  color: rgba(232,184,78,0.18);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+.stock-blueprint-item h3 {
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.stock-blueprint-item p {
+  font-size: 12px;
+  color: var(--text-3);
+  line-height: 1.9;
+}
+
+/* ===== INVENTORY ===== */
+.sec-inv { background: var(--black); border-top: 1px solid var(--line); }
+.inv-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 48px; flex-wrap: wrap; gap: 20px;
+}
+.inv-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-rows: 280px 280px;
+  gap: 4px;
+}
+.car-card {
+  position: relative; overflow: hidden; cursor: pointer;
+  background: linear-gradient(135deg, #141414, #080808);
+  transition: transform 0.3s;
+}
+.car-card.main { grid-column: 1; grid-row: 1 / 3; }
+.car-card:hover { transform: translateY(-3px); }
+.car-card-ph {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 0.25em; color: rgba(200,169,110,0.1);
+  text-transform: uppercase;
+}
+.car-info {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 28px;
+  background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+}
+.car-card.main .car-info { padding: 32px 36px; }
+.car-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.3em; color: var(--gold);
+  text-transform: uppercase; margin-bottom: 4px;
+}
+.car-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px; color: #fff; letter-spacing: 0.05em;
+  line-height: 1.1; margin-bottom: 6px;
+}
+.car-card.main .car-name { font-size: 42px; }
+.car-spec {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; color: var(--text-3); letter-spacing: 0.1em;
+}
+.car-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; color: var(--gold-light); letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+.car-card.main .car-price { font-size: 30px; }
+.car-story {
+  font-size: 12px; color: var(--text-2); line-height: 1.9;
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  display: none;
+}
+.car-card.main .car-story { display: block; }
+.badge-new {
+  position: absolute; top: 14px; left: 14px;
+  background: var(--gold); color: #000;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+  padding: 5px 10px; text-transform: uppercase; z-index: 2;
+}
+
+/* ===== BUYBACK COMPARE ===== */
+.sec-buyback { background: var(--dark); border-top: 1px solid var(--line); }
+.buyback-head { text-align: center; margin-bottom: 56px; }
+.buyback-head .sec-h2 em { font-style: normal; color: var(--gold); }
+.buyback-grid {
+  display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0;
+  max-width: 1100px; margin: 0 auto;
+}
+.bb-col { padding: 44px 40px; }
+.bb-col.bad  { background: #140a0a; border: 1px solid #2a1212; }
+.bb-col.good { background: #0a140d; border: 1px solid #123020; }
+.bb-col-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase;
+  margin-bottom: 14px; font-weight: 600;
+}
+.bad .bb-col-label  { color: #6a2828; }
+.good .bb-col-label { color: #2a7040; }
+.bb-col h3 {
+  font-size: 20px; font-weight: 700; line-height: 1.5;
+  margin-bottom: 32px;
+}
+.bad h3  { color: var(--red); }
+.good h3 { color: var(--green); }
+.bb-item {
+  display: flex; gap: 14px; margin-bottom: 22px; align-items: flex-start;
+}
+.bb-icon {
+  width: 24px; min-width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; margin-top: 2px;
+}
+.bad .bb-icon  { background: rgba(214,90,78,0.15); color: var(--red); }
+.good .bb-icon { background: rgba(78,202,122,0.15); color: var(--green); }
+.bb-text { font-size: 13px; color: var(--text-3); line-height: 1.8; }
+.bb-text strong { color: #ddd; display: block; font-size: 14px; margin-bottom: 4px; }
+.bb-divider {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative;
+}
+.vs-circle {
+  width: 52px; height: 52px; border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px; color: var(--gold); letter-spacing: 0.08em;
+  background: var(--black);
+}
+
+/* ===== WRAPPING ===== */
+.sec-wrap { background: var(--black); border-top: 1px solid var(--line); }
+.wrap-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.wrap-visual {
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #1a0a00 0%, #141414 60%);
+  border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 0.3em; color: rgba(200,169,110,0.2);
+  text-transform: uppercase;
+  position: relative;
+}
+.wrap-visual::before {
+  content: '';
+  position: absolute; inset: 20px;
+  border: 1px solid rgba(200,169,110,0.08);
+}
+.wrap-swatches { display: flex; gap: 10px; margin-top: 36px; flex-wrap: wrap; }
+.swatch {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.1);
+  transition: transform 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.swatch:hover { transform: scale(1.1); border-color: var(--gold); }
+
+/* ===== APPRAISAL FORM ===== */
+.sec-form { background: var(--dark); border-top: 1px solid var(--line); }
+.form-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.form-text h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 6vw, 60px); color: #fff;
+  letter-spacing: 0.05em; line-height: 1.1; margin-bottom: 20px;
+}
+.form-text h2 .gold { color: var(--gold); }
+.form-text > p {
+  font-size: 15px; color: var(--text-2); line-height: 2.1; margin-bottom: 40px;
+}
+.form-steps { display: flex; flex-direction: column; }
+.step-item {
+  display: flex; gap: 24px; padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+}
+.step-item:first-child { padding-top: 0; }
+.step-num-c {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px; color: var(--gold);
+  min-width: 44px; line-height: 1; margin-top: 2px;
+  letter-spacing: 0.05em;
+}
+.step-text strong {
+  display: block; font-size: 15px; font-weight: 700;
+  color: #fff; margin-bottom: 6px;
+}
+.step-text span {
+  font-size: 13px; color: var(--text-3); line-height: 1.9;
+}
+.appraisal-form {
+  background: var(--panel); border: 1px solid var(--line);
+  padding: 48px 44px; position: relative;
+}
+.appraisal-form::before {
+  content:''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(to right, var(--gold), transparent);
+}
+.form-title { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.form-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; color: #555; letter-spacing: 0.2em;
+  margin-bottom: 32px; text-transform: uppercase;
+}
+.form-field { margin-bottom: 18px; }
+.form-field label {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 0.3em; color: #666;
+  text-transform: uppercase; margin-bottom: 8px; font-weight: 600;
+}
+.f-input, .f-textarea {
+  width: 100%; background: #0a0a0a; border: 1px solid #222;
+  padding: 14px 16px; font-size: 14px; color: #fff;
+  font-family: 'Noto Sans JP', sans-serif; outline: none;
+  transition: border-color 0.3s;
+  border-radius: 0;
+}
+.f-input:focus, .f-textarea:focus { border-color: var(--gold); }
+.f-input::placeholder, .f-textarea::placeholder { color: #333; }
+.f-textarea { resize: vertical; min-height: 120px; line-height: 1.7; }
+.form-story-note {
+  font-size: 11px; color: #444; margin-top: 8px; line-height: 1.6;
+}
+.form-submit {
+  width: 100%; background: var(--gold); color: #000; border: none;
+  padding: 20px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase; cursor: pointer; margin-top: 8px;
+  transition: background 0.3s, transform 0.2s;
+}
+.form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+.form-foot {
+  font-size: 11px; color: #444; text-align: center;
+  margin-top: 16px; line-height: 1.8;
+}
+
+/* ===== LAST CTA ===== */
+.sec-cta {
+  background: var(--black);
+  border-top: 1px solid var(--line);
+  text-align: center;
+  padding: 140px 64px;
+  position: relative; overflow: hidden;
+}
+.sec-cta::before {
+  content:''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(200,169,110,0.08), transparent 70%);
+}
+.sec-cta > * { position: relative; z-index: 1; }
+.sec-cta h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 8vw, 88px);
+  letter-spacing: 0.05em;
+  color: #fff; margin-bottom: 24px; line-height: 1.05;
+}
+.sec-cta .lead { margin: 0 auto 48px; text-align: center; max-width: 420px; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: #050505;
+  border-top: 1px solid var(--line);
+  padding: 56px 64px;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center;
+  gap: 32px;
+}
+.f-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: 0.25em; color: #fff;
+}
+.f-logo span { color: var(--gold); }
+.f-center { text-align: center; font-size: 12px; color: #444; line-height: 2; }
+.f-right { text-align: right; }
+.f-ig {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.15em; color: var(--text-3);
+  text-decoration: none; transition: color 0.3s;
+}
+.f-ig:hover { color: var(--gold); }
+.f-copy {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; color: #333; letter-spacing: 0.2em; margin-top: 8px;
+  text-transform: uppercase;
+}
+
+/* ===== TWEAKS ===== */
+#tweaks-panel {
+  display: none; position: fixed;
+  bottom: 24px; right: 24px; z-index: 9999;
+  background: var(--panel);
+  border: 1px solid rgba(200,169,110,0.3);
+  padding: 26px 22px; width: 280px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.7);
+}
+#tweaks-panel.open { display: block; }
+.tp-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px; letter-spacing: 0.2em; color: var(--gold);
+  text-transform: uppercase; margin-bottom: 20px;
+}
+.tp-row { margin-bottom: 16px; }
+.tp-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.25em; color: #666;
+  text-transform: uppercase; display: block; margin-bottom: 10px;
+}
+.tp-options { display: flex; gap: 6px; flex-wrap: wrap; }
+.tp-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+  padding: 8px 12px; border: 1px solid #222; background: transparent;
+  color: var(--text-3); cursor: pointer; text-transform: uppercase;
+  transition: all 0.2s;
+}
+.tp-btn:hover, .tp-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(200,169,110,0.08); }
+
+@media(max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; gap: 40px; }
+  .hero-right { max-width: 420px; }
+  .inv-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 240px 240px 240px; }
+  .car-card.main { grid-column: 1 / 3; grid-row: 1; }
+}
+
+/* ========================================
+   MOBILE (≤ 768px)
+   ======================================== */
+@media(max-width: 768px) {
+  /* Global */
+  html { font-size: 14px; }
+  .wrap { padding: 0 20px !important; }
+  section { padding: 60px 0 !important; }
+  .sec-h2 { font-size: 32px !important; line-height: 1.25 !important; }
+  .eyebrow { font-size: 10px !important; }
+  .lead { font-size: 15px !important; }
+
+  /* HEADER */
+  #main-header {
+    padding: 14px 20px !important;
+    flex-wrap: wrap;
+  }
+  .logo img { height: 28px !important; }
+  .main-nav { display: none !important; }
+  .main-nav.mobile-open {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed;
+    top: 58px; left: 0; right: 0;
+    background: #060c1a;
+    border-top: 1px solid rgba(200,169,110,0.15);
+    padding: 20px;
+    gap: 18px;
+    z-index: 1000;
+  }
+  .main-nav.mobile-open a {
+    font-size: 16px !important;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .mobile-menu-btn {
+    display: flex !important;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: 1px solid rgba(200,169,110,0.3);
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .mobile-menu-btn span {
+    width: 22px; height: 2px; background: var(--gold);
+    transition: all 0.25s;
+  }
+  .mobile-menu-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .mobile-menu-btn.open span:nth-child(2) { opacity: 0; }
+  .mobile-menu-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* HERO */
+  .hero { min-height: auto !important; padding: 90px 0 60px !important; }
+  .hero-content { grid-template-columns: 1fr !important; gap: 32px !important; padding: 0 20px !important; }
+  .hero h1 { font-size: 44px !important; line-height: 1.1 !important; }
+  .hero-sub { font-size: 15px !important; }
+  .hero-btns { flex-wrap: wrap; gap: 10px !important; }
+  .hero-btns a { flex: 1; min-width: 140px; text-align: center; font-size: 13px !important; padding: 14px 18px !important; }
+  .hero-tagline { font-size: 11px !important; }
+
+  /* Hero collage — smaller and fewer tiles visible */
+  .hero-collage { height: 380px !important; }
+  .collage-tile { font-size: 10px !important; }
+  .collage-label { font-size: 11px !important; }
+  .collage-badge { font-size: 9px !important; padding: 3px 6px !important; }
+
+  /* Hero reels */
+  .hero-right { max-width: none !important; }
+  .hero-reels {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+  .reel-card {
+    width: auto !important;
+    min-height: 0;
+    transform: none !important;
+  }
+  .reel-handle { font-size: 10px !important; }
+
+  .hero-voices { display: grid !important; grid-template-columns: 1fr !important; gap: 10px !important; }
+
+  .trust-strip { padding: 0 !important; }
+  .trust-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1px;
+  }
+  .trust-item { padding: 18px 16px !important; }
+  .trust-main { font-size: 13px !important; }
+  .trust-sub { display: none; }
+
+  /* INVENTORY */
+  .inv-grid {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+    gap: 14px !important;
+  }
+  .car-card { grid-column: auto !important; grid-row: auto !important; min-height: 220px; }
+  .car-card.main { grid-column: auto !important; grid-row: auto !important; min-height: 280px; }
+  .inv-head { flex-direction: column; align-items: flex-start !important; gap: 16px; }
+  .inv-filters { flex-wrap: wrap; gap: 8px !important; }
+  .inv-filters button { font-size: 11px !important; padding: 8px 12px !important; }
+
+  /* STATS / NUMBERS */
+  .stats-grid, .numbers-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+  }
+  .stat-num, .number-big { font-size: 48px !important; }
+
+  /* WHY CY / FEATURES */
+  .why-grid, .features-grid, .three-col, .four-col {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* VOICE / TESTIMONIALS */
+  .voice-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
+  .voice-photo { height: 180px !important; }
+  .voice-card-body { padding: 20px 24px 32px !important; }
+  .voice-quote { font-size: 16px !important; }
+
+  /* MARQUEE */
+  .sold-card { min-width: 220px !important; }
+  .sold-card-ph { height: 120px !important; font-size: 28px !important; }
+
+  /* PROCESS / STEPS */
+  .process-grid, .steps-grid { grid-template-columns: 1fr !important; }
+  .step-item { gap: 16px !important; }
+  .step-num-c { width: 48px !important; height: 48px !important; font-size: 16px !important; }
+
+  /* WRAPPING */
+  .wrap-inner { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .wrap-visual { min-height: 240px; }
+  .wrap-swatches { flex-wrap: wrap; gap: 10px !important; }
+  .swatch { width: 44px !important; height: 44px !important; }
+
+  /* FORM */
+  .form-inner { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .form-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
+  input, select, textarea { font-size: 16px !important; } /* prevent iOS zoom */
+
+  .stock-blueprint-head {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .stock-blueprint-panel { padding: 24px 20px !important; }
+  .stock-blueprint-list { grid-template-columns: 1fr !important; gap: 12px !important; }
+  .stock-blueprint-item { min-height: auto !important; padding: 24px 20px !important; }
+
+  /* FOOTER */
+  footer { padding: 50px 0 30px !important; }
+  .footer-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .footer-brand { font-size: 32px !important; }
+
+  /* TWEAKS panel */
+  #tweaks-panel {
+    right: 10px !important; left: 10px !important;
+    bottom: 10px !important; top: auto !important;
+    width: auto !important;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  /* Generic grid fallbacks */
+  [class*="grid"]:not(.inv-grid):not(.hero-reels):not(.stats-grid):not(.numbers-grid) {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE (≤ 420px)
+   ======================================== */
+@media(max-width: 420px) {
+  .hero h1 { font-size: 36px !important; }
+  .sec-h2 { font-size: 26px !important; }
+  .stat-num, .number-big { font-size: 40px !important; }
+  .stats-grid, .numbers-grid { grid-template-columns: 1fr !important; }
+  .hero-reels { grid-template-columns: 1fr !important; }
+  .hero-collage { height: 320px !important; }
+}
+
+/* Default: hide mobile menu button on desktop */
+.mobile-menu-btn { display: none; }
+
+/* ===== STICKY CTA ===== */
+.sticky-cta {
+  position: fixed; bottom: 32px; right: 32px; z-index: 500;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+}
+.sticky-cta.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.sticky-cta-inner {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--gold); padding: 14px 22px 14px 16px;
+  text-decoration: none; color: #000;
+  box-shadow: 0 8px 40px rgba(232,184,78,0.45);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+.sticky-cta-inner:hover {
+  background: var(--gold-light); transform: translateY(-3px);
+  box-shadow: 0 14px 52px rgba(232,184,78,0.55);
+}
+.sticky-cta-icon {
+  width: 38px; height: 38px; background: rgba(0,0,0,0.12);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.sticky-cta-icon svg { width: 18px; height: 18px; }
+.sticky-cta-main {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; display: block; color: #000;
+}
+.sticky-cta-sub {
+  font-size: 11px; color: rgba(0,0,0,0.55); display: block;
+  margin-top: 2px; letter-spacing: 0.03em;
+}
+@media (max-width: 768px) {
+  .sticky-cta { bottom: 16px; right: 16px; left: 16px; }
+  .sticky-cta-inner { justify-content: center; }
+}
+
+/* ===== REEL MUTE BUTTON ===== */
+.reel-video:has(video)::after { display: none; }
+.reel-mute-btn {
+  position: absolute; bottom: 10px; right: 10px; z-index: 4;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(0,0,0,0.65); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.18);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: #fff; padding: 0;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.reel-mute-btn:hover { background: rgba(200,169,110,0.3); border-color: var(--gold); transform: scale(1.1); }
+.reel-mute-btn svg { width: 15px; height: 15px; pointer-events: none; }
+
+@media(max-width: 1024px) { .reel-card { width: 190px; } }
+
+/* ===== HERO LOAD ANIMATIONS ===== */
+@keyframes cyg-fade-up {
+  from { opacity: 0; transform: translateY(44px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes cyg-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.hero-eyebrow { animation: cyg-fade-up 0.85s cubic-bezier(0.16,1,0.3,1) 0.25s both; }
+.hero h1      { animation: cyg-fade-up 0.95s cubic-bezier(0.16,1,0.3,1) 0.40s both; }
+.hero-sub     { animation: cyg-fade-up 0.90s cubic-bezier(0.16,1,0.3,1) 0.55s both; }
+.hero-btns    { animation: cyg-fade-up 0.90s cubic-bezier(0.16,1,0.3,1) 0.70s both; }
+.hero-right   { animation: cyg-fade-up 0.95s cubic-bezier(0.16,1,0.3,1) 0.45s both; }
+.hero-scroll  { animation: cyg-fade-in 1.2s ease 1.3s both; }
+
+.collage-tile { animation: cyg-fade-in 1.1s ease both; }
+.collage-tile:nth-child(1)  { animation-delay: 0.05s; }
+.collage-tile:nth-child(2)  { animation-delay: 0.18s; }
+.collage-tile:nth-child(3)  { animation-delay: 0.30s; }
+.collage-tile:nth-child(4)  { animation-delay: 0.10s; }
+.collage-tile:nth-child(5)  { animation-delay: 0.42s; }
+.collage-tile:nth-child(6)  { animation-delay: 0.24s; }
+.collage-tile:nth-child(7)  { animation-delay: 0.36s; }
+.collage-tile:nth-child(8)  { animation-delay: 0.50s; }
+.collage-tile:nth-child(9)  { animation-delay: 0.56s; }
+.collage-tile:nth-child(10) { animation-delay: 0.08s; }
+
+/* ===== SCROLL REVEAL ===== */
+.sr {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1),
+              transform 0.85s cubic-bezier(0.16,1,0.3,1);
+}
+.sr.sr--left  { transform: translateX(-36px); }
+.sr.sr--right { transform: translateX(36px); }
+.sr.sr--scale { transform: scale(0.93) translateY(20px); }
+.sr.visible   { opacity: 1 !important; transform: none !important; }
+.sr.sr--d1    { transition-delay: 0.08s; }
+.sr.sr--d2    { transition-delay: 0.16s; }
+.sr.sr--d3    { transition-delay: 0.26s; }
+.sr.sr--d4    { transition-delay: 0.36s; }
+.sr.sr--d5    { transition-delay: 0.46s; }
+
+/* eyebrow の左ライン：左から伸びて入る */
+.sr-eyebrow::before {
+  transform-origin: left;
+  transform: scaleX(0) !important;
+  transition: transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s;
+}
+.sr-eyebrow.visible::before { transform: scaleX(1) !important; }
+
+/* boss photo parallax セットアップ */
+.boss-photo { transform-origin: center center; }
+
+/* ===== MOBILE / REDUCED MOTION 無効化 ===== */
+@media (max-width: 768px) {
+  .sr { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .sr-eyebrow::before { transform: scaleX(1) !important; transition: none !important; }
+  .hero-eyebrow, .hero h1, .hero-sub, .hero-btns,
+  .hero-right, .hero-scroll, .collage-tile { animation: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sr { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .sr-eyebrow::before { transform: scaleX(1) !important; transition: none !important; }
+  .hero-eyebrow, .hero h1, .hero-sub, .hero-btns,
+  .hero-right, .hero-scroll, .collage-tile { animation: none !important; }
+}
+</style>
+</head>
+<body id="page-body">
+
+<!-- HEADER -->
+<header id="main-header">
+  <a href="#" class="logo">
+    <img src="http://cygarage.jp/wp-content/uploads/cygarage-logo.png" alt="CY GARAGE" height="36">
+  </a>
+  <nav class="main-nav" id="main-nav">
+    <a href="#inventory">在庫</a>
+    <a href="#voice">オーナーの声</a>
+    <a href="#why">なぜCY</a>
+    <a href="#wrapping">ラッピング</a>
+    <a href="#appraisal" class="nav-cta">無料査定</a>
+  </nav>
+  <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- 1. HERO — Navy photo collage -->
+<section class="hero">
+  <div class="hero-collage" id="hero-collage"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="line"></div>
+        <span>CY GARAGE — MIAMI STYLE RARE CARS</span>
+      </div>
+      <h1>まれしゃ好きは、<br>ここに来い。</h1>
+      <p class="hero-sub">被らない車。被らない人間。<br>売る人も、買う人も、物語ごと集まる場所。</p>
+      <div class="hero-btns">
+        <a href="#inventory" class="btn-primary">在庫を見る</a>
+        <a href="#appraisal" class="btn-outline">査定を相談する</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-reels">
+        <div class="reel-card c1">
+          <div class="reel-header">
+            <div class="reel-dot"></div>
+            <span class="reel-handle">@cy_garage_official</span>
+          </div>
+          <div class="reel-video">
+            <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"><source src="copy_49715AAC-CFF0-44EF-B3FD-331E8E9C445C.mp4" type="video/mp4"></video>
+            <button class="reel-mute-btn" onclick="toggleMute(this)" aria-label="音声切り替え"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+          </div>
+          <div class="reel-footer">
+            <span class="reel-tag sell">買取</span>
+            <span class="reel-label">まれしゃ、集まれ</span>
+          </div>
+        </div>
+        <div class="reel-card c2">
+          <div class="reel-header">
+            <div class="reel-dot"></div>
+            <span class="reel-handle">@cy_garage_official</span>
+          </div>
+          <div class="reel-video">
+            <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"><source src="copy_F8A61A4C-A975-450F-B473-0D8CB8F93C4A.mp4" type="video/mp4"></video>
+            <button class="reel-mute-btn" onclick="toggleMute(this)" aria-label="音声切り替え"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+          </div>
+          <div class="reel-footer">
+            <span class="reel-tag buy">販売</span>
+            <span class="reel-label">まれしゃ、集まれ</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-voices">
+        <div class="hv-item">
+          <span class="hv-tag sell">● 買取</span>
+          <p class="hv-text">「こういう車屋さん、ずっと探してたんですよ。」</p>
+          <span class="hv-meta">40代・ダッジ チャレンジャー</span>
+        </div>
+        <div class="hv-item buy">
+          <span class="hv-tag buy">● 販売</span>
+          <p class="hv-text">「この車の良さわかります、の一言で決めました。」</p>
+          <span class="hv-meta">30代・F-150 ラプター</span>
+        </div>
+        <div class="hv-item">
+          <span class="hv-tag sell">● 買取</span>
+          <p class="hv-text">「車の話がちゃんと通じる。それだけで信頼できた。」</p>
+          <span class="hv-meta">50代・フェラーリ カリフォルニア</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- 1.5 TRUST STRIP -->
+<section class="trust-strip" aria-label="CY GARAGEの安心材料">
+  <div class="trust-grid">
+    <div class="trust-item">
+      <div class="trust-kicker">APPRAISAL</div>
+      <div class="trust-main">チームで価値を見る</div>
+      <div class="trust-sub">車種・状態・背景を聞いたうえで、根拠のある金額を提示します。</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-kicker">STORY</div>
+      <div class="trust-main">整備履歴まで見る</div>
+      <div class="trust-sub">どこを直してきたか、どう乗られてきたかまで評価します。</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-kicker">MOBILE FIRST</div>
+      <div class="trust-main">LINEで気軽に相談</div>
+      <div class="trust-sub">写真・動画・車検証を送って、まずは気軽に相談できます。</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-kicker">RARE CARS</div>
+      <div class="trust-main">稀車を買わせてほしい</div>
+      <div class="trust-sub">希少車・カスタム車・癖のある輸入車の価値を見ます。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. SOLD MARQUEE -->
+<div class="sec-sold">
+  <div class="sold-label">— SOLD & BOUGHT CARS —</div>
+  <div class="marquee-row marquee-row--left">
+    <div class="marquee-track" id="mq1"></div>
+  </div>
+  <div class="marquee-row marquee-row--right">
+    <div class="marquee-track" id="mq2"></div>
+  </div>
+</div>
+
+<!-- 3. MARESYA -->
+<section class="sec-maresya">
+  <div class="wrap maresya-inner">
+    <div>
+      <div class="eyebrow">WHAT IS 稀車</div>
+      <div class="maresya-quote">稀車と書いて、<br><span class="gold">まれしゃ。</span></div>
+    </div>
+    <div>
+      <h2 class="sec-h2">被らない一台が、<br>ここにある。</h2>
+      <p class="lead" style="font-size:16px;">個性が強くて、まず被らない。<br>走ってたら、振り返られる。<br>でも見た目だけでは終わらない。<br>何年乗ったか。どこを直したか。なぜ距離が伸びたか。<br>一台一台の物語まで含めて、CY GARAGEでは<br><strong style="color:#fff; font-weight:700;">まれしゃ</strong>という。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. OWNER'S VOICE -->
+<section class="sec-voice" id="voice">
+  <div class="wrap">
+    <div class="voice-head">
+      <div class="eyebrow">OWNER'S VOICE</div>
+      <h2 class="sec-h2">売った人も、<br>買った人も、<br>ここにいる。</h2>
+      <p class="lead">まれしゃ好きが集まる場所。<br>売った人の本音も、買った人の熱量も、そのまま届けます。</p>
+    </div>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-photo" style="background-image:url('image/voice/S__66830356_0.webp');"></div>
+        <div class="voice-card-body">
+          <span class="voice-tag sold">SOLD</span>
+          <div class="voice-q-mark">"</div>
+          <div class="voice-main">「こういう車屋さん、<br>ずっと探してたんですよ。」</div>
+          <p class="voice-body">カスタムしすぎてどこにも断られ続けてた車が、ここで予想より30万高く売れました。</p>
+          <div class="voice-meta">40代・男性<br>カスタム ダッジ チャレンジャー</div>
+        </div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-photo" style="background-image:url('image/voice/S__9633797_0.webp');"></div>
+        <div class="voice-card-body">
+          <span class="voice-tag sold">SOLD</span>
+          <div class="voice-q-mark">"</div>
+          <div class="voice-main">「車の話がちゃんと通じる。<br>それだけで信頼できると思った。」</div>
+          <p class="voice-body">気持ちよく手放せました。この車の次のオーナーもきっといい人だと思います。</p>
+          <div class="voice-meta">50代・男性<br>フェラーリ カリフォルニア</div>
+        </div>
+      </div>
+      <div class="voice-card buy">
+        <div class="voice-photo" style="background-image:url('image/voice/S__65912858_0.webp');"></div>
+        <div class="voice-card-body">
+          <span class="voice-tag purchased">PURCHASED</span>
+          <div class="voice-q-mark">"</div>
+          <div class="voice-main">「この車の良さわかります、<br>の一言で決めました。」</div>
+          <p class="voice-body">他の店では「在庫ないです」で終わり。ここは違った。</p>
+          <div class="voice-meta">30代・男性<br>フォード F-150 ラプター</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIALOG VIDEOS -->
+    <div class="danwa">
+      <div class="danwa-head">
+        <div class="eyebrow">OWNER × CY GARAGE</div>
+        <h3>その車に乗っていた人の、<br>本音まで聞きたい。</h3>
+        <p class="lead">なぜ手放したのか。どんな時間を過ごしてきたのか。車だけでなく、オーナーの想いまで次の人へつなぎます。</p>
+      </div>
+      <div class="danwa-grid">
+        <div class="danwa-item">
+          <div class="danwa-play">▶</div>
+          <span class="danwa-label">Video 01</span>
+        </div>
+        <div class="danwa-item">
+          <div class="danwa-play">▶</div>
+          <span class="danwa-label">Video 02</span>
+        </div>
+        <div class="danwa-item">
+          <div class="danwa-play">▶</div>
+          <span class="danwa-label">Video 03</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. INSTAGRAM -->
+<section class="sec-ig">
+  <div class="wrap">
+    <div class="eyebrow">FOLLOW @cy_garage_official</div>
+    <h2 class="sec-h2" style="margin-bottom:48px;">まれしゃ好き、<br>集まれ。</h2>
+    <div class="ig-head">
+      <div>
+        <div class="ig-stat-big">100万人</div>
+        <div class="ig-stat-sub">月間リーチしている、<br>まれしゃのコミュニティ。</div>
+      </div>
+      <p class="lead" style="text-align:left;">売った人も、買った人も、<br>次の一台を探してる人も、ここにいる。<br>まれしゃの日常は、全部ここにあります。</p>
+    </div>
+    <div class="ig-grid">
+      <div class="ig-item tall" style="background-image:url('image/20.jpeg');background-size:cover;background-position:center;"><span class="ig-item-label">REEL 01</span></div>
+      <div class="ig-item" style="background-image:url('image/21.jpeg');background-size:cover;background-position:center;"><span class="ig-item-label">REEL 02</span></div>
+      <div class="ig-item" style="background-image:url('image/22.jpeg');background-size:cover;background-position:center;"><span class="ig-item-label">REEL 03</span></div>
+      <div class="ig-item" style="background-image:url('image/23.jpeg');background-size:cover;background-position:center;"><span class="ig-item-label">REEL 04</span></div>
+      <div class="ig-item" style="background-image:url('image/24.jpeg');background-size:cover;background-position:center;"><span class="ig-item-label">REEL 05</span></div>
+    </div>
+    <div class="ig-follow-row">
+      <div class="ig-handle">@cy_garage_official</div>
+      <a href="#" class="link-arrow">@cy_garage_official をフォロー →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 5. TEAM -->
+<section class="sec-boss">
+  <div class="boss-inner">
+    <div class="boss-photo" style="background-image:url('boss-hero.jpg');background-size:contain;background-repeat:no-repeat;background-position:center bottom;"></div>
+    <div class="boss-content">
+      <div class="eyebrow">CY GARAGE TEAM</div>
+      <h2 class="sec-h2">まれしゃの価値を、<br>チームで見抜く。</h2>
+      <p class="boss-body">仕入れ、査定、販売、ローン、ラッピング。<br>それぞれの目線を合わせて、<br>一台の価値を判断する。<br>写真だけでは見えない背景まで聞き、<br>次のオーナーへつなぐ店。</p>
+      <a href="#" class="link-arrow">CY GARAGEについて詳しく</a>
+    </div>
+  </div>
+</section>
+
+<!-- 7. WHY -->
+<section class="sec-why" id="why">
+  <div class="wrap">
+    <div class="eyebrow">WHY CY GARAGE</div>
+    <h2 class="sec-h2">個性的な車の価値は、<br>わかる人間に<br>査定させてほしい。</h2>
+    <p class="why-tagline">車のストーリーを聞いて買い取る店、<br>ほかにないと思います。</p>
+    <div class="why-cards">
+      <div class="why-card">
+        <div class="why-num">01</div>
+        <h3>まれしゃの価値を、<br><span class="gold">ちゃんとわかる眼がある</span></h3>
+        <p>一般の買取店が「個性が強すぎる」と値引く車でも、カスタム・整備履歴・保管状態まで見て評価します。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">02</div>
+        <h3>売り切る販売力があるから、<br><span class="gold">高く買える</span></h3>
+        <p>まれしゃを欲しがる人とInstagramで直接つながっているから、個性的な車でも次の買い手を見つけやすい。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">03</div>
+        <h3>ストーリーごと、<br><span class="gold">買い取らせていただきます。</span></h3>
+        <p>何年乗ったか、どこへ行ったか、どこを直してきたか。車の生き方まで聞いて査定します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7.5 STOCK DETAIL BLUEPRINT -->
+<section class="sec-stock-blueprint" id="stock-blueprint">
+  <div class="wrap">
+    <div class="stock-blueprint-head">
+      <div>
+        <div class="eyebrow">STOCK CAR STORY</div>
+        <h2 class="sec-h2">この車が、<br>ここに並ぶ理由。</h2>
+      </div>
+      <div class="stock-blueprint-panel">
+        <p class="lead">価格、年式、走行距離だけでは、この一台の価値はわからない。前オーナーの乗り方、整備の記録、CY GARAGEの目利きまで見てから選んでください。</p>
+        <a href="STOCK_CAR_story_20260501.html" class="link-arrow" style="margin-top:24px;">この車を詳しく見る →</a>
+      </div>
+    </div>
+    <div class="stock-blueprint-list">
+      <div class="stock-blueprint-item">
+        <div class="stock-blueprint-num">01</div>
+        <h3>前オーナーの想い</h3>
+        <p>何年乗ったか、どこへ行ったか、なぜ手放すのか。車の背景まで伝えます。</p>
+      </div>
+      <div class="stock-blueprint-item">
+        <div class="stock-blueprint-num">02</div>
+        <h3>チームが語る動画</h3>
+        <p>この車の稀さ、弱点、買う人に向いているかを短尺動画で伝える。</p>
+      </div>
+      <div class="stock-blueprint-item">
+        <div class="stock-blueprint-num">03</div>
+        <h3>整備履歴と使われ方</h3>
+        <p>高速メインか街乗りか。修理歴・車検残・オイル管理まで見せる。</p>
+      </div>
+      <div class="stock-blueprint-item">
+        <div class="stock-blueprint-num">04</div>
+        <h3>気になる部分まで公開</h3>
+        <p>外装、内装、下回り、傷、メーター、エンジンルームまで確認できます。</p>
+      </div>
+      <div class="stock-blueprint-item">
+        <div class="stock-blueprint-num">05</div>
+        <h3>ローン・下取り相談</h3>
+        <p>事前審査、銀行ローン、下取り査定をスマホから迷わず相談できる。</p>
+      </div>
+      <div class="stock-blueprint-item">
+        <div class="stock-blueprint-num">06</div>
+        <h3>まれしゃ認定コメント</h3>
+        <p>なぜこの車がCY GARAGEに並ぶのか。最後に一言で記憶に残す。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. INVENTORY -->
+<section class="sec-inv" id="inventory">
+  <div class="wrap">
+    <div class="inv-head">
+      <div>
+        <div class="eyebrow">TEAM'S PICK</div>
+        <h2 class="sec-h2">CY GARAGEが今、<br>推したい一台。</h2>
+      </div>
+      <a href="#" class="link-arrow">すべての在庫を見る →</a>
+    </div>
+    <div class="inv-grid">
+      <div class="car-card main" style="background-image:url('image/12.jpeg');background-size:cover;background-position:center;">
+        <div class="badge-new">NEW</div>
+        <div class="car-card-ph"></div>
+        <div class="car-info">
+          <div class="car-tag">MASERATI — 2013</div>
+          <div class="car-name">GranTurismo</div>
+          <div class="car-spec">走行 3.1万km</div>
+          <div class="car-price">¥658万円</div>
+          <p class="car-story">「3.1万キロのマセラティ。この走行距離はもう奇跡。まれしゃの中のまれしゃ。」</p>
+        </div>
+      </div>
+      <div class="car-card" style="background-image:url('image/inv_01_escalade_2015.jpg');background-size:cover;background-position:center;">
+        <div class="car-card-ph"></div>
+        <div class="car-info">
+          <div class="car-tag">LINCOLN — 2015</div>
+          <div class="car-name">Navigator</div>
+          <div class="car-spec">走行 6.0万km</div>
+          <div class="car-price">¥695万円</div>
+        </div>
+      </div>
+      <div class="car-card" style="background-image:url('image/inv_02_sequoia_2020.jpg');background-size:cover;background-position:center;">
+        <div class="car-card-ph"></div>
+        <div class="car-info">
+          <div class="car-tag">FORD — 2020</div>
+          <div class="car-name">F-150</div>
+          <div class="car-spec">走行 5.4万km</div>
+          <div class="car-price">¥598万円</div>
+        </div>
+      </div>
+      <div class="car-card" style="background-image:url('image/inv_04_escalade_2012.jpg');background-size:cover;background-position:center;">
+        <div class="car-card-ph"></div>
+        <div class="car-info">
+          <div class="car-tag">LINCOLN — 2012</div>
+          <div class="car-name">MKT</div>
+          <div class="car-spec">走行 10.6万km</div>
+          <div class="car-price">¥295万円</div>
+        </div>
+      </div>
+      <div class="car-card" style="background-image:url('image/inv_03_skyline_2013.jpg');background-size:cover;background-position:center;">
+        <div class="car-card-ph"></div>
+        <div class="car-info">
+          <div class="car-tag">VIEW ALL</div>
+          <div class="car-name">在庫一覧 →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BUYBACK COMPARE -->
+<section class="sec-buyback">
+  <div class="wrap">
+    <div class="buyback-head">
+      <div class="eyebrow" style="justify-content:center;">WHY NOT OTHERS</div>
+      <h2 class="sec-h2">個性的な車が、<br><em>正しく評価される場所。</em></h2>
+      <p class="lead" style="margin:0 auto;">一般の買取店とCY GARAGEの違い。</p>
+    </div>
+    <div class="buyback-grid">
+      <div class="bb-col bad">
+        <div class="bb-col-label">— 一般の買取店 —</div>
+        <h3>個性的な車は、<br>損をしやすい</h3>
+        <div class="bb-item"><div class="bb-icon">✗</div><div class="bb-text"><strong>カスタム車は「減点」扱い</strong>改造・ラッピング車は査定を下げる店がほとんど</div></div>
+        <div class="bb-item"><div class="bb-icon">✗</div><div class="bb-text"><strong>希少車は「データ不足」</strong>相場がわからないと言われ、安く買い叩かれる</div></div>
+        <div class="bb-item"><div class="bb-icon">✗</div><div class="bb-text"><strong>車への愛着は査定に関係ない</strong>エピソードや思い入れは価格に一切反映されない</div></div>
+      </div>
+      <div class="bb-divider"><div class="vs-circle">VS</div></div>
+      <div class="bb-col good">
+        <div class="bb-col-label">— CY GARAGE —</div>
+        <h3>まれしゃの価値を、<br>ちゃんと見る</h3>
+        <div class="bb-item"><div class="bb-icon">✓</div><div class="bb-text"><strong>個性・カスタムは「加点」要素</strong>希少性・こだわりを価値として評価する</div></div>
+        <div class="bb-item"><div class="bb-icon">✓</div><div class="bb-text"><strong>稀少輸入車の専門知識と販売力</strong>売り切れるから、相場より高く買い取れる</div></div>
+        <div class="bb-item"><div class="bb-icon">✓</div><div class="bb-text"><strong>ストーリーごと買い取ります</strong>車への想いを次のオーナーへ繋ぐ</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. WRAPPING -->
+<section class="sec-wrap" id="wrapping">
+  <div class="wrap wrap-inner">
+    <div class="wrap-visual">[ ラッピング施工例 ]</div>
+    <div>
+      <div class="eyebrow">CAR WRAPPING</div>
+      <h2 class="sec-h2">その一台を、<br>もっと個性的に。</h2>
+      <p class="lead">色を変える。質感を変える。世界にひとつの仕上がりへ。CY GARAGEのラッピングは、まれしゃをもっとまれしゃにする。</p>
+      <div class="wrap-swatches">
+        <div class="swatch" style="background:#1a1a2e;"></div>
+        <div class="swatch" style="background:#2d1b00;"></div>
+        <div class="swatch" style="background:#0d2818;"></div>
+        <div class="swatch" style="background:#1a0000;"></div>
+        <div class="swatch" style="background:#1c1c1c;"></div>
+        <div class="swatch" style="background:linear-gradient(135deg,#c0c0c0,#808080);"></div>
+        <div class="swatch" style="background:linear-gradient(135deg,#c8a96e,#a8893e);"></div>
+      </div>
+      <a href="#" class="link-arrow" style="margin-top:36px;">ラッピングについて詳しく →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 11. APPRAISAL FORM -->
+<section class="sec-form" id="appraisal">
+  <div class="wrap form-inner">
+    <div class="form-text">
+      <div class="eyebrow">APPRAISAL / 買取・無料査定</div>
+      <h2>あなたの車の<br><span class="gold">ストーリー</span>ごと、<br>査定します。</h2>
+      <p>大手に出す前に、一度だけ聞いてみてください。CY GARAGEが車の状態と背景を確認し、根拠のある金額をお伝えします。希少車・カスタム車・ラッピング車はもちろん、まれしゃに乗り換えたい方の今の愛車も歓迎です。全国出張査定、対応します。</p>
+      <div class="form-steps">
+        <div class="step-item">
+          <div class="step-num-c">01</div>
+          <div class="step-text">
+            <strong>フォームから申し込み</strong>
+            <span>車種・年式・走行距離に加えて、整備履歴やこの車との思い出があれば、ぜひ書いてください。</span>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-c">02</div>
+          <div class="step-text">
+            <strong>担当者からご連絡</strong>
+            <span>24時間以内にご連絡します。LINEだけでは伝わらないことも、会話しながら一緒に整理します。</span>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-c">03</div>
+          <div class="step-text">
+            <strong>査定金額のご提示</strong>
+            <span>根拠のある金額をお伝えします。全国対応・出張査定もご相談可。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="appraisal-form" onsubmit="event.preventDefault();">
+      <div class="form-title">無料査定を申し込む</div>
+      <div class="form-sub">24時間以内に折り返しご連絡</div>
+      <div class="form-field"><label>お名前</label><input class="f-input" type="text" placeholder="山田 太郎"></div>
+      <div class="form-field"><label>お電話番号</label><input class="f-input" type="tel" placeholder="090-0000-0000"></div>
+      <div class="form-field"><label>車種・メーカー</label><input class="f-input" type="text" placeholder="例：フォード F-150 ラプター 2020"></div>
+      <div class="form-field"><label>走行距離</label><input class="f-input" type="text" placeholder="例：5.4万km"></div>
+      <div class="form-field"><label>整備履歴・修理歴</label><input class="f-input" type="text" placeholder="例：記録簿あり / ディーラー整備 / 気になる箇所あり"></div>
+      <div class="form-field"><label>乗っていた年数・購入時の金額</label><input class="f-input" type="text" placeholder="例：5年 / 約450万円"></div>
+      <div class="form-field"><label>主な使い方</label><input class="f-input" type="text" placeholder="例：高速メイン / 街乗り中心 / 週末だけ"></div>
+      <div class="form-field">
+        <label>あなたと、この車の物語</label>
+        <textarea class="f-textarea" placeholder="どこに行ったか。どこを直してきたか。なぜ手放すのか。次のオーナーに伝えたいことまで、全部聞かせてください。"></textarea>
+        <p class="form-story-note">掲載許可をいただいた場合のみ、車のストーリーをInstagramやサイトで紹介することがあります。</p>
+      </div>
+      <button type="submit" class="form-submit">無料で査定を依頼する</button>
+      <p class="form-foot">費用は一切かかりません。<br>しつこい営業電話はしません。</p>
+    </form>
+  </div>
+</section>
+
+<!-- 12. LAST CTA -->
+<section class="sec-cta">
+  <div class="eyebrow" style="justify-content:center;">SELL YOUR CAR</div>
+  <h2>あなたの車、<br>まれしゃ価格で。</h2>
+  <p class="lead">ストーリーごと、<br>買い取らせていただきます。</p>
+  <a href="#appraisal" class="btn-primary">無料査定を依頼する</a>
+</section>
+
+<!-- 13. FOOTER -->
+<footer>
+  <div class="f-logo">CY <span>GARAGE</span></div>
+  <div class="f-center">東京都江東区南砂</div>
+  <div class="f-right">
+    <a href="#" class="f-ig">@cy_garage_official</a>
+    <div class="f-copy">© 2026 CY GARAGE</div>
+  </div>
+</footer>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" id="sticky-cta">
+  <a href="#appraisal" class="sticky-cta-inner">
+    <span class="sticky-cta-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+    </span>
+    <span>
+      <span class="sticky-cta-main">無料査定を依頼する</span>
+      <span class="sticky-cta-sub">CY GARAGEが対応 · 費用は一切かかりません</span>
+    </span>
+  </a>
+</div>
+
+<!-- TWEAKS -->
+<div id="tweaks-panel">
+  <div class="tp-title">Tweaks</div>
+  <div class="tp-row">
+    <span class="tp-label">アクセントカラー</span>
+    <div class="tp-options">
+      <button class="tp-btn active" onclick="setAccent('#c8a96e',this)">Gold</button>
+      <button class="tp-btn" onclick="setAccent('#ff6b35',this)">Orange</button>
+      <button class="tp-btn" onclick="setAccent('#00c8ff',this)">Cyan</button>
+      <button class="tp-btn" onclick="setAccent('#e4b400',this)">Amber</button>
+    </div>
+  </div>
+  <div class="tp-row">
+    <span class="tp-label">HERO スタイル</span>
+    <div class="tp-options">
+      <button class="tp-btn active" onclick="setHero('grid',this)">Photo Grid</button>
+      <button class="tp-btn" onclick="setHero('solid',this)">Solid BG</button>
+    </div>
+  </div>
+  <div class="tp-row">
+    <span class="tp-label">見出しフォント</span>
+    <div class="tp-options">
+      <button class="tp-btn active" onclick="setFont('Noto Sans JP',this)">Noto</button>
+      <button class="tp-btn" onclick="setFont('Bebas Neue',this)">Bebas</button>
+      <button class="tp-btn" onclick="setFont('Barlow Condensed',this)">Barlow</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Sticky CTA
+(function(){
+  var cta = document.getElementById('sticky-cta');
+  if (!cta) return;
+  var form = document.getElementById('appraisal');
+  var raf = false;
+  function update() {
+    raf = false;
+    var scrolled = window.scrollY > window.innerHeight * 0.65;
+    var nearForm = form && (function(){ var r = form.getBoundingClientRect(); return r.top < window.innerHeight && r.bottom > 0; })();
+    cta.classList.toggle('is-visible', scrolled && !nearForm);
+  }
+  window.addEventListener('scroll', function(){ if(!raf){ raf=true; requestAnimationFrame(update); } }, { passive:true });
+  update();
+})();
+
+// Reel mute toggle
+const SVG_MUTED = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
+const SVG_SOUND = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
+function toggleMute(btn) {
+  const video = btn.closest('.reel-video').querySelector('video');
+  if (!video) return;
+  // 他のリールをミュートに戻す
+  document.querySelectorAll('.reel-video video').forEach(v => {
+    if (v !== video) { v.muted = true; v.closest('.reel-video').querySelector('.reel-mute-btn').innerHTML = SVG_MUTED; }
+  });
+  video.muted = !video.muted;
+  btn.innerHTML = video.muted ? SVG_MUTED : SVG_SOUND;
+}
+
+// Header scroll
+const header = document.getElementById('main-header');
+window.addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 60));
+
+// Marquee cars
+const cars1 = [
+  {n:'Ford F-150', t:'sell', img:'image/販売実績/095C2D0F-4EC2-42F6-8EA5-09B946829131.jpeg'},
+  {n:'Lamborghini Urus', t:'buy', img:'image/販売実績/09EDC1FE-436B-4147-8BD2-589225FB9215.jpeg'},
+  {n:'Ferrari Roma', t:'sell', img:'image/販売実績/13A4AD8F-E073-4C5A-A789-151CB3670E95.jpeg'},
+  {n:'Mercedes G500 4×4²', t:'buy', img:'image/販売実績/1748AF84-C24C-422E-80C2-D403444C2523.jpeg'},
+  {n:'Porsche Macan', t:'sell', img:'image/販売実績/17BAEBF6-0EBF-4439-BA7A-60F2B321193A.jpeg'},
+  {n:'Bentley Mulsanne', t:'buy', img:'image/販売実績/18F9B5C3-9716-459E-B302-A5EC6B836C8B.jpeg'},
+  {n:'Maserati Quattroporte', t:'sell', img:'image/販売実績/20927DBE-BF8B-4921-89E6-19A9A661D4B5.jpeg'},
+  {n:'Plymouth Prowler', t:'buy', img:'image/販売実績/2452E7E1-5532-4E8C-A14A-6F0E920FAC6D.jpeg'},
+  {n:'Rare Supercar', t:'sell', img:'image/販売実績/2A990044-FBD7-4EB2-9231-C0FD1EBA5FE4.jpeg'},
+  {n:'Morgan Roadster', t:'buy', img:'image/販売実績/2C971FDC-7748-49C8-BFC5-2BF83E8B5923.jpeg'}
+];
+const cars2 = [
+  {n:'Land Rover Defender', t:'sell', img:'image/販売実績/2D8DAF60-BC45-43AD-8D55-ABEBF1E20E91.jpeg'},
+  {n:'Cadillac CTS-V', t:'buy', img:'image/販売実績/2E1AA452-33F6-4129-A78B-D6BBD8B61E17.jpeg'},
+  {n:'Tesla Model S', t:'sell', img:'image/販売実績/3129C130-CE79-4D85-A7A8-54E3496D51FA.jpeg'},
+  {n:'Bentley Continental GT', t:'buy', img:'image/販売実績/3683534F-3246-4900-AE74-1A3A36FA0348.jpeg'},
+  {n:'Lincoln Navigator', t:'sell', img:'image/販売実績/38AB0529-C928-474A-A390-C9A928B290E7.jpeg'},
+  {n:'Aston Martin DBS', t:'buy', img:'image/販売実績/393636BD-AD79-4EC9-9EA5-E79D2C3254D9.jpeg'},
+  {n:'Audi R8', t:'sell', img:'image/販売実績/3C29063F-D821-458C-97A5-CDF1347E527A.jpeg'},
+  {n:'Ford Mustang GT', t:'buy', img:'image/販売実績/439A95F8-0FC0-4B4A-9A91-630ABE6A6DA6.jpeg'},
+  {n:'Mercedes AMG GT 63', t:'sell', img:'image/販売実績/43A96E63-55BC-4053-98A0-4B8DC2597E4E.jpeg'},
+  {n:'Jeep Wrangler', t:'buy', img:'image/販売実績/494AC648-6AE8-4421-8AF3-DC97A75DAE40.jpeg'}
+];
+function renderMq(id, arr) {
+  const track = document.getElementById(id);
+  const html = [...arr, ...arr].map(c => {
+    const badgeLabel = c.t === 'sell' ? '販売' : '買取';
+    const initials = c.n.split(' ').map(w=>w[0]).join('').slice(0,3).toUpperCase();
+    const bgStyle = c.img ? `background-image:url('${c.img}');background-size:cover;background-position:center;` : '';
+    return `<div class="sold-card" style="${bgStyle}">
+      <div class="sold-card-ph">${c.img ? '' : initials}</div>
+      <span class="sold-badge ${c.t}">${badgeLabel}</span>
+      <div class="sold-card-info">
+        <div class="sold-car-name">${c.n}</div>
+      </div>
+    </div>`;
+  }).join('');
+  track.innerHTML = html;
+}
+renderMq('mq1', cars1);
+renderMq('mq2', cars2);
+
+// Mobile menu toggle
+(function(){
+  const btn = document.getElementById('mobile-menu-btn');
+  const nav = document.getElementById('main-nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('open');
+    nav.classList.toggle('mobile-open');
+  });
+  // Close on link tap
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    btn.classList.remove('open');
+    nav.classList.remove('mobile-open');
+  }));
+})();
+
+// Hero collage
+(function(){
+  const collage = document.getElementById('hero-collage');
+  if (!collage) return;
+  const tiles = [
+    {x:2,  y:8,  w:26, h:34, rot:-4, label:'MASERATI',   badge:'SOLD',  img:'image/01.jpeg'},
+    {x:30, y:2,  w:22, h:28, rot:3,  label:'F-150',      badge:'SOLD',  img:'image/02.jpeg'},
+    {x:54, y:6,  w:24, h:32, rot:-2, label:'FERRARI',    badge:'STOCK', img:'image/03.JPG'},
+    {x:78, y:12, w:20, h:26, rot:4,  label:'LAMBO',      badge:'SOLD',  img:'image/04.jpeg'},
+    {x:6,  y:48, w:22, h:28, rot:5,  label:'CHALLENGER', badge:'SOLD',  img:'image/05.jpeg'},
+    {x:32, y:44, w:26, h:34, rot:-3, label:'NAVIGATOR',  badge:'STOCK', img:'image/06.jpeg'},
+    {x:62, y:48, w:24, h:30, rot:4,  label:'BENTLEY',    badge:'SOLD',  img:'image/07.jpeg'},
+    {x:14, y:78, w:20, h:20, rot:-3, label:'PORSCHE',    badge:'STOCK', img:'image/08.JPG'},
+    {x:46, y:80, w:22, h:18, rot:2,  label:'MUSTANG',    badge:'SOLD',  img:'image/09.jpeg'},
+    {x:74, y:76, w:22, h:22, rot:-4, label:'G-WAGON',    badge:'SOLD',  img:'image/10.jpeg'}
+  ];
+  collage.innerHTML = tiles.map(t => `
+    <div class="collage-tile" style="left:${t.x}%;top:${t.y}%;width:${t.w}%;height:${t.h}%;transform:rotate(${t.rot}deg);${t.img?`background-image:url('${t.img}');background-size:cover;background-position:center;`:''}">
+      <span class="collage-badge">${t.badge}</span>
+      <span class="collage-label">${t.label}</span>
+    </div>
+  `).join('');
+})();
+
+// Tweaks
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#ff6b35",
+  "heroStyle": "grid",
+  "headingFont": "Noto Sans JP"
+}/*EDITMODE-END*/;
+let state = {...TWEAK_DEFAULTS};
+
+function setAccent(c, btn) {
+  document.querySelectorAll('.tp-options')[0].querySelectorAll('.tp-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.documentElement.style.setProperty('--gold', c);
+  // lighter variant
+  const lighter = shift(c, 30);
+  const darker = shift(c, -30);
+  document.documentElement.style.setProperty('--gold-light', lighter);
+  document.documentElement.style.setProperty('--gold-dark', darker);
+  state.accent = c; post();
+}
+function setHero(mode, btn) {
+  document.querySelectorAll('.tp-options')[1].querySelectorAll('.tp-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const collage = document.getElementById('hero-collage');
+  if (collage) collage.style.display = (mode==='solid') ? 'none' : 'block';
+  state.heroStyle = mode; post();
+}
+function setFont(f, btn) {
+  document.querySelectorAll('.tp-options')[2].querySelectorAll('.tp-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.sec-h2, .hero h1').forEach(el => el.style.fontFamily = `'${f}', sans-serif`);
+  state.headingFont = f; post();
+}
+function shift(hex, amt) {
+  let r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+  r=Math.max(0,Math.min(255,r+amt)); g=Math.max(0,Math.min(255,g+amt)); b=Math.max(0,Math.min(255,b+amt));
+  return `rgb(${r},${g},${b})`;
+}
+function post() { window.parent.postMessage({type:'__edit_mode_set_keys', edits: state}, '*'); }
+
+window.addEventListener('message', e => {
+  if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').classList.add('open');
+  if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').classList.remove('open');
+});
+window.parent.postMessage({type:'__edit_mode_available'}, '*');
+
+// Apply saved
+(function(){
+  if (TWEAK_DEFAULTS.accent) {
+    document.documentElement.style.setProperty('--gold', TWEAK_DEFAULTS.accent);
+    document.documentElement.style.setProperty('--gold-light', shift(TWEAK_DEFAULTS.accent, 30));
+    document.documentElement.style.setProperty('--gold-dark', shift(TWEAK_DEFAULTS.accent, -30));
+  }
+})();
+</script>
+
+<!-- ============================================================
+     CY GARAGE — PARALLAX & SCROLL REVEAL ENGINE
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  var isMobile        = window.matchMedia('(max-width: 768px)').matches;
+  var prefersNoMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ────────────────────────────────────────────────
+     1. SCROLL REVEAL
+     IntersectionObserver で各要素がビューポートに入ったとき
+     .visible クラスを付与してフェードイン
+  ──────────────────────────────────────────────── */
+  (function initReveal() {
+    function sr(sel, mods, stagger) {
+      document.querySelectorAll(sel).forEach(function (el, i) {
+        if (el.closest('.hero')) return;
+        el.classList.add('sr');
+        if (mods) mods.split(' ').forEach(function (c) { if (c) el.classList.add(c); });
+        if (stagger && i > 0) el.classList.add('sr--d' + Math.min(i, 5));
+      });
+    }
+
+    /* eyebrow：ラインが左から伸びる特別演出 */
+    document.querySelectorAll('.eyebrow').forEach(function (el) {
+      if (el.closest('.hero')) return;
+      el.classList.add('sr', 'sr-eyebrow');
+    });
+
+    /* 見出し・リード */
+    sr('.sec-h2',          '',         false);
+    sr('.lead',            'sr--d1',   false);
+    sr('.why-tagline',     'sr--d2',   false);
+    sr('.boss-body',       'sr--d2',   false);
+    sr('.form-text h2',    'sr--d1',   false);
+    sr('.form-text > p',   'sr--d2',   false);
+
+    /* カードグリッド（段差スタガー） */
+    sr('.why-card',    'sr--scale', true);
+    sr('.voice-card',  '',          true);
+    sr('.car-card',    '',          true);
+    sr('.danwa-item',  '',          true);
+    sr('.ig-item',     '',          true);
+    sr('.step-item',   '',          true);
+    sr('.bb-col',      '',          true);
+
+    /* Instagram */
+    sr('.ig-stat-big',  '',       false);
+    sr('.ig-stat-sub',  'sr--d1', false);
+
+    /* フォーム */
+    sr('.appraisal-form', 'sr--right', false);
+
+    /* Maresya — 左右から入る */
+    sr('.maresya-quote',   'sr--left',  false);
+    sr('.wrap-visual',     'sr--left',  false);
+
+    /* CTA */
+    sr('.sec-cta h2',          '',      false);
+    sr('.sec-cta .lead',       'sr--d1',false);
+    sr('.sec-cta .btn-primary','sr--d2',false);
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+
+    document.querySelectorAll('.sr').forEach(function (el) { io.observe(el); });
+  })();
+
+  /* ────────────────────────────────────────────────
+     2. PARALLAX（デスクトップのみ）
+     RAF ループで requestAnimationFrame を使い
+     GPU 合成レイヤーで滑らかに動かす
+  ──────────────────────────────────────────────── */
+  if (!isMobile && !prefersNoMotion) {
+    (function initParallax() {
+
+      /* ── Hero コラージュタイル ──
+         タイルごとに異なるスピードを割り当て、奥行き感を演出 */
+      var SPEEDS = [0.22, 0.38, 0.13, 0.44, 0.28, 0.10, 0.42, 0.17, 0.32, 0.24];
+      var tiles  = [];
+      document.querySelectorAll('.collage-tile').forEach(function (el, i) {
+        var m   = (el.getAttribute('style') || '').match(/rotate\(([-\d.]+)deg\)/);
+        var rot = m ? parseFloat(m[1]) : 0;
+        el.style.willChange = 'transform';
+        tiles.push({ el: el, rot: rot, speed: SPEEDS[i % SPEEDS.length] });
+      });
+
+      /* ── Boss セクション ──
+         写真エリアを scale(1.08) + translateY でクラシックなパララックス
+         overflow:hidden がすでにあるのでクリッピングされる */
+      var bossSection = document.querySelector('.sec-boss');
+      var bossPhoto   = document.querySelector('.boss-photo');
+      if (bossPhoto) bossPhoto.style.willChange = 'transform';
+
+      var rafPending = false;
+
+      function tick() {
+        var sy = window.scrollY;
+        var vh = window.innerHeight;
+        rafPending = false;
+
+        /* コラージュタイル：既存の rotate を保持しながら Y 移動 */
+        tiles.forEach(function (t) {
+          t.el.style.transform =
+            'rotate(' + t.rot + 'deg) translateY(' + (-sy * t.speed) + 'px)';
+        });
+
+        /* Boss 写真：セクションが画面内にあるときだけ計算 */
+        if (bossSection && bossPhoto) {
+          var r = bossSection.getBoundingClientRect();
+          if (r.top < vh && r.bottom > 0) {
+            var pct = (vh - r.top) / (vh + r.height); /* 0 → 1 */
+            var yPx = (pct - 0.5) * 90;               /* ±45px */
+            bossPhoto.style.transform = 'scale(1.08) translateY(' + yPx + 'px)';
+          }
+        }
+      }
+
+      window.addEventListener('scroll', function () {
+        if (!rafPending) { rafPending = true; requestAnimationFrame(tick); }
+      }, { passive: true });
+
+      tick(); /* 初期位置をセット */
+    })();
+  }
+
+  /* ────────────────────────────────────────────────
+     3. カウンターアニメーション（100万人）
+     ビューポートに入ったとき 0 → 100 を ease-out でカウントアップ
+  ──────────────────────────────────────────────── */
+  (function initCounter() {
+    var el = document.querySelector('.ig-stat-big');
+    if (!el || prefersNoMotion) return;
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+
+        var t0  = performance.now();
+        var DUR = 1800;
+        var END = 100;
+
+        (function step(now) {
+          var t    = Math.min((now - t0) / DUR, 1);
+          var ease = 1 - Math.pow(1 - t, 4); /* ease-out quart */
+          el.textContent = Math.round(ease * END) + '万人';
+          if (t < 1) requestAnimationFrame(step);
+        })(t0);
+      });
+    }, { threshold: 0.6 });
+
+    io.observe(el);
+  })();
+
+})();
+</script>
+</body>
+</html>

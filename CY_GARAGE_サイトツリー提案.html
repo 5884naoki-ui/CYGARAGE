@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CY GARAGE｜サイトツリー提案</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+    background: #0a0a0a;
+    color: #f0f0f0;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+    border-bottom: 1px solid #c8a96e;
+    padding: 40px;
+    text-align: center;
+  }
+  .header-logo {
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: #c8a96e;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .header-sub {
+    font-size: 13px;
+    color: #888;
+    letter-spacing: 2px;
+  }
+
+  /* Main container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 30px;
+  }
+
+  /* Strategy note */
+  .strategy-box {
+    background: linear-gradient(135deg, #1a1508 0%, #211c0a 100%);
+    border: 1px solid #c8a96e;
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin-bottom: 50px;
+  }
+  .strategy-box h2 {
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: #c8a96e;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .strategy-box p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: #ccc;
+  }
+  .strategy-box strong {
+    color: #c8a96e;
+  }
+
+  /* Competitor section */
+  .section-title {
+    font-size: 10px;
+    letter-spacing: 6px;
+    color: #c8a96e;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #222;
+  }
+
+  .competitor-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 60px;
+  }
+  .competitor-card {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 4px;
+    padding: 20px;
+  }
+  .competitor-card h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .competitor-card .type-tag {
+    font-size: 10px;
+    color: #c8a96e;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .competitor-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .competitor-card ul li {
+    font-size: 12px;
+    color: #999;
+    padding: 3px 0;
+    padding-left: 12px;
+    position: relative;
+  }
+  .competitor-card ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: #444;
+    font-size: 10px;
+  }
+  .competitor-card .strength {
+    margin-top: 12px;
+    font-size: 11px;
+    color: #666;
+    background: #1a1a1a;
+    padding: 8px;
+    border-radius: 3px;
+  }
+  .competitor-card .strength span {
+    color: #c8a96e;
+    font-weight: 600;
+  }
+
+  /* Site tree */
+  .site-tree-wrapper {
+    margin-bottom: 60px;
+  }
+
+  /* TOP PAGE */
+  .tree-top {
+    background: linear-gradient(135deg, #c8a96e 0%, #a8893e 100%);
+    color: #000;
+    padding: 20px 28px;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 6px;
+    position: relative;
+  }
+  .tree-top .page-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .tree-top .page-name {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  .tree-top .page-note {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+
+  /* Connector lines */
+  .connector-h {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+  }
+  .connector-h::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 100%;
+    background: #c8a96e;
+    opacity: 0.4;
+  }
+
+  /* Level 1 columns */
+  .l1-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .l1-grid::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 8.33%;
+    right: 8.33%;
+    height: 1px;
+    background: rgba(200, 169, 110, 0.3);
+  }
+
+  .l1-card {
+    border-radius: 4px;
+    padding: 14px 10px;
+    text-align: center;
+    position: relative;
+  }
+  .l1-card::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    width: 1px;
+    height: 8px;
+    background: rgba(200, 169, 110, 0.4);
+  }
+
+  .l1-card.primary {
+    background: #1a1508;
+    border: 1px solid #c8a96e;
+  }
+  .l1-card.secondary {
+    background: #111;
+    border: 1px solid #333;
+  }
+  .l1-card.tertiary {
+    background: #0d0d0d;
+    border: 1px solid #222;
+  }
+
+  .l1-card .nav-num {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #666;
+    margin-bottom: 6px;
+  }
+  .l1-card.primary .nav-num { color: #c8a96e; }
+  .l1-card .nav-en {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #666;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+  .l1-card.primary .nav-en { color: #c8a96e; opacity: 0.7; }
+  .l1-card .nav-ja {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .l1-card.primary .nav-ja { color: #c8a96e; }
+  .l1-card .nav-goal {
+    margin-top: 6px;
+    font-size: 10px;
+    color: #888;
+    line-height: 1.4;
+  }
+  .l1-card.primary .nav-goal { color: #a89050; }
+
+  /* Primary badge */
+  .primary-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #c8a96e;
+    color: #000;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  /* Level 2 */
+  .l2-sections {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .l2-col {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .l2-card {
+    background: #0d0d0d;
+    border: 1px solid #1a1a1a;
+    border-radius: 3px;
+    padding: 10px 8px;
+    text-align: center;
+    position: relative;
+  }
+  .l2-card::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 1px;
+    height: 5px;
+    background: rgba(200, 169, 110, 0.2);
+  }
+  .l2-card.highlight {
+    border-color: #3a2a00;
+    background: #120d00;
+  }
+  .l2-card .l2-name {
+    font-size: 11px;
+    color: #aaa;
+    line-height: 1.4;
+  }
+  .l2-card.highlight .l2-name { color: #c8a96e; }
+  .l2-card .l2-note {
+    font-size: 9px;
+    color: #555;
+    margin-top: 4px;
+  }
+  .l2-card.highlight .l2-note { color: #7a6030; }
+
+  /* Connector between l1 and l2 */
+  .connector-between {
+    height: 12px;
+    position: relative;
+  }
+  .connector-between::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  /* Insight boxes */
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 50px;
+  }
+  .insight-card {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 4px;
+    padding: 24px;
+  }
+  .insight-card h3 {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: #c8a96e;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .insight-card p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #999;
+  }
+  .insight-card .insight-point {
+    margin-top: 10px;
+    padding: 10px;
+    background: #0a0a0a;
+    border-left: 2px solid #c8a96e;
+    font-size: 12px;
+    color: #ccc;
+  }
+
+  /* CTA section */
+  .cta-section {
+    text-align: center;
+    padding: 40px;
+    border: 1px solid #222;
+    border-radius: 4px;
+    background: #0d0d0d;
+  }
+  .cta-section p {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 6px;
+    letter-spacing: 2px;
+  }
+  .cta-section h3 {
+    font-size: 24px;
+    font-weight: 300;
+    color: #c8a96e;
+    letter-spacing: 3px;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .competitor-grid { grid-template-columns: 1fr; }
+    .l1-grid { grid-template-columns: repeat(3, 1fr); }
+    .l2-sections { grid-template-columns: repeat(3, 1fr); }
+    .insights-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Page count label */
+  .page-count {
+    display: inline-block;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-size: 10px;
+    color: #666;
+    margin-top: 6px;
+  }
+  .page-count.gold {
+    border-color: #c8a96e;
+    color: #c8a96e;
+    background: #1a1508;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">Site Architecture Proposal</div>
+  <h1>CY GARAGE</h1>
+  <div class="header-sub">RARE CAR DEALER — WEBSITE SITE TREE 2026</div>
+</div>
+
+<div class="container">
+
+  <!-- Strategy Note -->
+  <div class="strategy-box">
+    <h2>Strategic Direction / 設計方針</h2>
+    <p>
+      CY GARAGEは<strong>「まれしゃ（希少車）」</strong>という唯一無二のポジションを持つブランド。
+      ラプター・カスタムカー・ラッピング仕上げなど、他では買えない稀少な車を扱う専門店として、
+      <strong>「買取」をサイトの最優先コンバージョン</strong>に設定します。
+      富裕層・車好きが「この店なら希少車を正しく評価してくれる」と信頼できるよう、
+      <strong>実績・希少性・専門性</strong>を全ページで訴求する構成にします。
+    </p>
+  </div>
+
+  <!-- Competitor Research -->
+  <div class="section-title">Competitor Research / 競合サイト調査</div>
+
+  <div class="competitor-grid">
+    <div class="competitor-card">
+      <h3>ガレージカレント</h3>
+      <div class="type-tag">輸入名車専門・中古販売・買取</div>
+      <ul>
+        <li>販売中車両 / 過去販売車両</li>
+        <li>愛車買取</li>
+        <li>メーカー一覧（ポルシェ〜フェラーリ）</li>
+        <li>ブログ / お客様の声</li>
+        <li>保証・納車の流れ</li>
+        <li>スタッフ紹介 / 店舗情報</li>
+      </ul>
+      <div class="strength">注目点：<span>「過去販売実績」ページで希少性・信頼性を証明</span></div>
+    </div>
+    <div class="competitor-card">
+      <h3>フェアライン</h3>
+      <div class="type-tag">アメ車・逆輸入車・新車中古車</div>
+      <ul>
+        <li>在庫車両</li>
+        <li>お客様の声</li>
+        <li>フェアラインTV（YouTube）</li>
+        <li>会社紹介 / 採用情報</li>
+        <li>SNS（YouTube/IG/TikTok）</li>
+      </ul>
+      <div class="strength">注目点：<span>動画コンテンツ（TV）でブランド体験を提供</span></div>
+    </div>
+    <div class="competitor-card">
+      <h3>キャルウイング</h3>
+      <div class="type-tag">輸入車販売・カスタム・買取</div>
+      <ul>
+        <li>在庫車一覧 / 新車カタログ</li>
+        <li>全国納車 / ローン・リース</li>
+        <li>輸入車オーダー販売</li>
+        <li>整備工場 / 事故受付</li>
+        <li>カスタムカーギャラリー</li>
+        <li>高価買取・査定</li>
+      </ul>
+      <div class="strength">注目点：<span>「カスタムギャラリー」で視覚的な差別化</span></div>
+    </div>
+    <div class="competitor-card">
+      <h3>Cloud GROUP</h3>
+      <div class="type-tag">希少輸入車・全国複数拠点</div>
+      <ul>
+        <li>販売車両</li>
+        <li>Cloud Quality（品質基準）</li>
+        <li>買取 / 買取実績</li>
+        <li>レンタカーサービス</li>
+        <li>各店舗案内（6拠点）</li>
+      </ul>
+      <div class="strength">注目点：<span>「買取実績」ページを独立設置で信頼構築</span></div>
+    </div>
+    <div class="competitor-card">
+      <h3>コレクションズ</h3>
+      <div class="type-tag">アメ車専門・カスタム・修理</div>
+      <ul>
+        <li>中古車販売 / パーツ販売</li>
+        <li>カスタム / 修理</li>
+        <li>買取</li>
+        <li>ブログ</li>
+      </ul>
+      <div class="strength">注目点：<span>カスタム・修理も含めた「ワンストップ」訴求</span></div>
+    </div>
+    <div class="competitor-card">
+      <h3>外車王</h3>
+      <div class="type-tag">外車・輸入車 高価買取専門</div>
+      <ul>
+        <li>無料査定フォーム（TOP直結）</li>
+        <li>買取価格相場</li>
+        <li>買取の流れ</li>
+        <li>メーカー別買取情報</li>
+        <li>お客様の声</li>
+      </ul>
+      <div class="strength">注目点：<span>「買取特化」でTOPから即CTAへ誘導</span></div>
+    </div>
+  </div>
+
+  <!-- Site Tree -->
+  <div class="section-title">Proposed Site Tree / サイトツリー提案</div>
+
+  <div class="site-tree-wrapper">
+
+    <!-- TOP -->
+    <div class="tree-top">
+      <div class="page-label">01 — TOP</div>
+      <div class="page-name">HOME / トップページ</div>
+      <div class="page-note">ブランドの世界観・在庫ハイライト・買取CTAを最上部に配置</div>
+    </div>
+
+    <div class="connector-h"></div>
+
+    <!-- Level 1 -->
+    <div class="l1-grid">
+
+      <div class="l1-card primary" style="position:relative;">
+        <div class="primary-badge">★ MAIN GOAL</div>
+        <div class="nav-num">02</div>
+        <div class="nav-en">APPRAISAL</div>
+        <div class="nav-ja">買取・無料査定</div>
+        <div class="nav-goal">サイト最優先の<br>コンバージョン</div>
+        <div class="page-count gold">4ページ</div>
+      </div>
+
+      <div class="l1-card secondary">
+        <div class="nav-num">03</div>
+        <div class="nav-en">INVENTORY</div>
+        <div class="nav-ja">在庫車両</div>
+        <div class="nav-goal">ラプター・アメ車<br>希少車ラインナップ</div>
+        <div class="page-count">5ページ</div>
+      </div>
+
+      <div class="l1-card secondary">
+        <div class="nav-num">04</div>
+        <div class="nav-en">WRAPPING</div>
+        <div class="nav-ja">ラッピング<br>カスタム</div>
+        <div class="nav-goal">施工実績・<br>メニュー訴求</div>
+        <div class="page-count">4ページ</div>
+      </div>
+
+      <div class="l1-card secondary">
+        <div class="nav-num">05</div>
+        <div class="nav-en">CONTENT</div>
+        <div class="nav-ja">コンテンツ</div>
+        <div class="nav-goal">ブログ・動画で<br>検索流入獲得</div>
+        <div class="page-count">3ページ</div>
+      </div>
+
+      <div class="l1-card tertiary">
+        <div class="nav-num">06</div>
+        <div class="nav-en">ABOUT</div>
+        <div class="nav-ja">CY GARAGEとは</div>
+        <div class="nav-goal">ブランド・<br>信頼性訴求</div>
+        <div class="page-count">3ページ</div>
+      </div>
+
+      <div class="l1-card tertiary">
+        <div class="nav-num">07</div>
+        <div class="nav-en">SUPPORT</div>
+        <div class="nav-ja">サポート・<br>お問い合わせ</div>
+        <div class="nav-goal">購入後フォロー・<br>各種問い合わせ</div>
+        <div class="page-count">4ページ</div>
+      </div>
+
+    </div>
+
+    <!-- Level 2 -->
+    <div class="l2-sections">
+
+      <!-- 買取 -->
+      <div class="l2-col">
+        <div class="l2-card highlight">
+          <div class="l2-name">📋 無料査定フォーム</div>
+          <div class="l2-note">TOPからも直接リンク</div>
+        </div>
+        <div class="l2-card highlight">
+          <div class="l2-name">🔄 買取の流れ</div>
+          <div class="l2-note">4ステップで簡潔に</div>
+        </div>
+        <div class="l2-card highlight">
+          <div class="l2-name">📊 買取実績</div>
+          <div class="l2-note">希少車の買取事例紹介</div>
+        </div>
+        <div class="l2-card highlight">
+          <div class="l2-name">💬 よくある質問</div>
+          <div class="l2-note">買取に関するFAQ</div>
+        </div>
+      </div>
+
+      <!-- 在庫 -->
+      <div class="l2-col">
+        <div class="l2-card">
+          <div class="l2-name">🚗 在庫一覧（全車）</div>
+          <div class="l2-note">絞り込み検索付き</div>
+        </div>
+        <div class="l2-card">
+          <div class="l2-name">🦅 フォードラプター特集</div>
+          <div class="l2-note">目玉車種を特集ページ化</div>
+        </div>
+        <div class="l2-card">
+          <div class="l2-name">🇺🇸 アメ車・逆輸入車</div>
+          <div class="l2-note">カテゴリ別ページ</div>
+        </div>
+        <div class="l2-card">
+          <div class="l2-name">🎨 カスタム済み車両</div>
+          <div class="l2-note">ラッピング仕上げ在庫</div>
+        </div>
+        <div class="l2-card">
+          <div class="l2-name">📄 車両詳細ページ</div>
+          <div class="l2-note">各車両の個別ページ</div>
+        </div>
+      </div>
+
+      <!-- ラッピング -->
+      <div class="l2-col">
+        <div class="l2-card">
+          <div class="l2-name">❓ ラッピングとは</div>
+          <div class="l2-note">サービス説明・素材紹介</div>
+        </div>
+        <div class="l2-card">
+          <div class="l2-name">🖼️ 施工実績ギャラリー</div>
+          <div class="l2-note">ビフォーアフター写真</div>
+        </div>
+        <div class="l2-card">
+          <div class="l2-name">💰 料金・メニュー</div>
+          <div class="l2-note">パーツ別・車種別料金</div>
+        </div>
+        <div class="l2-card">
+          <div class="l2-name">📝 お見積もり依頼</div>
+          <div class="l2-note">ラッピング専用フォーム</div>
+        </div>
+      </div>
+
+      <!-- コンテンツ -->
+      <div class="l2-col">
+        <div class="l2-card">
+          <div class="l2-name">📝 ブログ・コラム</div>
+          <div class="l2-note">希少車情報・SEO対策</div>
+        </div>
+        <div class="l2-card">
+          <div class="l2-name">🎬 動画ギャラリー</div>
+          <div class="l2-note">YouTube埋め込み</div>
+        </div>
+        <div class="l2-card">
+          <div class="l2-name">⭐ お客様の声</div>
+          <div class="l2-note">購入・買取実績紹介</div>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div class="l2-col">
+        <div class="l2-card">
+          <div class="l2-name">🏖️ ブランドストーリー</div>
+          <div class="l2-note">まれしゃ・マイアミの世界観</div>
+        </div>
+        <div class="l2-card">
+          <div class="l2-name">🏢 会社概要</div>
+          <div class="l2-note">古物商許可証等も掲載</div>
+        </div>
+        <div class="l2-card">
+          <div class="l2-name">📰 メディア掲載</div>
+          <div class="l2-note">実績・信頼性アップ</div>
+        </div>
+      </div>
+
+      <!-- サポート -->
+      <div class="l2-col">
+        <div class="l2-card">
+          <div class="l2-name">📞 お問い合わせ</div>
+          <div class="l2-note">総合フォーム</div>
+        </div>
+        <div class="l2-card">
+          <div class="l2-name">💳 ローン・ファイナンス</div>
+          <div class="l2-note">購入サポート情報</div>
+        </div>
+        <div class="l2-card">
+          <div class="l2-name">🛡️ 保証・アフター</div>
+          <div class="l2-note">購入後の安心サポート</div>
+        </div>
+        <div class="l2-card">
+          <div class="l2-name">🚚 納車・全国対応</div>
+          <div class="l2-note">遠方購入者向け情報</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Insights -->
+  <div class="section-title">Design Rationale / 設計の根拠</div>
+
+  <div class="insights-grid">
+    <div class="insight-card">
+      <h3>買取を最優先に</h3>
+      <p>外車王のように「買取に特化したサイト」が成功しているように、<strong>TOPページから即査定フォームに誘導</strong>するCTAを最上位に設置します。競合の多くが買取をサブメニューに埋めている中、これがCY GARAGEの差別化になります。</p>
+      <div class="insight-point">✦ TOPのヒーローバナーに「無料査定フォーム」ボタンを配置</div>
+    </div>
+    <div class="insight-card">
+      <h3>ラプター特集ページ</h3>
+      <p>フォード・ラプターはGoogleでの検索ボリュームが高く、希少性も高い目玉車種。在庫一覧に埋めるのではなく<strong>専用の特集ページを設ける</strong>ことで、SEO集客と高単価購入者の獲得を狙います。</p>
+      <div class="insight-point">✦ ガレージカレントは「メーカー別」で差別化。CYは「車種特集」で差別化</div>
+    </div>
+    <div class="insight-card">
+      <h3>ブランドストーリーで世界観を訴求</h3>
+      <p>競合の多くは会社概要のみ。CY GARAGEは<strong>マイアミ発・まれしゃという世界観</strong>を前面に出した「ブランドストーリー」ページを設けることで、富裕層の心に刺さる唯一無二のポジショニングを確立します。</p>
+      <div class="insight-point">✦ フェアラインの「フェアラインTV」のように動画でも世界観を発信</div>
+    </div>
+  </div>
+
+  <!-- Total page count -->
+  <div style="background:#111; border:1px solid #222; border-radius:4px; padding:24px 32px; margin-bottom:40px;">
+    <div class="section-title" style="margin-bottom:16px;">Page Summary / ページ構成サマリー</div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; text-align:center;">
+      <div>
+        <div style="font-size:28px; font-weight:300; color:#c8a96e;">1</div>
+        <div style="font-size:11px; color:#666; letter-spacing:2px;">TOP PAGE</div>
+      </div>
+      <div>
+        <div style="font-size:28px; font-weight:300; color:#c8a96e;">6</div>
+        <div style="font-size:11px; color:#666; letter-spacing:2px;">L1 SECTIONS</div>
+      </div>
+      <div>
+        <div style="font-size:28px; font-weight:300; color:#c8a96e;">23</div>
+        <div style="font-size:11px; color:#666; letter-spacing:2px;">L2 SUB PAGES</div>
+      </div>
+      <div>
+        <div style="font-size:28px; font-weight:300; color:#c8a96e;">30+</div>
+        <div style="font-size:11px; color:#666; letter-spacing:2px;">TOTAL PAGES</div>
+      </div>
+    </div>
+    <div style="margin-top:16px; font-size:12px; color:#666; line-height:1.8;">
+      ※ 車両詳細ページは在庫数に応じて増加。ブログ記事ページは随時追加。<br>
+      ※ フェーズ1でコアページを先行公開し、コンテンツ・ブログは順次拡充する方針を推奨。
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <p>NEXT STEP</p>
+    <h3>ワイヤーフレーム制作へ</h3>
+    <div style="margin-top:16px; font-size:13px; color:#555; line-height:1.8;">
+      このサイトツリーをベースにTOPページ・買取ページ・在庫一覧ページから<br>
+      ワイヤーフレームの作成を開始することをお勧めします。
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

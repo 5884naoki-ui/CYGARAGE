@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MASERATI GranTurismo — ストーリーで見る在庫車 / CY GARAGE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --gold: #e8b84e;
+  --gold-light: #ffd074;
+  --black: #060c1a;
+  --dark: #0a1324;
+  --panel: #0e1a30;
+  --line: #162541;
+  --text: #f0f4ff;
+  --text-2: #b8c2d6;
+  --text-3: #7a8299;
+  --green: #4eca7a;
+  --red: #ff6b6b;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.8;
+}
+a { color: inherit; }
+.page {
+  padding-bottom: 92px;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(6,12,26,0.95);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo img { height: 28px; display: block; }
+.topbar a.back {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: var(--gold);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.hero {
+  min-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 92px 18px 28px;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(to top, #060c1a 0%, rgba(6,12,26,0.78) 42%, rgba(6,12,26,0.28) 100%),
+    url('image/12.jpeg') center / cover no-repeat;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(6,12,26,0.72), transparent 70%);
+}
+.hero-body {
+  position: relative;
+  z-index: 1;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid rgba(232,184,78,0.5);
+  background: rgba(6,12,26,0.72);
+  color: var(--gold);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(58px, 18vw, 108px);
+  letter-spacing: 0.03em;
+  line-height: 0.9;
+  color: #fff;
+}
+.hero-copy {
+  margin-top: 18px;
+  padding-left: 16px;
+  border-left: 2px solid var(--gold);
+  max-width: 520px;
+  color: var(--text-2);
+  font-size: 14px;
+}
+.price-box {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.price-cell {
+  background: rgba(10,19,36,0.9);
+  padding: 16px 14px;
+}
+.price-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+.price-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  color: var(--gold-light);
+  margin-top: 3px;
+}
+.hero-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 52px;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.btn-primary { background: var(--gold); color: #000; }
+.btn-outline { border: 1px solid rgba(255,255,255,0.28); color: #fff; }
+section {
+  padding: 58px 18px;
+  border-top: 1px solid var(--line);
+}
+.wrap { max-width: 1120px; margin: 0 auto; }
+.eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+h2 {
+  font-size: clamp(28px, 8vw, 52px);
+  color: #fff;
+  line-height: 1.25;
+  margin-bottom: 20px;
+}
+.lead {
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 2;
+  max-width: 620px;
+}
+.quick-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 28px;
+}
+.spec {
+  background: var(--panel);
+  padding: 18px 14px;
+}
+.spec dt {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+.spec dd {
+  color: #fff;
+  font-weight: 700;
+  margin-top: 4px;
+}
+.video-card {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 16px;
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 14px;
+}
+.video-thumb {
+  aspect-ratio: 9 / 16;
+  background: url('image/12.jpeg') center / cover no-repeat;
+  position: relative;
+}
+.play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,0.28);
+  color: #fff;
+  font-size: 28px;
+}
+.video-card h3 {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.video-card p {
+  color: var(--text-3);
+  font-size: 12px;
+  line-height: 1.8;
+}
+.story-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+.story-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 24px 20px;
+}
+.story-card h3 {
+  color: #fff;
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+.story-card p {
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 2;
+}
+.timeline {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.year {
+  font-family: 'Bebas Neue', sans-serif;
+  color: var(--gold);
+  font-size: 28px;
+}
+.timeline-item h3 {
+  color: #fff;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+.timeline-item p {
+  color: var(--text-3);
+  font-size: 12px;
+  line-height: 1.9;
+}
+.check-list {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 28px;
+}
+.check-row {
+  background: var(--panel);
+  padding: 18px 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+}
+.check-row strong {
+  display: block;
+  color: #fff;
+  font-size: 14px;
+}
+.check-row span {
+  color: var(--text-3);
+  font-size: 12px;
+}
+.status-ok {
+  font-family: 'Barlow Condensed', sans-serif;
+  color: var(--green);
+  letter-spacing: 0.15em;
+  font-size: 12px;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 28px;
+}
+.gallery figure {
+  aspect-ratio: 1 / 1;
+  background: #111;
+  overflow: hidden;
+  position: relative;
+}
+.gallery figure:first-child {
+  grid-column: 1 / 3;
+  aspect-ratio: 16 / 10;
+}
+.gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.gallery figcaption {
+  position: absolute;
+  left: 10px;
+  bottom: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px #000;
+}
+.cta-panel {
+  background: linear-gradient(135deg, rgba(232,184,78,0.18), rgba(10,19,36,1));
+  border: 1px solid rgba(232,184,78,0.3);
+  padding: 28px 20px;
+}
+.sticky-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 80;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border-top: 1px solid var(--line);
+}
+.sticky-cta a {
+  min-height: 62px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+}
+.sticky-cta a:first-child { background: var(--gold); color: #000; }
+.sticky-cta a:last-child { background: #0b1528; color: #fff; }
+
+@media (min-width: 760px) {
+  .topbar { padding: 18px 48px; }
+  .logo img { height: 36px; }
+  .hero {
+    min-height: 92vh;
+    padding: 140px 64px 80px;
+  }
+  .hero-actions { grid-template-columns: 220px 220px; }
+  .price-box { max-width: 620px; grid-template-columns: repeat(4, 1fr); }
+  section { padding: 92px 64px; }
+  .quick-specs { grid-template-columns: repeat(4, 1fr); }
+  .story-grid { grid-template-columns: 1fr 1fr; }
+  .check-list { grid-template-columns: 1fr 1fr; }
+  .gallery { grid-template-columns: 2fr 1fr 1fr; }
+  .gallery figure:first-child { grid-column: auto; grid-row: 1 / 3; aspect-ratio: auto; }
+  .video-card { max-width: 620px; grid-template-columns: 150px 1fr; }
+  .sticky-cta {
+    left: auto;
+    right: 28px;
+    bottom: 28px;
+    width: 420px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.45);
+  }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="topbar">
+    <a href="TOP_D_meeting_20260501.html" class="logo"><img src="image/cygarage-logo.png" alt="CY GARAGE"></a>
+    <a href="TOP_D_meeting_20260501.html#inventory" class="back">在庫へ戻る</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="badge">STOCK CAR / MARESYA STORY</div>
+      <h1>MASERATI<br>GRANTURISMO</h1>
+      <p class="hero-copy">3.1万kmのグラントゥーリズモ。この距離、この雰囲気、この音。数字だけでは伝わらない一台です。</p>
+      <div class="price-box">
+        <div class="price-cell"><div class="price-label">PRICE</div><div class="price-value">658万円</div></div>
+        <div class="price-cell"><div class="price-label">YEAR</div><div class="price-value">2013</div></div>
+        <div class="price-cell"><div class="price-label">MILEAGE</div><div class="price-value">3.1万km</div></div>
+        <div class="price-cell"><div class="price-label">STATUS</div><div class="price-value">在庫中</div></div>
+      </div>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">この車を相談する</a>
+        <a href="#story" class="btn btn-outline">物語を見る</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="eyebrow">FIRST CHECK</div>
+      <h2>まず知りたいことは、<br>最初に全部。</h2>
+      <p class="lead">価格、年式、車検残、修復歴、主な使われ方、整備記録。気になるところを先に見てから、この一台を検討できます。</p>
+      <dl class="quick-specs">
+        <div class="spec"><dt>車検</dt><dd>令和8年3月</dd></div>
+        <div class="spec"><dt>修復歴</dt><dd>なし</dd></div>
+        <div class="spec"><dt>使用傾向</dt><dd>週末中心</dd></div>
+        <div class="spec"><dt>整備記録</dt><dd>記録簿あり</dd></div>
+      </dl>
+      <div class="video-card">
+        <div class="video-thumb"><div class="play">▶</div></div>
+        <div>
+          <h3>社長がこの車を語る</h3>
+          <p>「この距離はもう奇跡。まれしゃの中のまれしゃ。」写真では伝わらない音、雰囲気、買うべき人まで短尺動画で紹介。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="story">
+    <div class="wrap">
+      <div class="eyebrow">OWNER STORY</div>
+      <h2>前オーナーの想いが、<br>残っている車。</h2>
+      <p class="lead">どんな人が、どんな時間をこの車と過ごしてきたのか。スペック表だけではわからない背景まで知ってから選べます。</p>
+      <div class="story-grid">
+        <div class="story-card">
+          <h3>何年乗ってきたか</h3>
+          <p>前オーナーは約5年所有。週末のドライブ中心で、長距離移動は高速道路が多め。街乗りで細かく止まる使い方は少なめです。</p>
+        </div>
+        <div class="story-card">
+          <h3>なぜ手放すのか</h3>
+          <p>次の車へ乗り換えるため。車そのものへの不満ではなく、家族構成と使い方が変わったことが理由です。</p>
+        </div>
+        <div class="story-card">
+          <h3>こだわってきた整備</h3>
+          <p>オイル交換、消耗品の交換、車検時の点検を継続。記録簿で確認できる内容をもとに、状態を整理しています。</p>
+        </div>
+        <div class="story-card">
+          <h3>次の人に伝えたいこと</h3>
+          <p>エンジンをかけた瞬間の音と、低い姿勢で走る雰囲気。スペックだけで選ぶ車ではありません。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="eyebrow">MAINTENANCE TIMELINE</div>
+      <h2>整備履歴を、<br>物語として見る。</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="year">2021</div>
+          <div><h3>購入・納車</h3><p>約2.4万kmで購入。購入後すぐに点検と油脂類を交換。</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2023</div>
+          <div><h3>車検・消耗品交換</h3><p>ブレーキ周り、タイヤ状態、下回りを点検。気になる箇所を先回りで整備。</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2025</div>
+          <div><h3>CY GARAGE入庫</h3><p>外装・内装・機関系を確認。社長が走行感と音までチェック。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="eyebrow">CY CHECK POINTS</div>
+      <h2>CY GARAGEは、<br>ここを見ています。</h2>
+      <div class="check-list">
+        <div class="check-row"><div><strong>外装状態</strong><span>傷・凹み・塗装状態を確認</span></div><div class="status-ok">CHECKED</div></div>
+        <div class="check-row"><div><strong>内装状態</strong><span>シート、臭い、使用感を確認</span></div><div class="status-ok">CHECKED</div></div>
+        <div class="check-row"><div><strong>エンジンルーム</strong><span>オイル漏れ、異音、熱の入り方を確認</span></div><div class="status-ok">CHECKED</div></div>
+        <div class="check-row"><div><strong>下回り</strong><span>サビ、修復跡、足回りを確認</span></div><div class="status-ok">CHECKED</div></div>
+        <div class="check-row"><div><strong>走行テスト</strong><span>加速、ブレーキ、直進性を確認</span></div><div class="status-ok">CHECKED</div></div>
+        <div class="check-row"><div><strong>書類</strong><span>車検証、記録簿、ローン相談可否を確認</span></div><div class="status-ok">CHECKED</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="eyebrow">DETAIL PHOTOS</div>
+      <h2>気になるところまで、<br>ちゃんと見せます。</h2>
+      <p class="lead">外装、内装、傷、エンジンルーム、下回り、メーター。良いところだけでなく、確認したい部分まで見てください。</p>
+      <div class="gallery">
+        <figure><img src="image/12.jpeg" alt="外装メイン"><figcaption>Exterior main</figcaption></figure>
+        <figure><img src="image/13.jpeg" alt="フロント"><figcaption>Front</figcaption></figure>
+        <figure><img src="image/14.jpeg" alt="リア"><figcaption>Rear</figcaption></figure>
+        <figure><img src="image/15.jpeg" alt="内装"><figcaption>Interior</figcaption></figure>
+        <figure><img src="image/16.jpeg" alt="ディテール"><figcaption>Detail</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="cta-panel">
+        <div class="eyebrow">CONTACT</div>
+        <h2>この車が気になったら、<br>まずLINEで相談。</h2>
+        <p class="lead">ローンの事前審査、下取り、来店日時、東京駅への送迎など、気になることを先に整理できます。見るだけではなく、乗って相棒になるか確かめてください。</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary">LINEで相談する</a>
+          <a href="#" class="btn btn-outline">電話で相談する</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="sticky-cta">
+  <a href="#contact">LINEで相談</a>
+  <a href="#story">物語を見る</a>
+</div>
+</body>
+</html>

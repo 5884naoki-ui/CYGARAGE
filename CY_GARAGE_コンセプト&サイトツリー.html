@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CY GARAGE — コンセプト & サイトツリー</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+    background: #0a0a0a;
+    color: #f0f0f0;
+    line-height: 1.7;
+  }
+
+  /* HEADER */
+  .doc-header {
+    border-bottom: 1px solid #c8a96e;
+    padding: 48px 60px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .doc-header-left .eyebrow {
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: #c8a96e;
+    margin-bottom: 10px;
+  }
+  .doc-header-left h1 {
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: #fff;
+  }
+  .doc-header-right { text-align: right; }
+  .doc-header-right p { font-size: 11px; color: #555; letter-spacing: 1px; margin-bottom: 4px; }
+  .doc-header-right .version { color: #c8a96e; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 60px 60px; }
+
+  /* SECTION */
+  .section { margin-bottom: 70px; }
+  .section-eyebrow {
+    font-size: 9px;
+    letter-spacing: 6px;
+    color: #c8a96e;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #1a1a1a;
+    display: none;
+  }
+
+  /* CONCEPT BLOCK */
+  .concept-hero {
+    background: linear-gradient(135deg, #1a1508 0%, #211c0a 100%);
+    border: 1px solid #c8a96e;
+    border-radius: 4px;
+    padding: 48px;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .concept-hero .tagline-sub {
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: #c8a96e;
+    margin-bottom: 20px;
+  }
+  .concept-hero .tagline-main {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 300;
+    color: #fff;
+    letter-spacing: 3px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .concept-hero .tagline-main strong {
+    color: #c8a96e;
+    font-weight: 700;
+  }
+  .concept-hero .tagline-en {
+    font-size: 11px;
+    color: #555;
+    letter-spacing: 4px;
+    margin-top: 16px;
+  }
+
+  /* CONCEPT PILLARS */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .pillar {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 4px;
+    padding: 28px 24px;
+  }
+  .pillar .pillar-num {
+    font-size: 32px;
+    font-weight: 300;
+    color: #2a2a2a;
+    line-height: 1;
+    margin-bottom: 12px;
+    font-family: 'Georgia', serif;
+  }
+  .pillar .pillar-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #c8a96e;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  .pillar .pillar-body {
+    font-size: 12px;
+    color: #777;
+    line-height: 1.8;
+  }
+  .pillar .pillar-body strong { color: #aaa; }
+
+  /* WHY BOX */
+  .why-box {
+    background: #0d0d0d;
+    border-left: 3px solid #c8a96e;
+    padding: 24px 28px;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 16px;
+  }
+  .why-box .why-label {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: #c8a96e;
+    margin-bottom: 10px;
+  }
+  .why-box p { font-size: 13px; color: #888; line-height: 1.9; }
+  .why-box p strong { color: #ddd; }
+
+  /* TARGET */
+  .target-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .target-card {
+    border: 1px solid #1a1a1a;
+    border-radius: 4px;
+    padding: 24px;
+  }
+  .target-card.yes { background: #0d1a0d; border-color: #1a3a1a; }
+  .target-card.no { background: #1a0d0d; border-color: #3a1a1a; }
+  .target-card .target-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+  .target-card.yes .target-label { color: #5fbc5f; }
+  .target-card.no .target-label { color: #bc5f5f; }
+  .target-card ul { list-style: none; }
+  .target-card ul li {
+    font-size: 12px;
+    color: #888;
+    padding: 5px 0;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .target-card.yes ul li::before { content: '✦'; position: absolute; left: 0; color: #5fbc5f; font-size: 8px; top: 7px; }
+  .target-card.no ul li::before { content: '✕'; position: absolute; left: 0; color: #bc5f5f; font-size: 10px; top: 5px; }
+
+  /* STORY BOX */
+  .story-box {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 4px;
+    padding: 32px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .story-box::before {
+    content: '"';
+    position: absolute;
+    top: 16px;
+    left: 24px;
+    font-size: 60px;
+    color: #c8a96e;
+    opacity: 0.2;
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+  .story-box .story-title {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #c8a96e;
+    margin-bottom: 14px;
+  }
+  .story-box p { font-size: 13px; color: #888; line-height: 1.9; padding-left: 8px; }
+  .story-box p strong { color: #ddd; }
+  .story-box .story-point {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: #1a1508;
+    border-left: 2px solid #c8a96e;
+    font-size: 12px;
+    color: #a89050;
+  }
+
+  /* INVENTORY POLICY */
+  .inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .inv-card {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 4px;
+    padding: 20px;
+  }
+  .inv-card .inv-icon { font-size: 24px; margin-bottom: 10px; }
+  .inv-card .inv-type {
+    font-size: 12px;
+    font-weight: 700;
+    color: #c8a96e;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+  .inv-card .inv-desc { font-size: 12px; color: #666; line-height: 1.7; }
+  .inv-card .inv-example {
+    margin-top: 10px;
+    font-size: 11px;
+    color: #444;
+    font-style: italic;
+  }
+
+  /* SITE TREE */
+  .tree-container { margin-top: 8px; }
+
+  .tree-top-node {
+    background: linear-gradient(135deg, #c8a96e, #a8893e);
+    color: #000;
+    padding: 18px 28px;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .tree-top-node .node-label { font-size: 9px; letter-spacing: 4px; font-weight: 700; margin-bottom: 4px; }
+  .tree-top-node .node-name { font-size: 18px; font-weight: 700; letter-spacing: 2px; }
+  .tree-top-node .node-desc { font-size: 11px; opacity: 0.7; margin-top: 4px; }
+
+  .tree-connector {
+    height: 24px;
+    display: flex;
+    justify-content: center;
+  }
+  .tree-connector::after { content: ''; width: 1px; background: rgba(200,169,110,0.3); }
+
+  .tree-h-line {
+    height: 1px;
+    background: rgba(200,169,110,0.2);
+    margin: 0 8px;
+    position: relative;
+  }
+
+  .l1-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .l1-node {
+    border-radius: 4px;
+    padding: 14px 10px;
+    text-align: center;
+    position: relative;
+  }
+  .l1-node.primary { background: #1a1508; border: 1px solid #c8a96e; }
+  .l1-node.secondary { background: #111; border: 1px solid #2a2a2a; }
+
+  .node-num { font-size: 8px; letter-spacing: 2px; color: #555; margin-bottom: 4px; }
+  .l1-node.primary .node-num { color: #c8a96e; }
+  .node-en { font-size: 8px; letter-spacing: 2px; color: #555; margin-bottom: 4px; text-transform: uppercase; }
+  .l1-node.primary .node-en { color: #8a6a30; }
+  .node-ja { font-size: 12px; font-weight: 700; color: #ddd; line-height: 1.3; }
+  .l1-node.primary .node-ja { color: #c8a96e; }
+  .node-role { font-size: 10px; color: #555; margin-top: 6px; line-height: 1.4; }
+  .l1-node.primary .node-role { color: #7a5a20; }
+
+  .primary-flag {
+    position: absolute;
+    top: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #c8a96e;
+    color: #000;
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .l2-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .l2-col { display: flex; flex-direction: column; gap: 4px; }
+  .l2-node {
+    background: #0a0a0a;
+    border: 1px solid #161616;
+    border-radius: 3px;
+    padding: 9px 8px;
+    text-align: center;
+  }
+  .l2-node.highlight { background: #0f0a00; border-color: #2a1f00; }
+  .l2-node .l2-name { font-size: 10px; color: #888; line-height: 1.4; }
+  .l2-node.highlight .l2-name { color: #a89050; }
+  .l2-node .l2-note { font-size: 9px; color: #444; margin-top: 3px; }
+
+  /* PAGE PRIORITY */
+  .priority-list { display: flex; flex-direction: column; gap: 8px; }
+  .priority-item {
+    display: grid;
+    grid-template-columns: 24px 1fr auto auto;
+    gap: 16px;
+    align-items: center;
+    padding: 14px 20px;
+    background: #111;
+    border: 1px solid #1a1a1a;
+    border-radius: 4px;
+  }
+  .priority-item.phase1 { border-left: 3px solid #c8a96e; }
+  .priority-item.phase2 { border-left: 3px solid #555; }
+  .priority-item.phase3 { border-left: 3px solid #2a2a2a; }
+  .priority-num { font-size: 11px; color: #555; font-weight: 700; }
+  .priority-name { font-size: 13px; color: #ccc; }
+  .priority-name span { font-size: 11px; color: #555; margin-left: 8px; }
+  .priority-phase {
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+  .phase1 .priority-phase { background: #1a1508; color: #c8a96e; border: 1px solid #c8a96e; }
+  .phase2 .priority-phase { background: #1a1a1a; color: #888; }
+  .phase3 .priority-phase { background: #111; color: #555; }
+  .priority-type { font-size: 10px; color: #444; letter-spacing: 1px; }
+
+  /* COPY DIRECTION */
+  .copy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .copy-card {
+    border: 1px solid #1a1a1a;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .copy-card .copy-header {
+    padding: 10px 16px;
+    font-size: 9px;
+    letter-spacing: 3px;
+    font-weight: 700;
+  }
+  .copy-card.before .copy-header { background: #1a0a0a; color: #bc5f5f; }
+  .copy-card.after .copy-header { background: #0a1a08; color: #5fbc5f; }
+  .copy-card .copy-body { padding: 16px; }
+  .copy-card .copy-body p {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.8;
+    margin-bottom: 8px;
+  }
+  .copy-card .copy-body p:last-child { margin-bottom: 0; }
+  .copy-card.after .copy-body p { color: #aaa; }
+  .copy-card .copy-body strong { color: #c8a96e; }
+
+  /* SCHEDULE */
+  .schedule-row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+    margin-bottom: 6px;
+    align-items: start;
+  }
+  .schedule-month {
+    text-align: center;
+    padding: 12px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .schedule-month.now { background: #1a1508; color: #c8a96e; border: 1px solid #c8a96e; }
+  .schedule-month.next { background: #111; color: #888; border: 1px solid #222; }
+  .schedule-month.launch { background: linear-gradient(135deg, #c8a96e, #a8893e); color: #000; }
+  .schedule-tasks { display: flex; flex-direction: column; gap: 4px; padding-top: 6px; }
+  .schedule-task {
+    font-size: 12px;
+    color: #777;
+    padding: 6px 12px;
+    background: #111;
+    border-radius: 3px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .schedule-task .task-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .now .task-dot { background: #c8a96e; }
+  .schedule-task .task-dot.gold { background: #c8a96e; }
+  .schedule-task .task-dot.gray { background: #444; }
+
+  /* FOOTER */
+  .doc-footer {
+    border-top: 1px solid #1a1a1a;
+    padding: 32px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .doc-footer p { font-size: 11px; color: #444; letter-spacing: 1px; }
+
+  @media (max-width: 900px) {
+    .doc-header { padding: 32px 24px 28px; flex-direction: column; gap: 16px; align-items: flex-start; }
+    .container { padding: 40px 24px; }
+    .pillars { grid-template-columns: 1fr; }
+    .target-grid { grid-template-columns: 1fr; }
+    .inventory-grid { grid-template-columns: 1fr; }
+    .l1-grid { grid-template-columns: repeat(3, 1fr); }
+    .l2-grid { grid-template-columns: repeat(3, 1fr); }
+    .copy-grid { grid-template-columns: 1fr; }
+    .doc-footer { padding: 24px; flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="doc-header">
+  <div class="doc-header-left">
+    <div class="eyebrow">Brand Concept & Site Architecture</div>
+    <h1>CY GARAGE — まれしゃ</h1>
+  </div>
+  <div class="doc-header-right">
+    <p>作成日：2026年4月</p>
+    <p>目標公開：<span class="version">2026年5月</span></p>
+    <p>プラットフォーム：<span class="version">STUDIO</span></p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ==================== CONCEPT ==================== -->
+  <div class="section">
+    <div class="section-eyebrow">01 — Brand Concept / ブランドコンセプト</div>
+
+    <div class="concept-hero">
+      <div class="tagline-sub">CY GARAGE CORE MESSAGE</div>
+      <div class="tagline-main">
+        感情を動かす車。<br>
+        <strong>こだわりのある人</strong>のための車屋。
+      </div>
+      <div class="tagline-en">CARS THAT MOVE YOU — FOR PEOPLE WITH TASTE</div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div class="pillar-title">人が稀れ</div>
+        <div class="pillar-body">
+          「まれしゃ」の<strong>「まれ」は車だけじゃない</strong>。
+          車を移動手段ではなく、自分の一部として選ぶ人が稀れ。
+          そういう人のための店がCY GARAGE。
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div class="pillar-title">エンタメが差別化</div>
+        <div class="pillar-body">
+          元ジャニーズの社長がインスタで発信する、<strong>ベッドから語る希少車の話</strong>。
+          「この人から買いたい」と思わせることが、
+          ガリバーに勝てる唯一の武器。
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div class="pillar-title">物語がある車</div>
+        <div class="pillar-body">
+          ラプターでも、カスタムしたベンツでも、
+          <strong>「なぜこの車なのか」の理由がある</strong>。
+          台数は20台でいい。全部に社長の目利きと言葉がある。
+        </div>
+      </div>
+    </div>
+
+    <!-- Why this works -->
+    <div class="why-box">
+      <div class="why-label">BRAND STORY — なぜこのポジションか</div>
+      <p>
+        車が壊れてレッカーされた。普通ならクレームになる。でもお客さんは知り合いの工場に入れたら
+        「どこで買ったの、こんないい車」と言われて<strong>喜んでメッセージを送ってきた</strong>。
+        これがCY GARAGEの正体。車の品質と、人間への誠実さが伝わった瞬間。
+        <strong>「感情を動かした瞬間」</strong>がブランドそのものになる。
+      </p>
+    </div>
+  </div>
+
+  <!-- ==================== TARGET ==================== -->
+  <div class="section">
+    <div class="section-eyebrow">02 — Target Customer / ターゲット顧客</div>
+
+    <div class="target-grid">
+      <div class="target-card yes">
+        <div class="target-label">✦ この人に届けたい</div>
+        <ul>
+          <li>最初に乗った車を今でも覚えている人</li>
+          <li>ガリバーで同じ値段ならここに来てみようと思える人</li>
+          <li>車にこだわりはあるが、別に希少車マニアではない</li>
+          <li>インスタで社長を見て「面白い」と思った人</li>
+          <li>ちょっとカスタムしたベンツに「かっこいい」と感じる人</li>
+          <li>車を感情で選ぶ人、乗る体験を大事にする人</li>
+        </ul>
+      </div>
+      <div class="target-card no">
+        <div class="target-label">✕ 無理に振り向かせなくていい</div>
+        <ul>
+          <li>車は移動手段と割り切っている人</li>
+          <li>とにかく安ければいいと考える人</li>
+          <li>エンタメ系の社長スタイルに違和感を感じる人</li>
+          <li>大手ディーラーの安心感だけを求める人</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== INVENTORY ==================== -->
+  <div class="section">
+    <div class="section-eyebrow">03 — Inventory Policy / 在庫の考え方</div>
+
+    <div class="why-box" style="margin-bottom: 20px;">
+      <div class="why-label">基本方針</div>
+      <p>
+        「希少車専門」ではなく<strong>「社長が選んだ車」</strong>として統一する。
+        ラプターでも、カスタムベンツでも、ラッピング仕上げでも、
+        CY GARAGEがセレクトした理由があれば全部「まれしゃ」。
+        車種でカテゴリ分けするより、<strong>1台1台に選んだ理由を載せる</strong>ことが大事。
+      </p>
+    </div>
+
+    <div class="inventory-grid">
+      <div class="inv-card">
+        <div class="inv-icon">🦅</div>
+        <div class="inv-type">希少輸入車</div>
+        <div class="inv-desc">日本に数台しかない本命ライン。価格帯も高く、ブランドの象徴になる車種。</div>
+        <div class="inv-example">例：フォード ラプター、GMC シエラ etc.</div>
+      </div>
+      <div class="inv-card">
+        <div class="inv-icon">✨</div>
+        <div class="inv-type">カスタム・こだわり車</div>
+        <div class="inv-desc">希少ではないが、オーナーが手をかけた個性的な一台。物語がある。</div>
+        <div class="inv-example">例：カスタムベンツ、ラッピング仕上げ車 etc.</div>
+      </div>
+      <div class="inv-card">
+        <div class="inv-icon">🎨</div>
+        <div class="inv-type">ラッピング仕上げ車</div>
+        <div class="inv-desc">CY GARAGEでラッピングを施した車。販売とサービス両方の見本になる。</div>
+        <div class="inv-example">例：フルラッピング施工済み在庫</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== COPY DIRECTION ==================== -->
+  <div class="section">
+    <div class="section-eyebrow">04 — Copy Direction / 言葉の方向性</div>
+
+    <div class="copy-grid">
+      <div class="copy-card before">
+        <div class="copy-header">BEFORE — 変える言葉</div>
+        <div class="copy-body">
+          <p>「希少な輸入車をお探しなら」</p>
+          <p>「在庫台数20台以上」</p>
+          <p>「無料査定はこちら」</p>
+          <p>「安心の保証付き」</p>
+        </div>
+      </div>
+      <div class="copy-card after">
+        <div class="copy-header">AFTER — 使う言葉</div>
+        <div class="copy-body">
+          <p><strong>「感情を動かす車がある」</strong></p>
+          <p><strong>「20台、全部に理由がある」</strong></p>
+          <p><strong>「あなたの車、まれしゃ価格で。」</strong></p>
+          <p><strong>「社長が選んだ、社長が売る。」</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SITE TREE ==================== -->
+  <div class="section">
+    <div class="section-eyebrow">05 — Site Tree / サイトツリー（確定版）</div>
+
+    <div class="tree-container">
+      <!-- TOP -->
+      <div class="tree-top-node">
+        <div class="node-label">TOP PAGE</div>
+        <div class="node-name">HOME</div>
+        <div class="node-desc">社長の動画 → 在庫ハイライト → 買取CTA の順で構成。インスタの世界観を体験させる入口。</div>
+      </div>
+
+      <div class="tree-connector"></div>
+
+      <!-- L1 -->
+      <div class="l1-grid">
+        <div class="l1-node primary" style="position:relative;">
+          <div class="primary-flag">★ PRIORITY 1</div>
+          <div class="node-num">01</div>
+          <div class="node-en">APPRAISAL</div>
+          <div class="node-ja">買取・<br>無料査定</div>
+          <div class="node-role">最優先CV<br>インスタから直結</div>
+        </div>
+        <div class="l1-node secondary">
+          <div class="node-num">02</div>
+          <div class="node-en">INVENTORY</div>
+          <div class="node-ja">在庫車両</div>
+          <div class="node-role">全車1台1台に<br>社長のコメント</div>
+        </div>
+        <div class="l1-node secondary">
+          <div class="node-num">03</div>
+          <div class="node-en">WRAPPING</div>
+          <div class="node-ja">ラッピング<br>カスタム</div>
+          <div class="node-role">施工実績で<br>技術を証明</div>
+        </div>
+        <div class="l1-node secondary">
+          <div class="node-num">04</div>
+          <div class="node-en">CONTENT</div>
+          <div class="node-ja">コンテンツ</div>
+          <div class="node-role">Instagram・<br>ブログ・動画</div>
+        </div>
+        <div class="l1-node secondary">
+          <div class="node-num">05</div>
+          <div class="node-en">ABOUT</div>
+          <div class="node-ja">社長と<br>CY GARAGEについて</div>
+          <div class="node-role">人・ブランド・<br>信頼を伝える</div>
+        </div>
+        <div class="l1-node secondary">
+          <div class="node-num">06</div>
+          <div class="node-en">SUPPORT</div>
+          <div class="node-ja">お問い合わせ<br>サポート</div>
+          <div class="node-role">ローン・保証・<br>全国納車</div>
+        </div>
+      </div>
+
+      <!-- L2 -->
+      <div class="l2-grid">
+        <div class="l2-col">
+          <div class="l2-node highlight"><div class="l2-name">📋 無料査定フォーム</div><div class="l2-note">TOPからも直結</div></div>
+          <div class="l2-node highlight"><div class="l2-name">🔄 買取の流れ</div><div class="l2-note">3ステップで明快に</div></div>
+          <div class="l2-node highlight"><div class="l2-name">📊 買取実績</div><div class="l2-note">車種・金額の事例</div></div>
+          <div class="l2-node highlight"><div class="l2-name">❓ よくある質問</div><div class="l2-note">買取FAQ</div></div>
+        </div>
+        <div class="l2-col">
+          <div class="l2-node"><div class="l2-name">🚗 在庫一覧</div><div class="l2-note">全台・絞り込みあり</div></div>
+          <div class="l2-node"><div class="l2-name">📄 車両詳細ページ</div><div class="l2-note">1台ごと+社長コメント</div></div>
+          <div class="l2-node"><div class="l2-name">🦅 ラプター特集</div><div class="l2-note">目玉車種を特集化</div></div>
+          <div class="l2-node"><div class="l2-name">🎨 ラッピング済み在庫</div><div class="l2-note">カスタム車カテゴリ</div></div>
+        </div>
+        <div class="l2-col">
+          <div class="l2-node"><div class="l2-name">❓ ラッピングとは</div><div class="l2-note">サービス説明</div></div>
+          <div class="l2-node"><div class="l2-name">🖼️ 施工ギャラリー</div><div class="l2-note">ビフォーアフター</div></div>
+          <div class="l2-node"><div class="l2-name">💰 料金・メニュー</div><div class="l2-note">パーツ別料金</div></div>
+          <div class="l2-node"><div class="l2-name">📝 見積もり依頼</div><div class="l2-note">ラッピング専用</div></div>
+        </div>
+        <div class="l2-col">
+          <div class="l2-node"><div class="l2-name">📱 Instagram連携</div><div class="l2-note">リール埋め込み</div></div>
+          <div class="l2-node"><div class="l2-name">🎬 YouTube動画</div><div class="l2-note">納車・車紹介動画</div></div>
+          <div class="l2-node"><div class="l2-name">📝 ブログ・コラム</div><div class="l2-note">SEO＋社長の言葉</div></div>
+          <div class="l2-node"><div class="l2-name">⭐ お客様の声</div><div class="l2-note">インタビュー形式</div></div>
+        </div>
+        <div class="l2-col">
+          <div class="l2-node"><div class="l2-name">🏖️ 社長について</div><div class="l2-note">経歴・こだわり</div></div>
+          <div class="l2-node"><div class="l2-name">🚗 まれしゃとは</div><div class="l2-note">ブランドストーリー</div></div>
+          <div class="l2-node"><div class="l2-name">🏢 会社概要</div><div class="l2-note">古物商許可証など</div></div>
+          <div class="l2-node"><div class="l2-name">📰 メディア掲載</div><div class="l2-note">信頼性の証明</div></div>
+        </div>
+        <div class="l2-col">
+          <div class="l2-node"><div class="l2-name">📞 お問い合わせ</div><div class="l2-note">総合フォーム</div></div>
+          <div class="l2-node"><div class="l2-name">💳 ローン案内</div><div class="l2-note">購入サポート</div></div>
+          <div class="l2-node"><div class="l2-name">🛡️ 保証・アフター</div><div class="l2-note">購入後の安心</div></div>
+          <div class="l2-node"><div class="l2-name">🚚 全国納車</div><div class="l2-note">遠方対応</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PRIORITY / PHASE ==================== -->
+  <div class="section">
+    <div class="section-eyebrow">06 — Build Priority / 制作優先順位</div>
+
+    <div class="priority-list">
+      <div class="priority-item phase1">
+        <div class="priority-num">1</div>
+        <div class="priority-name">TOPページ <span>社長動画・在庫ハイライト・買取CTA</span></div>
+        <div class="priority-phase">PHASE 1</div>
+        <div class="priority-type">4月中</div>
+      </div>
+      <div class="priority-item phase1">
+        <div class="priority-num">2</div>
+        <div class="priority-name">買取・無料査定ページ <span>フォーム・流れ・実績</span></div>
+        <div class="priority-phase">PHASE 1</div>
+        <div class="priority-type">4月中</div>
+      </div>
+      <div class="priority-item phase1">
+        <div class="priority-num">3</div>
+        <div class="priority-name">在庫一覧 + 車両詳細ページ <span>CMS設計・20台登録</span></div>
+        <div class="priority-phase">PHASE 1</div>
+        <div class="priority-type">4〜5月</div>
+      </div>
+      <div class="priority-item phase2">
+        <div class="priority-num">4</div>
+        <div class="priority-name">社長について / まれしゃとは <span>ブランドストーリー</span></div>
+        <div class="priority-phase">PHASE 2</div>
+        <div class="priority-type">5月</div>
+      </div>
+      <div class="priority-item phase2">
+        <div class="priority-num">5</div>
+        <div class="priority-name">コンテンツ <span>Instagram埋め込み・お客様の声</span></div>
+        <div class="priority-phase">PHASE 2</div>
+        <div class="priority-type">5月</div>
+      </div>
+      <div class="priority-item phase3">
+        <div class="priority-num">6</div>
+        <div class="priority-name">ラッピングページ・ブログ・その他 <span>公開後に順次追加</span></div>
+        <div class="priority-phase">PHASE 3</div>
+        <div class="priority-type">6月以降</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SCHEDULE ==================== -->
+  <div class="section">
+    <div class="section-eyebrow">07 — Schedule / スケジュール</div>
+
+    <div class="schedule-row">
+      <div class="schedule-month now">4月<br><small>今月</small></div>
+      <div class="schedule-tasks">
+        <div class="schedule-task"><div class="task-dot gold"></div>STUDIOアカウント作成・触り始める</div>
+        <div class="schedule-task"><div class="task-dot gold"></div>TOPページ・買取ページのデザイン確定</div>
+        <div class="schedule-task"><div class="task-dot gold"></div>車両撮影場所を決める・撮影実施</div>
+        <div class="schedule-task"><div class="task-dot gold"></div>CMS構造を設計（車両登録フィールド定義）</div>
+      </div>
+    </div>
+    <div class="schedule-row">
+      <div class="schedule-month next">5月<br><small>来月</small></div>
+      <div class="schedule-tasks">
+        <div class="schedule-task"><div class="task-dot gray"></div>在庫20台を全てCMSに登録</div>
+        <div class="schedule-task"><div class="task-dot gray"></div>社長ページ・ブランドストーリー制作</div>
+        <div class="schedule-task"><div class="task-dot gray"></div>Instagram埋め込み・お客様の声追加</div>
+        <div class="schedule-task"><div class="task-dot gray"></div>テスト公開・確認・修正</div>
+      </div>
+    </div>
+    <div class="schedule-row">
+      <div class="schedule-month launch">5月末<br>OPEN</div>
+      <div class="schedule-tasks">
+        <div class="schedule-task"><div class="task-dot gold"></div>🎉 CY GARAGE サイト正式公開</div>
+        <div class="schedule-task"><div class="task-dot gold"></div>インスタでオープン告知</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHOTO NOTE -->
+  <div class="why-box">
+    <div class="why-label">⚠️ 重要メモ — 車両撮影について</div>
+    <p>
+      どれだけサイトのデザインが良くても、<strong>写真の質がサイトの質を決める</strong>。
+      現在の撮影環境（下での撮影）はブランドイメージに合っていない。
+      キャルウイングのようなロゴ入り倉庫背景、または屋外のかっこいいロケーション。
+      <strong>撮影場所の確保はサイト制作と同時並行で動くこと。</strong>
+    </p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <p>CY GARAGE — まれしゃ / コンセプト & サイトツリー v1.0</p>
+  <p>Confidential — 2026.04</p>
+</div>
+
+</body>
+</html>

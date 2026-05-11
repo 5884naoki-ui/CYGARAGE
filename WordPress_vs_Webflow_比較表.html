@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CY GARAGE｜WordPress vs Webflow 比較</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+    background: #0a0a0a;
+    color: #f0f0f0;
+    min-height: 100vh;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+    border-bottom: 1px solid #c8a96e;
+    padding: 36px 40px;
+    text-align: center;
+  }
+  .header-label { font-size: 10px; letter-spacing: 6px; color: #c8a96e; margin-bottom: 8px; }
+  .header h1 { font-size: 26px; font-weight: 300; letter-spacing: 4px; color: #fff; margin-bottom: 4px; }
+  .header-sub { font-size: 12px; color: #666; letter-spacing: 2px; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 50px 24px; }
+
+  /* Context box */
+  .context-box {
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-left: 3px solid #c8a96e;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+    border-radius: 3px;
+  }
+  .context-box p { font-size: 13px; color: #aaa; line-height: 1.8; }
+  .context-box strong { color: #c8a96e; }
+
+  /* Verdict banner */
+  .verdict {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .verdict-card {
+    padding: 20px 24px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .verdict-card.wp {
+    background: #131320;
+    border: 1px solid #3a3a6a;
+  }
+  .verdict-card.wf {
+    background: #1a1508;
+    border: 1px solid #c8a96e;
+  }
+  .verdict-card .platform-name { font-size: 18px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; }
+  .verdict-card.wp .platform-name { color: #8888ff; }
+  .verdict-card.wf .platform-name { color: #c8a96e; }
+  .verdict-card .verdict-label { font-size: 10px; letter-spacing: 3px; color: #666; margin-bottom: 10px; }
+  .verdict-card .verdict-text { font-size: 12px; color: #888; line-height: 1.7; }
+  .verdict-card.wf .verdict-text { color: #a89050; }
+  .recommended-badge {
+    display: inline-block;
+    background: #c8a96e;
+    color: #000;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+  }
+
+  /* Table */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: #c8a96e;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .table-wrap { margin-bottom: 40px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+
+  thead tr { border-bottom: 1px solid #c8a96e; }
+  thead th {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: 600;
+  }
+  thead th:first-child { color: #666; width: 28%; }
+  thead th.wp-col { color: #8888ff; width: 36%; }
+  thead th.wf-col { color: #c8a96e; width: 36%; }
+
+  tbody tr { border-bottom: 1px solid #141414; }
+  tbody tr:hover { background: #0f0f0f; }
+
+  .category-row td {
+    padding: 16px 16px 6px;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: #555;
+    text-transform: uppercase;
+    background: #0a0a0a;
+    border-top: 1px solid #1a1a1a;
+    border-bottom: none;
+  }
+
+  td {
+    padding: 12px 16px;
+    font-size: 13px;
+    vertical-align: top;
+    line-height: 1.7;
+  }
+
+  td:first-child { color: #888; font-size: 12px; font-weight: 500; }
+  td.wp-cell { color: #ccc; }
+  td.wf-cell { color: #ccc; }
+
+  /* Score badges */
+  .score {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  .score.good { background: #1a3a1a; color: #5fbc5f; }
+  .score.mid { background: #2a2a00; color: #c8c850; }
+  .score.bad { background: #3a1a1a; color: #bc5f5f; }
+  .score.gold { background: #1a1508; color: #c8a96e; border: 1px solid #c8a96e; }
+
+  /* Highlight row */
+  .highlight-row td { background: #0d0d00 !important; }
+  .highlight-row:hover td { background: #111100 !important; }
+
+  /* Bottom recommendation */
+  .recommendation {
+    background: linear-gradient(135deg, #1a1508 0%, #211c0a 100%);
+    border: 1px solid #c8a96e;
+    border-radius: 4px;
+    padding: 32px;
+    margin-bottom: 30px;
+  }
+  .recommendation h2 { font-size: 11px; letter-spacing: 5px; color: #c8a96e; margin-bottom: 20px; text-transform: uppercase; }
+  .rec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .rec-col h3 { font-size: 13px; font-weight: 700; color: #c8a96e; margin-bottom: 10px; }
+  .rec-col ul { list-style: none; padding: 0; }
+  .rec-col ul li { font-size: 13px; color: #a89050; padding: 4px 0; padding-left: 14px; position: relative; line-height: 1.6; }
+  .rec-col ul li::before { content: '✦'; position: absolute; left: 0; font-size: 8px; color: #c8a96e; top: 6px; }
+
+  .phase-box {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 4px;
+    padding: 24px;
+    margin-top: 30px;
+  }
+  .phase-box h3 { font-size: 10px; letter-spacing: 4px; color: #666; margin-bottom: 16px; }
+  .phase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .phase-item { text-align: center; padding: 16px; background: #0d0d0d; border-radius: 3px; border: 1px solid #1a1a1a; }
+  .phase-num { font-size: 22px; font-weight: 300; color: #c8a96e; margin-bottom: 6px; }
+  .phase-title { font-size: 12px; color: #fff; margin-bottom: 4px; }
+  .phase-desc { font-size: 11px; color: #666; line-height: 1.6; }
+
+  @media (max-width: 700px) {
+    .verdict { grid-template-columns: 1fr; }
+    .rec-grid { grid-template-columns: 1fr; }
+    .phase-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">Platform Comparison / プラットフォーム比較</div>
+  <h1>WordPress vs Webflow</h1>
+  <div class="header-sub">CY GARAGE ウェブサイト構築 — どちらが最適か</div>
+</div>
+
+<div class="container">
+
+  <!-- Context -->
+  <div class="context-box">
+    <p>
+      前提：現在<strong>プリンセスケアでWordPress + ECフォース</strong>を運用中。CursorやClaudeで作ったカスタムHTMLをWordPressに貼り込むワークフロー。
+      CY GARAGEは<strong>車の在庫管理・買取問い合わせ・インスタ連携</strong>が中心で、ECフォースは不要。
+    </p>
+  </div>
+
+  <!-- Verdict -->
+  <div class="verdict">
+    <div class="verdict-card wp">
+      <div class="verdict-label">OPTION A</div>
+      <div class="platform-name">WordPress</div>
+      <div class="verdict-text">
+        知っているので始めやすい。<br>
+        ただし車の在庫管理には<br>専用プラグインが必要で<br>構成がやや複雑になる。
+      </div>
+    </div>
+    <div class="verdict-card wf">
+      <div class="recommended-badge">RECOMMENDED</div>
+      <div class="verdict-label">OPTION B</div>
+      <div class="platform-name">Webflow</div>
+      <div class="verdict-text">
+        CY GARAGEのブランド感・<br>在庫管理・インスタ連携<br>すべてに対して相性が良い。<br>慣れれば運用も楽。
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Table -->
+  <div class="section-label">Detail Comparison / 項目別比較</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>比較項目</th>
+          <th class="wp-col">WordPress</th>
+          <th class="wf-col">Webflow</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- COST -->
+        <tr class="category-row"><td colspan="3">💰 コスト</td></tr>
+        <tr>
+          <td>初期費用</td>
+          <td class="wp-cell"><span class="score mid">中</span>テーマ・プラグイン代 ¥0〜5万</td>
+          <td class="wf-cell"><span class="score mid">中</span>基本無料〜（CMS使用でプラン必要）</td>
+        </tr>
+        <tr>
+          <td>月額ランニング</td>
+          <td class="wp-cell"><span class="score mid">中</span>サーバー代 ¥1,000〜3,000/月<br><small style="color:#666">＋プラグイン代が別途かかることも</small></td>
+          <td class="wf-cell"><span class="score mid">中</span>CMSプラン $23〜$39/月（約3,500〜6,000円）<br><small style="color:#666">サーバー代込みなのでトータル近い</small></td>
+        </tr>
+
+        <!-- DESIGN -->
+        <tr class="category-row"><td colspan="3">🎨 デザイン自由度</td></tr>
+        <tr>
+          <td>デザインの自由度</td>
+          <td class="wp-cell"><span class="score mid">中</span>テーマに依存。カスタムHTMLで抜け出せるが手間がかかる</td>
+          <td class="wf-cell"><span class="score gold">◎</span>ピクセル単位で自由。マイアミ系ラグジュアリーの再現が得意</td>
+        </tr>
+        <tr class="highlight-row">
+          <td>Claudeで作ったHTMLを貼る</td>
+          <td class="wp-cell"><span class="score good">○</span>今と同じやり方で貼れる</td>
+          <td class="wf-cell"><span class="score good">○</span>カスタムコード埋め込み機能あり。同じやり方でOK</td>
+        </tr>
+        <tr>
+          <td>モバイル対応</td>
+          <td class="wp-cell"><span class="score mid">中</span>テーマ次第。手動調整が必要なことも</td>
+          <td class="wf-cell"><span class="score gold">◎</span>PC・タブレット・スマホを画面で確認しながら調整できる</td>
+        </tr>
+
+        <!-- INVENTORY -->
+        <tr class="category-row"><td colspan="3">🚗 車の在庫管理（一番大事）</td></tr>
+        <tr class="highlight-row">
+          <td>在庫の追加・削除</td>
+          <td class="wp-cell"><span class="score mid">△</span>専用プラグイン（Car Dealer Plugin等）が必要。設定がやや複雑</td>
+          <td class="wf-cell"><span class="score gold">◎</span>CMSコレクションで車を1台ずつ登録。追加・非表示が直感的</td>
+        </tr>
+        <tr>
+          <td>写真の管理</td>
+          <td class="wp-cell"><span class="score mid">中</span>メディアライブラリに都度アップ</td>
+          <td class="wf-cell"><span class="score good">○</span>各車両ページに紐付けてアップロード。整理しやすい</td>
+        </tr>
+        <tr>
+          <td>「売れた」表示の切り替え</td>
+          <td class="wp-cell"><span class="score mid">△</span>プラグイン次第。手動で記事を非公開にする運用が多い</td>
+          <td class="wf-cell"><span class="score good">○</span>「公開/非公開」をダッシュボードでワンクリック切り替え</td>
+        </tr>
+
+        <!-- SNS / VIDEO -->
+        <tr class="category-row"><td colspan="3">📱 インスタ・動画連携</td></tr>
+        <tr class="highlight-row">
+          <td>インスタ埋め込み</td>
+          <td class="wp-cell"><span class="score good">○</span>プラグインで可能（Smash Balloon等）</td>
+          <td class="wf-cell"><span class="score good">○</span>カスタムコードで埋め込み可能</td>
+        </tr>
+        <tr>
+          <td>動画ヒーロー（背景動画）</td>
+          <td class="wp-cell"><span class="score mid">△</span>テーマ・プラグイン次第。重くなりやすい</td>
+          <td class="wf-cell"><span class="score gold">◎</span>ビデオ背景を標準でサポート。軽量に実装できる</td>
+        </tr>
+        <tr>
+          <td>YouTube/リール埋め込み</td>
+          <td class="wp-cell"><span class="score good">○</span>URLを貼るだけで埋め込める</td>
+          <td class="wf-cell"><span class="score good">○</span>同じく簡単に埋め込める</td>
+        </tr>
+
+        <!-- FORMS / LEADS -->
+        <tr class="category-row"><td colspan="3">📋 買取問い合わせ・フォーム</td></tr>
+        <tr>
+          <td>査定フォームの設置</td>
+          <td class="wp-cell"><span class="score good">○</span>Contact Form 7等のプラグインで設置</td>
+          <td class="wf-cell"><span class="score good">○</span>フォーム機能が標準搭載。メール通知も設定できる</td>
+        </tr>
+        <tr>
+          <td>フォームのデザイン</td>
+          <td class="wp-cell"><span class="score mid">△</span>プラグインデフォルトのデザインになりがち</td>
+          <td class="wf-cell"><span class="score gold">◎</span>フォームのデザインも完全にカスタマイズ可能</td>
+        </tr>
+
+        <!-- SEO -->
+        <tr class="category-row"><td colspan="3">🔍 SEO・表示速度</td></tr>
+        <tr>
+          <td>SEO設定</td>
+          <td class="wp-cell"><span class="score good">○</span>YoastなどプラグインでSEO設定が充実</td>
+          <td class="wf-cell"><span class="score good">○</span>SEO設定が標準搭載。タイトル・OGPも設定しやすい</td>
+        </tr>
+        <tr>
+          <td>表示速度</td>
+          <td class="wp-cell"><span class="score mid">△</span>プラグインが増えると重くなりやすい。対策が必要</td>
+          <td class="wf-cell"><span class="score good">○</span>CDN標準搭載で速い。最適化が自動でかかる</td>
+        </tr>
+
+        <!-- OPERATION -->
+        <tr class="category-row"><td colspan="3">🛠️ 運用・メンテナンス</td></tr>
+        <tr>
+          <td>学習コスト</td>
+          <td class="wp-cell"><span class="score good">○</span>すでに使っているので追加学習ほぼなし</td>
+          <td class="wf-cell"><span class="score mid">△</span>最初の1〜2週間は慣れが必要。ただし直感的</td>
+        </tr>
+        <tr>
+          <td>セキュリティ管理</td>
+          <td class="wp-cell"><span class="score bad">△</span>プラグインの更新・脆弱性対応が定期的に必要</td>
+          <td class="wf-cell"><span class="score gold">◎</span>Webflow側が管理。自分で対応不要</td>
+        </tr>
+        <tr>
+          <td>バックアップ</td>
+          <td class="wp-cell"><span class="score mid">△</span>別途プラグインか手動対応</td>
+          <td class="wf-cell"><span class="score good">○</span>自動バックアップあり</td>
+        </tr>
+        <tr>
+          <td>日本語サポート</td>
+          <td class="wp-cell"><span class="score gold">◎</span>情報が豊富。日本語の解説記事が多い</td>
+          <td class="wf-cell"><span class="score mid">△</span>英語メインだが日本語コミュニティも増加中</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Recommendation -->
+  <div class="recommendation">
+    <h2>Recommendation / CY GARAGEへの推奨</h2>
+    <div class="rec-grid">
+      <div class="rec-col">
+        <h3>Webflow を推奨する理由</h3>
+        <ul>
+          <li>車の在庫管理がCMSで直感的にできる（一番大事）</li>
+          <li>マイアミ系ラグジュアリーデザインの再現に強い</li>
+          <li>動画ヒーローや背景動画をきれいに実装できる</li>
+          <li>セキュリティ・スピード・バックアップが自動で楽</li>
+          <li>ClaudeでつくったHTMLを貼る今のやり方がそのまま使える</li>
+        </ul>
+      </div>
+      <div class="rec-col">
+        <h3>WordPressが向いているケース</h3>
+        <ul>
+          <li>すでにWordPressサーバーがあり、同一環境で管理したい</li>
+          <li>プラグインで実現したい機能が明確に決まっている</li>
+          <li>日本語の解説・サポートが必須</li>
+          <li>Webflowの月額コストを抑えたい（個人運営等）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase plan -->
+  <div class="phase-box">
+    <h3>WEBFLOW で進める場合の流れ</h3>
+    <div class="phase-grid">
+      <div class="phase-item">
+        <div class="phase-num">01</div>
+        <div class="phase-title">Webflowで構築</div>
+        <div class="phase-desc">無料プランでまずデザインを作る。ClaudeでHTML生成→貼り付けのワークフローはそのまま</div>
+      </div>
+      <div class="phase-item">
+        <div class="phase-num">02</div>
+        <div class="phase-title">CMSで在庫管理設計</div>
+        <div class="phase-desc">「車両」のデータ構造を設計。メーカー・価格・写真・ステータスなどのフィールドを定義</div>
+      </div>
+      <div class="phase-item">
+        <div class="phase-num">03</div>
+        <div class="phase-title">CMSプランに移行・公開</div>
+        <div class="phase-desc">月$23〜のプランに切り替えてドメインを設定。在庫の追加・削除を実運用でテスト</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
